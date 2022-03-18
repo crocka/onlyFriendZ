@@ -1,8 +1,8 @@
-import SignUp from './components/SignUp.js'
+import SignIn from './components/SignIn.jsx'
 import './App.css';
 function App() {
   return (
-    <SignUp />
+    <SignIn />
   );
 }
 
