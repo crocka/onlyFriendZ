@@ -21,8 +21,8 @@ function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="/">
+        onlyFriendZ
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -33,7 +33,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
-  const [value, setValue] = React.useState(new Date('2014-08-18T21:11:54'));
+  const [value, setValue] = React.useState(new Date(''));
 
   const handleChange = (newValue) => {
     setValue(newValue);
@@ -101,7 +101,7 @@ export default function SignUp() {
               <Grid item xs={12}>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DesktopDatePicker
-                  label="Date desktop"
+                  label="Birthdate *"
                   inputFormat="MM/dd/yyyy"
                   value={value}
                   onChange={handleChange}
