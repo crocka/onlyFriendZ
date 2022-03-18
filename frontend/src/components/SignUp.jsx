@@ -101,7 +101,7 @@ export default function SignUp() {
               <Grid item xs={12}>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DesktopDatePicker
-                  label="Birthdate"
+                  label="Birthdate *"
                   inputFormat="MM/dd/yyyy"
                   value={value}
                   onChange={handleChange}
