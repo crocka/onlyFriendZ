@@ -56,12 +56,12 @@ export default function SignUp() {
           }}
         >
           <img 
-          src="./images/logo.jpg"
+          src="images/logo.jpg"
           alt="new"
           />
-          <h1>You feeling lonely on your birthday?</h1>
+          <h1>You feeling lonely today?</h1>
           <Typography component="h1" variant="h5">
-            Join OnlyFriendZ Today!
+            Join OnlyFriendZ!
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Button
