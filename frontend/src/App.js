@@ -1,5 +1,4 @@
-import { Button } from '@material-ui/core';
-import SignUp from './components/SignUp'
+import SignUp from './components/SignUp.js'
 import './App.css';
 function App() {
   return (

@@ -98,7 +98,7 @@ export default function SignUp() {
                   autoComplete="email"
                 />
               </Grid>
-              <Grid>
+              <Grid item xs={12}>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DesktopDatePicker
                   label="Date desktop"
