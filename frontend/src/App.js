@@ -1,9 +1,9 @@
 import { Button } from '@material-ui/core';
 import './App.css';
-
+import SignUp from './components/SignUp'
 function App() {
   return (
-    <Button color="primary">Hello World</Button>
+    <SignUp />
   );
 }
 
