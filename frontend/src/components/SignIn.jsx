@@ -12,11 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+
 
 
 
@@ -37,17 +33,7 @@ const theme = createTheme();
 
 export default function SignIn() {
 
-  const [open, setOpen] = React.useState(true);
-  const [scroll, setScroll] = React.useState('paper');
 
-  const handleClickOpen = (scrollType) => () => {
-    setOpen(true);
-    setScroll(scrollType);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -60,20 +46,14 @@ export default function SignIn() {
 
   return (
 
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
+   
+        <ThemeProvider theme={theme}>
+          <Container component="main" maxWidth="xs">
+            <CssBaseline />
 
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          scroll={scroll}
-          aria-labelledby="scroll-dialog-title"
-          aria-describedby="scroll-dialog-description"
-        >
 
-          <DialogTitle id="scroll-dialog-title">Subscribe</DialogTitle>
-          <DialogContent dividers={scroll === 'paper'}>
+
+
 
             <Box
               sx={{
@@ -136,12 +116,14 @@ export default function SignIn() {
                 </Grid>
               </Box>
             </Box>
+            <Copyright sx={{ mt: 8, mb: 4 }} />
 
-          </DialogContent>
-        </Dialog>
 
-        <Copyright sx={{ mt: 8, mb: 4 }} />
-      </Container>
-    </ThemeProvider>
+
+
+          </Container>
+        </ThemeProvider>
+
+
   );
 }
