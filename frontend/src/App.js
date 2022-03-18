@@ -1,4 +1,6 @@
-import SignUp from './components/SignUp.js'
+import SignUp from './components/SignUp'
+import SignIn from './components/SignIn'
+
 import './App.css';
 function App() {
   return (
