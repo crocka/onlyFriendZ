@@ -1,29 +1,43 @@
+import React, {useState} from 'react';
 import { MapContainer, TileLayer, Marker, Popup, GeoJSON} from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 
 export default function Map(props) {
 
+
+  const [position, setPosition] = useState({});
+
   async function addGeoJson() {
-    const response = await fetch("https://ws.lioservices.lrc.gov.on.ca/arcgis1071a/rest/services/LIO_OPEN_DATA/LIO_Open01/MapServer/32/query?where=1%3D1&outFields=*&outSR=4326&f=json");
+    const response = await fetch("https://opendata.arcgis.com/datasets/923cb3294384488e8a4ffbeb3b8f6cb2_32.geojson");
     const data = await response.json();
+    console.log(data);
     return (<GeoJSON data={data}></GeoJSON>);
+    // return data;
 }
 
+navigator.geolocation.getCurrentPosition(info => {
+  
+  setPosition(info.coords);
+
+});
+
+console.log(position)
+// addGeoJson();
 
   return (
-    <MapContainer center={[51.505, -0.09]} zoom={13} style={{ backgroundColor:"black"}}>
+    <MapContainer center={[43.6532, -79.3832]} zoom={13} style={{ backgroundColor:"black"}}>
        
       <TileLayer
         attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
         url='https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'
         // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {/* <Marker position={[51.505, -0.09]}>
+      <Marker position={[position.longitude, position.latitude]}>
         <Popup>
           A pretty CSS3 popup. <br /> Easily customizable.
         </Popup>
-      </Marker> */}
-      {addGeoJson()}
+      </Marker>
+      {/* {addGeoJson()} */}
     </MapContainer>
   );
 }
