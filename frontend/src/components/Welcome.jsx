@@ -56,8 +56,10 @@ export default function SignUp() {
           }}
         >
           <img 
-          src="images/logo.jpg"
+          src="images/logo.png"
           alt="new"
+          width= "100%"
+          height= "100%"
           />
           <h1>You feeling lonely today?</h1>
           <Typography component="h1" variant="h5">
