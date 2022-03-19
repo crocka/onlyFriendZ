@@ -10,7 +10,6 @@ import {
   HomeOutlined,
   AccountCircle,
 } from "@material-ui/icons";
-import Link from '@material-ui/core/Link'
 import "./Sidebar.css"
 import { withRouter } from "react-router-dom";
 import { useState } from "react";
