@@ -5,13 +5,15 @@ import Welcome from './components/Welcome.jsx'
 import Map from './components/Map.jsx'
 import Fragment from 'react'
 import Location from './components/Location.jsx'
+import UserSummary from './components/UserSummary.jsx'
+
 import './App.css';
 function App() {
   return (
     <div>
       <Map></Map>
       <PopupWindow>
-        <Location />
+        <UserSummary />
       </PopupWindow>
     </div>
   );
