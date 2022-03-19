@@ -23,7 +23,7 @@ export default function Map(props) {
           A pretty CSS3 popup. <br /> Easily customizable.
         </Popup>
       </Marker> */}
-      {addGeoJson()}
+      {/* {addGeoJson()} */}
     </MapContainer>
   );
 }
