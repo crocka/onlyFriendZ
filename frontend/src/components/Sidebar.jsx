@@ -1,5 +1,6 @@
 import {
   Drawer,
+  List,
   ListItem,
   ListItemIcon,
   ListItemText,
@@ -11,45 +12,48 @@ import {
 } from "@material-ui/icons";
 import Link from '@material-ui/core/Link'
 import "./Sidebar.css"
+import { withRouter } from "react-router-dom";
 import { useState } from "react";
 
-const data = [
-  {name: "Home", icon: <HomeOutlined /> },
-  { name: "Profile", icon: <AccountCircle /> },
-  { name: "???", icon: <AccountCircle /> },
-  { name: "???", icon: <AccountCircle  /> },
-  { name: "???", icon: <AccountCircle  /> },
-  { name: "???", icon: <AccountCircle  /> },
-];
 
-function Sidebar() {
+const Sidebar = props => {
   const [open, setOpen] = useState(false);
+  const { history } = props;
 
-  const getList = () => (
-    <div style={{ width: 250 }} onClick={() => setOpen(false)}>
-      {data.map((item, index) => (
-        <ListItem button component={Link} to={"/" + item.name} key={index}>
-          <ListItemIcon>{item.icon}</ListItemIcon>
-          <ListItemText primary={item.name} />
-        </ListItem>
-      ))}
-    </div>
-  );
+  const data = [
+    {name: "Home", icon: <HomeOutlined />, onClick: () => history.push('/') },
+    { name: "Profile", icon: <AccountCircle /> , onClick: () => history.push('/profile')},
+    { name: "placeholder1", icon: <AccountCircle /> , onClick: () => history.push('/placeholder1')},
+    { name: "placeholder2", icon: <AccountCircle /> , onClick: () => history.push('/placeholder2')},
+    { name: "placeholder3", icon: <AccountCircle /> , onClick: () => history.push('/placeholder3')},
+    { name: "Logout", icon: <AccountCircle /> , onClick: () => history.push('/logout')},
+  ];
+
   return (
     <div className="navigation">
     <div className="navigation-toggle">
       <Button onClick={() => setOpen(true)}><img src="images/sidebar-toggle.png" width="20" height="20" alt="nav"/></Button>
       </div>
       <div className="navigation-logo">
-        <Button component={Link} to="/">
+        <Button href="/">
         <img src="images/logo.png" height="30" alt="navigation-logo"/>
         </Button>
       </div>
       <Drawer open={open} anchor={"left"} onClose={() => setOpen(false)}>
-        {getList()}
+        <List>
+          {data.map((item, index) => { 
+          const { name, icon, onClick } = item;
+          return (
+            <ListItem button key={name} onClick={onClick}>
+              {icon && <ListItemIcon>{icon}</ListItemIcon>}
+              <ListItemText primary={name} />
+              </ListItem>
+          );
+          })}
+        </List>
       </Drawer>
     </div>
   );
 }
 
-export default Sidebar;
+export default withRouter(Sidebar);

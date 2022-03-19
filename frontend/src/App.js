@@ -5,6 +5,7 @@ import Welcome from './components/Welcome.jsx'
 import Map from './components/Map.jsx'
 import Sidebar from './components/Sidebar.jsx'
 import Fragment from 'react'
+import { Route, Switch } from "react-router-dom";
 
 import './App.css';
 function App() {
