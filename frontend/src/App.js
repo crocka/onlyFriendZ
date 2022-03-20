@@ -11,7 +11,7 @@ function App() {
     <div>
       <Map></Map>
       <PopupWindow>
-        <Location />
+        <CreateLocation />
       </PopupWindow>
     </div>
   );
