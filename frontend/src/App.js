@@ -6,6 +6,7 @@ import Map from './components/Map.jsx'
 import Sidebar from './components/Sidebar.jsx'
 import Fragment from 'react'
 import Location from './components/Location.jsx'
+import CreateLocation from './components/CreateLocation'
 import UserSummary from './components/UserSummary.jsx'
 import {Switch, Route} from "react-router-dom";
 
@@ -21,7 +22,7 @@ function App() {
         </Switch>
       <Map></Map>
       <PopupWindow>
-        <UserSummary />
+        <SignUp />
       </PopupWindow>
     </div>
   );

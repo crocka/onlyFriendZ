@@ -64,7 +64,7 @@ export default function SignUp() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      name: data.get('firstName') + data.get('lastName'),
+      name: data.get('firstName') + " " + data.get('lastName'),
       email_address: data.get('email'),
       password: data.get('password'),
       password_confirmation: data.get('password_confirmation'),
@@ -161,6 +161,7 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <TextField
                   id="summary"
+                  name="summary"
                   required
                   label="Brief summary of yourself"
                   multiline
@@ -188,7 +189,7 @@ export default function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={createUser}
+              // onClick={createUser}
             >
               Sign Up
             </Button>
