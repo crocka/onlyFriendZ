@@ -1,17 +1,14 @@
 class FavouriteLocationsController < ApplicationController
-  before_action :set_favourite_location, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:show]
 
-  # GET /favourite_locations
-  def index
-    @favourite_locations = FavouriteLocation.all
+  # GET /favourite_locations/:id
+  def show
+    @favourite_locations = @user.favourite_locations.all
 
     render json: @favourite_locations
   end
 
-  # GET /favourite_locations/1
-  def show
-    render json: @favourite_location
-  end
+
 
   # POST /favourite_locations
   def create
@@ -24,28 +21,20 @@ class FavouriteLocationsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /favourite_locations/1
-  def update
-    if @favourite_location.update(favourite_location_params)
-      render json: @favourite_location
-    else
-      render json: @favourite_location.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /favourite_locations/1
+  # DELETE /favourite_locations/:id
   def destroy
-    @favourite_location.destroy
+    @userFavoriteLocation = FavouriteLocation.find(params[:id])
+    @userFavoriteLocation.destroy
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_favourite_location
-      @favourite_location = FavouriteLocation.find(params[:id])
+    def set_user
+      @user = User.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
     def favourite_location_params
-      params.require(:favourite_location).permit(:id, :user_id, :location_id)
+      params.require(:favourite_location).permit(:user_id, :location_id)
     end
 end

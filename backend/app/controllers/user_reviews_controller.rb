@@ -1,16 +1,11 @@
 class UserReviewsController < ApplicationController
-  before_action :set_user_review, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:show, :destroy]
 
-  # GET /user_reviews
-  def index
-    @user_reviews = UserReview.all
+  # GET /user_reviews/:id
+  def  show
+    @user_reviews = @user.user_reviews.all
 
     render json: @user_reviews
-  end
-
-  # GET /user_reviews/1
-  def show
-    render json: @user_review
   end
 
   # POST /user_reviews
@@ -33,19 +28,20 @@ class UserReviewsController < ApplicationController
     end
   end
 
-  # DELETE /user_reviews/1
+  # DELETE /user_reviews/:user_review_id
   def destroy
-    @user_review.destroy
+    @review = User.find(params[:user_review_id])
+    @review.destroy
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_user_review
-      @user_review = UserReview.find(params[:id])
+    def set_user
+      @user = User.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
     def user_review_params
-      params.require(:user_review).permit(:id, :reviewer_id, :user_id, :comment)
+      params.require(:user_review).permit(:reviewer_id, :user_id, :comment)
     end
 end
