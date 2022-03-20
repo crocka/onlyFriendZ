@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_18_032702) do
+ActiveRecord::Schema.define(version: 2022_03_19_205758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "location_id"
+    t.integer "rating"
+    t.string "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "favourite_locations", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "location_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "locations", force: :cascade do |t|
     t.string "title"
@@ -22,6 +38,29 @@ ActiveRecord::Schema.define(version: 2022_03_18_032702) do
     t.float "longitude"
     t.integer "rating"
     t.boolean "is_dangerous"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_reviews", force: :cascade do |t|
+    t.integer "reviewer_id"
+    t.integer "user_id"
+    t.string "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "email_address"
+    t.string "password_digest"
+    t.date "birthday"
+    t.string "image_url"
+    t.string "instagram_handle"
+    t.string "twitter_handle"
+    t.string "tiktok_handle"
+    t.string "personal_link"
+    t.string "summary"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
