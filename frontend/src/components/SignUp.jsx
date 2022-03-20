@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import useApplicationData from '../hooks/useApplicationData';
 
 
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -35,6 +36,21 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
+
+  const {
+
+    state,
+    createUser,
+    updateUser,
+    createLocation,
+    updateLocation,
+    deleteUser,
+    deleteLocation,
+    logInUser,
+    logOutUser
+
+  } = useApplicationData();
+
   const [value, setValue] = React.useState(new Date(''));
 
   const Input = styled('input')({
@@ -48,8 +64,14 @@ export default function SignUp() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      email: data.get('email'),
+      name: data.get('firstName') + data.get('lastName'),
+      email_address: data.get('email'),
       password: data.get('password'),
+      password_confirmation: data.get('password_confirmation'),
+      birthday: value,
+      summary: data.get('summary'),
+      data
+
     });
   };
 
@@ -127,6 +149,17 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  required
+                  fullWidth
+                  name="password_confirmation"
+                  label="Confirm password"
+                  type="password_confirmation"
+                  id="password_confirmation"
+                  autoComplete="confirm password"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
                   id="summary"
                   required
                   label="Brief summary of yourself"
@@ -155,7 +188,7 @@ export default function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              // onClick={createUser}
+              onClick={createUser}
             >
               Sign Up
             </Button>
