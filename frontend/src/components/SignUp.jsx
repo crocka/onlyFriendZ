@@ -11,7 +11,9 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+
 
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
@@ -35,6 +37,10 @@ const theme = createTheme();
 export default function SignUp() {
   const [value, setValue] = React.useState(new Date(''));
 
+  const Input = styled('input')({
+    display: 'none',
+  });
+
   const handleChange = (newValue) => {
     setValue(newValue);
   };
@@ -53,14 +59,13 @@ export default function SignUp() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
+            <AccountBoxIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign up
@@ -101,7 +106,7 @@ export default function SignUp() {
               <Grid item xs={12}>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DesktopDatePicker
-                  label="Birthdate *"
+                  label="Birthdate"
                   inputFormat="MM/dd/yyyy"
                   value={value}
                   onChange={handleChange}
@@ -119,6 +124,24 @@ export default function SignUp() {
                   id="password"
                   autoComplete="new-password"
                 />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  id="summary"
+                  required
+                  label="Brief summary of yourself"
+                  multiline
+                  rows={4}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12}>
+              <label htmlFor="contained-button-file">
+                <Input accept="image/*" id="contained-button-file" multiple type="file" />
+                <Button variant="contained" component="span">
+                  Upload Profile Picture
+                </Button>
+              </label>
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel

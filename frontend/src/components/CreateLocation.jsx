@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import AddLocationIcon from '@mui/icons-material/AddLocation';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -33,19 +33,19 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function CreateLocation() {
-  // const [value, setValue] = React.useState(new Date(''));
+  const [value, setValue] = React.useState(new Date(''));
 
-  // const handleChange = (newValue) => {
-  //   setValue(newValue);
-  // };
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   console.log({
-  //     email: data.get('email'),
-  //     password: data.get('password'),
-  //   });
-  // };
+  const handleChange = (newValue) => {
+    setValue(newValue);
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
+    });
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -60,10 +60,10 @@ export default function CreateLocation() {
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
+            <AddLocationIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Add Location
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
@@ -75,22 +75,38 @@ export default function CreateLocation() {
                   label="Location"
                   name="location"
                   autoComplete="location-name"
+                  autoFocus
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  id="description"
+                  required
+                  label="Description"
+                  placeholder="Description"
+                  multiline
+                  rows={4}
+                  fullWidth
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  name="description"
-                  label="Description"
-                  id="description"
-                  autoComplete="new-description"
+                  id="latitude"
+                  label="Latitude"
+                  name="latitude"
+                  autoComplete="latitude"
                 />
               </Grid>
               <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                <TextField
+                  required
+                  fullWidth
+                  id="longitude"
+                  label="Longitude"
+                  name="longitude"
+                  autoComplete="longitude"
                 />
               </Grid>
             </Grid>
@@ -100,15 +116,8 @@ export default function CreateLocation() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              Submit
             </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="#" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
         </Box>
         <Copyright sx={{ mt: 5 }} />

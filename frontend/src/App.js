@@ -5,6 +5,8 @@ import Welcome from './components/Welcome.jsx'
 import Map from './components/Map.jsx'
 import Fragment from 'react'
 import Location from './components/Location.jsx'
+import CreateLocation from './components/CreateLocation.jsx'
+
 import './App.css';
 function App() {
   return (
