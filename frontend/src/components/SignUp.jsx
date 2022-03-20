@@ -14,6 +14,7 @@ import Container from '@mui/material/Container';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import useApplicationData from '../hooks/useApplicationData';
+import {DropzoneArea} from 'material-ui-dropzone';
 
 
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -52,6 +53,7 @@ export default function SignUp() {
   } = useApplicationData();
 
   const [value, setValue] = React.useState(new Date(''));
+  const [file, setFile] = React.useState([]);
 
   const Input = styled('input')({
     display: 'none',
@@ -170,12 +172,13 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
-              <label htmlFor="contained-button-file">
+              {/* <label htmlFor="contained-button-file">
                 <Input accept="image/*" id="contained-button-file" multiple type="file" />
                 <Button variant="contained" component="span">
                   Upload Profile Picture
                 </Button>
-              </label>
+              </label> */}
+                <DropzoneArea onChange={setFile([...this])} />
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
