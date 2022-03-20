@@ -41,3 +41,5 @@
   width: 100wh; 
   height: 100vh;
 }
+
+.leaflet-control-container { position: absolute; left: 0px; margin-top: 40px;} 
