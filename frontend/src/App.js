@@ -7,12 +7,18 @@ import Sidebar from './components/Sidebar.jsx'
 import Fragment from 'react'
 import Location from './components/Location.jsx'
 import UserSummary from './components/UserSummary.jsx'
+import {Switch, Route} from "react-router-dom";
 
 import './App.css';
 function App() {
   return (
     <div>
       <Sidebar />
+      <Switch>
+        <Route exact from="/welcome" render={props => <PopupWindow><Welcome {...props} /></PopupWindow>} />
+        <Route exact from="/signup" render={props => <PopupWindow><SignUp {...props} /></PopupWindow>} />
+        <Route exact from="/signin" render={props => <PopupWindow><SignIn {...props} /></PopupWindow>} />
+        </Switch>
       <Map></Map>
       <PopupWindow>
         <UserSummary />

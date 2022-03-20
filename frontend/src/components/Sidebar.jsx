@@ -11,21 +11,21 @@ import {
   AccountCircle,
 } from "@material-ui/icons";
 import "./Sidebar.css"
-import { withRouter } from "react-router-dom";
+import { withRouter, useHistory } from "react-router-dom";
 import { useState } from "react";
 
 
 const Sidebar = props => {
   const [open, setOpen] = useState(false);
-  const { history } = props;
+  const history = useHistory();
 
   const data = [
     {name: "Home", icon: <HomeOutlined />, onClick: () => history.push('/') },
-    { name: "Profile", icon: <AccountCircle /> , onClick: () => history.push('/profile')},
-    { name: "placeholder1", icon: <AccountCircle /> , onClick: () => history.push('/placeholder1')},
-    { name: "placeholder2", icon: <AccountCircle /> , onClick: () => history.push('/placeholder2')},
-    { name: "placeholder3", icon: <AccountCircle /> , onClick: () => history.push('/placeholder3')},
-    { name: "Logout", icon: <AccountCircle /> , onClick: () => history.push('/logout')},
+    // { name: "Profile", icon: <AccountCircle /> , onClick: () => history.push('/profile')},
+    { name: "SignIn", icon: <AccountCircle /> , onClick: () => history.push('/signin')},
+    { name: "SignUp", icon: <AccountCircle /> , onClick: () => history.push('/signup')},
+    { name: "Welcome", icon: <AccountCircle /> , onClick: () => history.push('/welcome')},
+    // { name: "Logout", icon: <AccountCircle /> , onClick: () => history.push('/logout')},
   ];
 
   return (
