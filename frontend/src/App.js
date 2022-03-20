@@ -14,14 +14,14 @@ function App() {
   return (
     <div>
       <Sidebar />
-      <Switch>
+      {/* <Switch>
         <Route exact from="/welcome" render={props => <PopupWindow><Welcome {...props} /></PopupWindow>} />
         <Route exact from="/signup" render={props => <PopupWindow><SignUp {...props} /></PopupWindow>} />
         <Route exact from="/signin" render={props => <PopupWindow><SignIn {...props} /></PopupWindow>} />
-        </Switch>
+        </Switch> */}
       <Map></Map>
       <PopupWindow>
-        <UserSummary />
+        <SignUp />
       </PopupWindow>
     </div>
   );

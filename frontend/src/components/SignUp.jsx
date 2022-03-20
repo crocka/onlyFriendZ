@@ -38,22 +38,22 @@ const theme = createTheme();
 
 export default function SignUp() {
 
-  const {
+  // const {
 
-    state,
-    createUser,
-    updateUser,
-    createLocation,
-    updateLocation,
-    deleteUser,
-    deleteLocation,
-    logInUser,
-    logOutUser
+  //   state,
+  //   createUser,
+  //   updateUser,
+  //   createLocation,
+  //   updateLocation,
+  //   deleteUser,
+  //   deleteLocation,
+  //   logInUser,
+  //   logOutUser
 
-  } = useApplicationData();
+  // } = useApplicationData();
 
   const [value, setValue] = React.useState(new Date(''));
-  const [file, setFile] = React.useState([]);
+  const [file, setFile] = React.useState({});
 
   const Input = styled('input')({
     display: 'none',
@@ -75,6 +75,13 @@ export default function SignUp() {
       data
 
     });
+  };
+
+  const onFileChange = event => {
+    
+    // Update the state
+    setFile({ selectedFile: event.target.files[0] });
+  
   };
 
   return (
@@ -171,13 +178,7 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
-              {/* <label htmlFor="contained-button-file">
-                <Input accept="image/*" id="contained-button-file" multiple type="file" />
-                <Button variant="contained" component="span">
-                  Upload Profile Picture
-                </Button>
-              </label> */}
-                <DropzoneArea onChange={setFile([...this])} />
+                <DropzoneArea onChange={files => setFile(files)} />
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
@@ -191,7 +192,7 @@ export default function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={createUser}
+              // onClick={createUser}
             >
               Sign Up
             </Button>
