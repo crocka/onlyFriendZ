@@ -11,10 +11,8 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
-
-
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import AddLocationIcon from '@mui/icons-material/AddLocation';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -34,12 +32,8 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignUp() {
+export default function CreateLocation() {
   const [value, setValue] = React.useState(new Date(''));
-
-  const Input = styled('input')({
-    display: 'none',
-  });
 
   const handleChange = (newValue) => {
     setValue(newValue);
@@ -59,94 +53,60 @@ export default function SignUp() {
         <CssBaseline />
         <Box
           sx={{
+            marginTop: 2,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <AccountBoxIcon />
+            <AddLocationIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Add Location
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
-                  autoComplete="given-name"
-                  name="firstName"
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
+                  id="location"
+                  label="Location"
+                  name="location"
+                  autoComplete="location-name"
                   autoFocus
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
-              </Grid>
               <Grid item xs={12}>
                 <TextField
+                  id="description"
                   required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DesktopDatePicker
-                  label="Birthdate"
-                  inputFormat="MM/dd/yyyy"
-                  value={value}
-                  onChange={handleChange}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-                </LocalizationProvider>
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  id="summary"
-                  required
-                  label="Brief summary of yourself"
+                  label="Description"
+                  placeholder="Description"
                   multiline
                   rows={4}
                   fullWidth
                 />
               </Grid>
               <Grid item xs={12}>
-              <label htmlFor="contained-button-file">
-                <Input accept="image/*" id="contained-button-file" multiple type="file" />
-                <Button variant="contained" component="span">
-                  Upload Profile Picture
-                </Button>
-              </label>
+                <TextField
+                  required
+                  fullWidth
+                  id="latitude"
+                  label="Latitude"
+                  name="latitude"
+                  autoComplete="latitude"
+                />
               </Grid>
               <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                <TextField
+                  required
+                  fullWidth
+                  id="longitude"
+                  label="Longitude"
+                  name="longitude"
+                  autoComplete="longitude"
                 />
               </Grid>
             </Grid>
@@ -156,15 +116,8 @@ export default function SignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              Submit
             </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="#" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
         </Box>
         <Copyright sx={{ mt: 5 }} />
