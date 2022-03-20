@@ -10,25 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_19_205758) do
+ActiveRecord::Schema.define(version: 2022_03_20_201421) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "location_id"
     t.integer "rating"
     t.string "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.bigint "location_id"
+    t.index ["location_id"], name: "index_comments_on_location_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "favourite_locations", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "location_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.bigint "location_id"
+    t.index ["location_id"], name: "index_favourite_locations_on_location_id"
+    t.index ["user_id"], name: "index_favourite_locations_on_user_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -36,18 +40,19 @@ ActiveRecord::Schema.define(version: 2022_03_19_205758) do
     t.string "description"
     t.float "latitude"
     t.float "longitude"
-    t.integer "rating"
     t.boolean "is_dangerous"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "user_reviews", force: :cascade do |t|
-    t.integer "reviewer_id"
-    t.integer "user_id"
+    t.bigint "user_id"
+    t.bigint "reviewer_id"
     t.string "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["reviewer_id"], name: "index_user_reviews_on_reviewer_id"
+    t.index ["user_id"], name: "index_user_reviews_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -65,4 +70,8 @@ ActiveRecord::Schema.define(version: 2022_03_19_205758) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "comments", "locations"
+  add_foreign_key "comments", "users"
+  add_foreign_key "favourite_locations", "locations"
+  add_foreign_key "favourite_locations", "users"
 end

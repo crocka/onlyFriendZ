@@ -1,6 +1,15 @@
 class UserReviewsController < ApplicationController
   before_action :set_user, only: [:show, :destroy]
 
+  #GET /user_reviews
+  def index
+
+    @user_reviewS = UserReview.all
+
+    render json: @user_reviews
+    
+  end
+
   # GET /user_reviews/:id
   def  show
     @user_reviews = @user.user_reviews.all

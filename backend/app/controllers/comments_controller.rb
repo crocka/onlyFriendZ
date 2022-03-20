@@ -1,6 +1,15 @@
 class CommentsController < ApplicationController
   before_action :set_location, only: [:show]
 
+  # GET /comments
+  def index
+  
+    @comments = Comment.all
+
+    render json: @comments
+    
+  end
+
   # GET /comments/:id
   def show
     @comments = @location.comments.all

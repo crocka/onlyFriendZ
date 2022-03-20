@@ -1,6 +1,16 @@
 class FavouriteLocationsController < ApplicationController
   before_action :set_user, only: [:show]
 
+
+  #GET /favourite_locations
+  def index
+
+    @favourite_locations = FavouriteLocation.all
+
+    render json: @favourite_locations
+
+  end
+
   # GET /favourite_locations/:id
   def show
     @favourite_locations = @user.favourite_locations.all

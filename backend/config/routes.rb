@@ -4,12 +4,12 @@ Rails.application.routes.draw do
   resources :locations, only: [:index, :create, :show, :update, :destroy]
 
   scope :users do
-    resources :favourite_locations, only: [:show, :create, :destroy]
-    resources :user_reviews, only: [:show, :create, :destroy]
+    resources :favourite_locations, only: [:index, :show, :create, :destroy]
+    resources :user_reviews, only: [:index, :show, :create, :destroy]
   end
 
   scope :locations do
-    resources :comments, only: [:show, :create, :destroy]
+    resources :comments, only: [:index, :show, :create, :destroy]
   end
 
   post '/login' => 'sessions#create'
