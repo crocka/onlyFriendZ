@@ -57,7 +57,7 @@ export default function useApplicationData() {
 
   function createUser(user) {
 
-    return (axios.post(`/users`, { ...user })
+    return (axios.post(`/users`, user)
       .then(response => {
         setUser(response.data);
       })

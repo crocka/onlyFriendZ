@@ -14,12 +14,14 @@ import Container from '@mui/material/Container';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import useApplicationData from '../hooks/useApplicationData';
-import {DropzoneArea} from 'material-ui-dropzone';
+import { DropzoneArea } from 'material-ui-dropzone';
 
 
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import { CropSharp } from '@material-ui/icons';
+// const fs = require('fs');
 
 function Copyright(props) {
   return (
@@ -38,27 +40,16 @@ const theme = createTheme();
 
 export default function SignUp() {
 
-  const {
+  const { createUser } = useApplicationData();
 
-    state,
-    createUser,
-    updateUser,
-    createLocation,
-    updateLocation,
-    deleteUser,
-    deleteLocation,
-    logInUser,
-    logOutUser
-
-  } = useApplicationData();
-
-  const [value, setValue] = React.useState(new Date(''));
-  const [file, setFile] = React.useState([]);
+  const [value, setValue] = React.useState(new Date());
+  // const [file, setFile] = React.useState([]);
 
   const Input = styled('input')({
     display: 'none',
   });
 
+<<<<<<< HEAD
   const handleChange = (newValue) => {
     setValue(newValue);
   };
@@ -76,6 +67,80 @@ export default function SignUp() {
 
     });
   };
+=======
+  // React.useEffect(() => {
+
+    const handleChange = (newValue) => {
+      setValue(newValue);
+    };
+    const handleSubmit = (event) => {
+
+      //:name, :email_address, :password, :password_confirmation, :birthday, :image_url, :instagram_handle, :twitter_handle, :tiktok_handle, :personal_link, :summary
+      event.preventDefault();
+      const images = event.currentTarget.images; 
+      const data = new FormData(event.currentTarget);
+      const name = `${data.get('firstName')} ${data.get('lastName')}`;
+      data.append("name", name)
+      // console.log(Object.keys(event.currentTarget.files.files));
+      // let images = [];
+      // Object.keys(event.currentTarget.files.files).forEach((file)=> {
+      //   images.push(event.currentTarget.files.files[file])
+      // })
+      console.log(data.name)
+
+      for(let i = 0 ; i< images.length; i++) {
+        console.log(images[i], "hi")
+        data.append("images[]", images[i]);
+      }
+      // data.append("images[]", images)
+      // data.append("photos", event.currentTarget.files.files[0])
+      // const user = {user: {...data}}
+      // const user = {
+
+      //   user: {
+
+      //   name: data.get('firstName') + " " + data.get('lastName'),
+      //   email_address: data.get('email'),
+      //   password: data.get('password'),
+      //   password_confirmation: data.get('password_confirmation'),
+      //   birthday: value,
+      //   summary: data.get('summary'),
+      //   images: file.selectedFile
+
+      //   }
+
+      // }
+
+      // console.log(images)
+
+      createUser(data)
+        .then(res => {
+
+          console.log(res);
+
+        })
+        .catch(err => console.log(err))
+
+      // console.log({
+      //   name: data.get('firstName') + data.get('lastName'),
+      //   email_address: data.get('email'),
+      //   password: data.get('password'),
+      //   password_confirmation: data.get('password_confirmation'),
+      //   birthday: value,
+      //   summary: data.get('summary'),
+      //   image: file
+
+      // });
+    };
+  // });
+  // const onFileChange = event => {
+
+  //   // Update the state
+  //   setFile({ selectedFile: event });
+  //   // console.log(event)
+
+  // };
+>>>>>>> 9b304ed5da281cb6d96edecfaf6e5393997478a6
 
   return (
     <ThemeProvider theme={theme}>
@@ -123,19 +188,19 @@ export default function SignUp() {
                   fullWidth
                   id="email"
                   label="Email Address"
-                  name="email"
+                  name="email_address"
                   autoComplete="email"
                 />
               </Grid>
               <Grid item xs={12}>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DesktopDatePicker
-                  label="Birthdate"
-                  inputFormat="MM/dd/yyyy"
-                  value={value}
-                  onChange={handleChange}
-                  renderInput={(params) => <TextField {...params} />}
-                />
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DesktopDatePicker
+                    label="Birthdate"
+                    inputFormat="MM/dd/yyyy"
+                    value={value}
+                    onChange={handleChange}
+                    renderInput={(params) => <TextField required {...params} />}
+                  />
                 </LocalizationProvider>
               </Grid>
               <Grid item xs={12}>
@@ -155,7 +220,7 @@ export default function SignUp() {
                   fullWidth
                   name="password_confirmation"
                   label="Confirm password"
-                  type="password_confirmation"
+                  type="password"
                   id="password_confirmation"
                   autoComplete="confirm password"
                 />
@@ -172,6 +237,7 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
+<<<<<<< HEAD
               {/* <label htmlFor="contained-button-file">
                 <Input accept="image/*" id="contained-button-file" multiple type="file" />
                 <Button variant="contained" component="span">
@@ -179,6 +245,10 @@ export default function SignUp() {
                 </Button>
               </label> */}
                 <DropzoneArea onChange={(files) => console.log('Files:', files)} />
+=======
+                {/* <DropzoneArea name="images" onChange={(files) => onFileChange(files)} /> */}
+                <input type="file" id="images" name="images" multiple />
+>>>>>>> 9b304ed5da281cb6d96edecfaf6e5393997478a6
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
@@ -192,7 +262,11 @@ export default function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+<<<<<<< HEAD
               // onClick={createUser}
+=======
+            // onClick={createUser}
+>>>>>>> 9b304ed5da281cb6d96edecfaf6e5393997478a6
             >
               Sign Up
             </Button>

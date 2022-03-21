@@ -21,7 +21,7 @@ navigator.geolocation.getCurrentPosition(info => {
 
 });
 
-console.log(position)
+// console.log(position)
 // addGeoJson();
 
   return (
@@ -32,11 +32,7 @@ console.log(position)
         url='https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'
         // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {/* <Marker position={[43.6532, -79.3832]}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
-      </Marker> */}
+      {props.children}
     </MapContainer>
   );
 }

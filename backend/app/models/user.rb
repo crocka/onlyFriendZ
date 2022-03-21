@@ -2,6 +2,8 @@ class User < ApplicationRecord
 
   has_secure_password
 
+  has_many_attached :images
+
   validates :password, length: { minimum: 10 }
 
   validates :password_confirmation, presence: true
@@ -17,7 +19,7 @@ class User < ApplicationRecord
 
   def self.authenticate_with_credentials(email, password)
 
-    user = User.where "LOWER(email) = '#{email.strip.downcase}'"
+    user = User.where "LOWER(email_address) = '#{email.downcase}'"
 
     if user.first && user.first.authenticate(password)
 
