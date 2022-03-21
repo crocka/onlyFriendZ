@@ -178,7 +178,7 @@ export default function SignUp() {
                   Upload Profile Picture
                 </Button>
               </label> */}
-                <DropzoneArea onChange={setFile([...this])} />
+                <DropzoneArea onChange={(files) => console.log('Files:', files)} />
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
