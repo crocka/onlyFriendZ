@@ -14,12 +14,14 @@ import Container from '@mui/material/Container';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import useApplicationData from '../hooks/useApplicationData';
-import {DropzoneArea} from 'material-ui-dropzone';
+import { DropzoneArea } from 'material-ui-dropzone';
 
 
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import { CropSharp } from '@material-ui/icons';
+// const fs = require('fs');
 
 function Copyright(props) {
   return (
@@ -38,50 +40,72 @@ const theme = createTheme();
 
 export default function SignUp() {
 
-  // const {
+  const { createUser } = useApplicationData();
 
-  //   state,
-  //   createUser,
-  //   updateUser,
-  //   createLocation,
-  //   updateLocation,
-  //   deleteUser,
-  //   deleteLocation,
-  //   logInUser,
-  //   logOutUser
-
-  // } = useApplicationData();
-
-  const [value, setValue] = React.useState(new Date(''));
+  const [value, setValue] = React.useState(new Date());
   const [file, setFile] = React.useState({});
 
   const Input = styled('input')({
     display: 'none',
   });
 
-  const handleChange = (newValue) => {
-    setValue(newValue);
-  };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      name: data.get('firstName') + data.get('lastName'),
-      email_address: data.get('email'),
-      password: data.get('password'),
-      password_confirmation: data.get('password_confirmation'),
-      birthday: value,
-      summary: data.get('summary'),
-      data
+  // React.useEffect(() => {
 
-    });
-  };
+    const handleChange = (newValue) => {
+      setValue(newValue);
+    };
+    const handleSubmit = (event) => {
 
+      //:name, :email_address, :password, :password_confirmation, :birthday, :image_url, :instagram_handle, :twitter_handle, :tiktok_handle, :personal_link, :summary
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+
+ 
+
+      const user = {
+
+        user: {
+
+        name: data.get('firstName') + " " + data.get('lastName'),
+        email_address: data.get('email'),
+        password: data.get('password'),
+        password_confirmation: data.get('password_confirmation'),
+        birthday: value,
+        summary: data.get('summary'),
+        images: file.selectedFile
+
+        }
+
+      }
+
+      console.log(user)
+
+      createUser(user)
+        .then(res => {
+
+          console.log(res);
+
+        })
+        .catch(err => console.log(err))
+
+      // console.log({
+      //   name: data.get('firstName') + data.get('lastName'),
+      //   email_address: data.get('email'),
+      //   password: data.get('password'),
+      //   password_confirmation: data.get('password_confirmation'),
+      //   birthday: value,
+      //   summary: data.get('summary'),
+      //   image: file
+
+      // });
+    };
+  // });
   const onFileChange = event => {
-    
+
     // Update the state
-    setFile({ selectedFile: event.target.files[0] });
-  
+    setFile({ selectedFile: event });
+    // console.log(event)
+
   };
 
   return (
@@ -135,14 +159,14 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DesktopDatePicker
-                  label="Birthdate"
-                  inputFormat="MM/dd/yyyy"
-                  value={value}
-                  onChange={handleChange}
-                  renderInput={(params) => <TextField {...params} />}
-                />
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DesktopDatePicker
+                    label="Birthdate"
+                    inputFormat="MM/dd/yyyy"
+                    value={value}
+                    onChange={handleChange}
+                    renderInput={(params) => <TextField required {...params} />}
+                  />
                 </LocalizationProvider>
               </Grid>
               <Grid item xs={12}>
@@ -162,7 +186,7 @@ export default function SignUp() {
                   fullWidth
                   name="password_confirmation"
                   label="Confirm password"
-                  type="password_confirmation"
+                  type="password"
                   id="password_confirmation"
                   autoComplete="confirm password"
                 />
@@ -170,6 +194,7 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <TextField
                   id="summary"
+                  name="summary"
                   required
                   label="Brief summary of yourself"
                   multiline
@@ -178,7 +203,7 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <DropzoneArea onChange={files => setFile(files)} />
+                <DropzoneArea name="image" onChange={(files) => onFileChange(files)} />
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
@@ -192,7 +217,7 @@ export default function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              // onClick={createUser}
+            // onClick={createUser}
             >
               Sign Up
             </Button>

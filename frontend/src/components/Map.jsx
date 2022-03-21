@@ -21,7 +21,7 @@ navigator.geolocation.getCurrentPosition(info => {
 
 });
 
-console.log(position)
+// console.log(position)
 // addGeoJson();
 
   return (
