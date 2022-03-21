@@ -6,6 +6,10 @@ import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import useApplicationData from '../hooks/useApplicationData';
+import AddPhoto from './AddPhoto';
+import ChooseLocation from './ChooseLocation';
+import Confirm from './Confirm';
+
 
 const steps = ['Add Photos and Detials', 'Choose Location', 'Confirm Submission'];
 
@@ -16,6 +20,7 @@ export default function HorizontalLinearStepper() {
   const [file, setFile] = React.useState({});
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
+  const [position, setPosition] = React.useState(null)
 
   const isStepOptional = (step) => {
     return step === 1;
@@ -60,6 +65,20 @@ export default function HorizontalLinearStepper() {
   };
 
   const handlePage = () => {
+
+    if (activeStep === 0) {
+      
+      return (<AddPhoto handleSubmit={handleSubmit} onFileChange={onFileChange} />);
+
+    } else if (activeStep === 1) {
+
+      return (<ChooseLocation />);
+
+    } else {
+
+      return (<Confirm />);
+
+    }
 
 
   };

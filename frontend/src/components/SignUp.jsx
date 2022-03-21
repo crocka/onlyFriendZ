@@ -43,7 +43,7 @@ export default function SignUp() {
   const { createUser } = useApplicationData();
 
   const [value, setValue] = React.useState(new Date());
-  const [file, setFile] = React.useState({});
+  // const [file, setFile] = React.useState([]);
 
   const Input = styled('input')({
     display: 'none',
@@ -58,29 +58,43 @@ export default function SignUp() {
 
       //:name, :email_address, :password, :password_confirmation, :birthday, :image_url, :instagram_handle, :twitter_handle, :tiktok_handle, :personal_link, :summary
       event.preventDefault();
+      const images = event.currentTarget.images; 
       const data = new FormData(event.currentTarget);
+      const name = `${data.get('firstName')} ${data.get('lastName')}`;
+      data.append("name", name)
+      // console.log(Object.keys(event.currentTarget.files.files));
+      // let images = [];
+      // Object.keys(event.currentTarget.files.files).forEach((file)=> {
+      //   images.push(event.currentTarget.files.files[file])
+      // })
+      console.log(data.name)
 
- 
-
-      const user = {
-
-        user: {
-
-        name: data.get('firstName') + " " + data.get('lastName'),
-        email_address: data.get('email'),
-        password: data.get('password'),
-        password_confirmation: data.get('password_confirmation'),
-        birthday: value,
-        summary: data.get('summary'),
-        images: file.selectedFile
-
-        }
-
+      for(let i = 0 ; i< images.length; i++) {
+        console.log(images[i], "hi")
+        data.append("images[]", images[i]);
       }
+      // data.append("images[]", images)
+      // data.append("photos", event.currentTarget.files.files[0])
+      // const user = {user: {...data}}
+      // const user = {
 
-      console.log(user)
+      //   user: {
 
-      createUser(user)
+      //   name: data.get('firstName') + " " + data.get('lastName'),
+      //   email_address: data.get('email'),
+      //   password: data.get('password'),
+      //   password_confirmation: data.get('password_confirmation'),
+      //   birthday: value,
+      //   summary: data.get('summary'),
+      //   images: file.selectedFile
+
+      //   }
+
+      // }
+
+      // console.log(images)
+
+      createUser(data)
         .then(res => {
 
           console.log(res);
@@ -100,13 +114,13 @@ export default function SignUp() {
       // });
     };
   // });
-  const onFileChange = event => {
+  // const onFileChange = event => {
 
-    // Update the state
-    setFile({ selectedFile: event });
-    // console.log(event)
+  //   // Update the state
+  //   setFile({ selectedFile: event });
+  //   // console.log(event)
 
-  };
+  // };
 
   return (
     <ThemeProvider theme={theme}>
@@ -154,7 +168,7 @@ export default function SignUp() {
                   fullWidth
                   id="email"
                   label="Email Address"
-                  name="email"
+                  name="email_address"
                   autoComplete="email"
                 />
               </Grid>
@@ -203,7 +217,8 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <DropzoneArea name="image" onChange={(files) => onFileChange(files)} />
+                {/* <DropzoneArea name="images" onChange={(files) => onFileChange(files)} /> */}
+                <input type="file" id="images" name="images" multiple />
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel

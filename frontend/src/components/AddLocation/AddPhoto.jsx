@@ -17,7 +17,7 @@ import { DropzoneArea } from 'material-ui-dropzone';
 
 const theme = createTheme();
 
-export default function SignUp(props) {
+export default function AddPhoto(props) {
 
   return (
     <ThemeProvider theme={theme}>

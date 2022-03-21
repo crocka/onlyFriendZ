@@ -21,7 +21,7 @@ function App() {
         </Switch> */}
       {/* <Map></Map> */}
       <PopupWindow>
-        <SignIn />
+        <SignUp />
       </PopupWindow>
     </div>
   );
