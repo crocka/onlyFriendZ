@@ -43,7 +43,7 @@ export default function SignUp() {
   const { createUser } = useApplicationData();
 
   const [value, setValue] = React.useState(new Date());
-  // const [file, setFile] = React.useState([]);
+  const [file, setFile] = React.useState([]);
 
   const Input = styled('input')({
     display: 'none',
@@ -58,7 +58,7 @@ export default function SignUp() {
 
       //:name, :email_address, :password, :password_confirmation, :birthday, :image_url, :instagram_handle, :twitter_handle, :tiktok_handle, :personal_link, :summary
       event.preventDefault();
-      const images = event.currentTarget.images; 
+      // const images = event.currentTarget.images.files; 
       const data = new FormData(event.currentTarget);
       const name = `${data.get('firstName')} ${data.get('lastName')}`;
       data.append("name", name)
@@ -67,11 +67,20 @@ export default function SignUp() {
       // Object.keys(event.currentTarget.files.files).forEach((file)=> {
       //   images.push(event.currentTarget.files.files[file])
       // })
-      console.log(data.name)
+      // console.log(images)
 
-      for(let i = 0 ; i< images.length; i++) {
-        console.log(images[i], "hi")
-        data.append("images[]", images[i]);
+      // const photos = [];
+// 
+      // for(let i = 0 ; i< images.length; i++) {
+      //   // console.log(typeof images, "hi")
+      //   data.append(`images[]`, JSON.stringify(images[i]));
+      //   // photos.push(images[i])
+      // }
+
+      for(let i = 0 ; i< file.length; i++) {
+        // console.log(typeof photos, "hi")
+        data.append(`images[]`, file[i]);
+        // photos.push(images[i])
       }
       // data.append("images[]", images)
       // data.append("photos", event.currentTarget.files.files[0])
@@ -114,13 +123,13 @@ export default function SignUp() {
       // });
     };
   // });
-  // const onFileChange = event => {
+  const onFileChange = event => {
 
-  //   // Update the state
-  //   setFile({ selectedFile: event });
-  //   // console.log(event)
+    // Update the state
+    setFile([...event]);
+    // console.log(event)
 
-  // };
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -217,8 +226,7 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
-                {/* <DropzoneArea name="images" onChange={(files) => onFileChange(files)} /> */}
-                <input type="file" id="images" name="images" multiple />
+                <DropzoneArea name="images" onChange={(files) => onFileChange(files)} />
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
