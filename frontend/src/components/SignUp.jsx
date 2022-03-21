@@ -49,7 +49,6 @@ export default function SignUp() {
     display: 'none',
   });
 
-<<<<<<< HEAD
   const handleChange = (newValue) => {
     setValue(newValue);
   };
@@ -67,80 +66,6 @@ export default function SignUp() {
 
     });
   };
-=======
-  // React.useEffect(() => {
-
-    const handleChange = (newValue) => {
-      setValue(newValue);
-    };
-    const handleSubmit = (event) => {
-
-      //:name, :email_address, :password, :password_confirmation, :birthday, :image_url, :instagram_handle, :twitter_handle, :tiktok_handle, :personal_link, :summary
-      event.preventDefault();
-      const images = event.currentTarget.images; 
-      const data = new FormData(event.currentTarget);
-      const name = `${data.get('firstName')} ${data.get('lastName')}`;
-      data.append("name", name)
-      // console.log(Object.keys(event.currentTarget.files.files));
-      // let images = [];
-      // Object.keys(event.currentTarget.files.files).forEach((file)=> {
-      //   images.push(event.currentTarget.files.files[file])
-      // })
-      console.log(data.name)
-
-      for(let i = 0 ; i< images.length; i++) {
-        console.log(images[i], "hi")
-        data.append("images[]", images[i]);
-      }
-      // data.append("images[]", images)
-      // data.append("photos", event.currentTarget.files.files[0])
-      // const user = {user: {...data}}
-      // const user = {
-
-      //   user: {
-
-      //   name: data.get('firstName') + " " + data.get('lastName'),
-      //   email_address: data.get('email'),
-      //   password: data.get('password'),
-      //   password_confirmation: data.get('password_confirmation'),
-      //   birthday: value,
-      //   summary: data.get('summary'),
-      //   images: file.selectedFile
-
-      //   }
-
-      // }
-
-      // console.log(images)
-
-      createUser(data)
-        .then(res => {
-
-          console.log(res);
-
-        })
-        .catch(err => console.log(err))
-
-      // console.log({
-      //   name: data.get('firstName') + data.get('lastName'),
-      //   email_address: data.get('email'),
-      //   password: data.get('password'),
-      //   password_confirmation: data.get('password_confirmation'),
-      //   birthday: value,
-      //   summary: data.get('summary'),
-      //   image: file
-
-      // });
-    };
-  // });
-  // const onFileChange = event => {
-
-  //   // Update the state
-  //   setFile({ selectedFile: event });
-  //   // console.log(event)
-
-  // };
->>>>>>> 9b304ed5da281cb6d96edecfaf6e5393997478a6
 
   return (
     <ThemeProvider theme={theme}>
@@ -237,7 +162,6 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
-<<<<<<< HEAD
               {/* <label htmlFor="contained-button-file">
                 <Input accept="image/*" id="contained-button-file" multiple type="file" />
                 <Button variant="contained" component="span">
@@ -245,10 +169,6 @@ export default function SignUp() {
                 </Button>
               </label> */}
                 <DropzoneArea onChange={(files) => console.log('Files:', files)} />
-=======
-                {/* <DropzoneArea name="images" onChange={(files) => onFileChange(files)} /> */}
-                <input type="file" id="images" name="images" multiple />
->>>>>>> 9b304ed5da281cb6d96edecfaf6e5393997478a6
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
@@ -262,11 +182,7 @@ export default function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-<<<<<<< HEAD
               // onClick={createUser}
-=======
-            // onClick={createUser}
->>>>>>> 9b304ed5da281cb6d96edecfaf6e5393997478a6
             >
               Sign Up
             </Button>
