@@ -20,12 +20,12 @@ const Sidebar = props => {
   const history = useHistory();
 
   const data = [
-    {name: "Home", icon: <HomeOutlined />, onClick: () => history.push('/') },
-    // { name: "Profile", icon: <AccountCircle /> , onClick: () => history.push('/profile')},
-    { name: "SignIn", icon: <AccountCircle /> , onClick: () => history.push('/signin')},
-    { name: "SignUp", icon: <AccountCircle /> , onClick: () => history.push('/signup')},
-    { name: "Welcome", icon: <AccountCircle /> , onClick: () => history.push('/welcome')},
-    // { name: "Logout", icon: <AccountCircle /> , onClick: () => history.push('/logout')},
+    {name: "Home", icon: <HomeOutlined />, onClick: () => {history.push('/'); setOpen(false)}},
+    // { name: "Profile", icon: <AccountCircle /> , onClick: () => {history.push('/profile'); setOpen(false)}},
+    { name: "SignIn", icon: <AccountCircle /> , onClick: () => {history.push('/signin'); setOpen(false)}},
+    { name: "SignUp", icon: <AccountCircle /> , onClick: () => {history.push('/signup'); setOpen(false)}},
+    { name: "Welcome", icon: <AccountCircle /> , onClick: () => {history.push('/welcome'); setOpen(false)}},
+    // { name: "Logout", icon: <AccountCircle /> , onClick: () => {history.push('/logout'); setOpen(false)}},
   ];
 
   return (
