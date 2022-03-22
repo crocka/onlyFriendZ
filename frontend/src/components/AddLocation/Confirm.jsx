@@ -36,9 +36,12 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 // ];
 
 export default function ConfirmCard(props) {
+
+  const images = props.file;
+
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
-  const maxSteps = props.images.length;
+  const maxSteps = images.length;
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -65,7 +68,7 @@ export default function ConfirmCard(props) {
           bgcolor: 'background.default',
         }}
       >
-        <Typography>{props.images[activeStep].label}</Typography>
+        <Typography>{images[activeStep].label}</Typography>
       </Paper>
       <AutoPlaySwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
@@ -73,7 +76,7 @@ export default function ConfirmCard(props) {
         onChangeIndex={handleStepChange}
         enableMouseEvents
       >
-        {props.images.map((step, index) => (
+        {images.map((step, index) => (
           <div key={step.label}>
             {Math.abs(activeStep - index) <= 2 ? (
               <Box

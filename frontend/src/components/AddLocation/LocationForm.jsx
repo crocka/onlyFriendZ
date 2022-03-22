@@ -5,7 +5,7 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import useApplicationData from '../hooks/useApplicationData';
+import useApplicationData from '../../hooks/useApplicationData';
 import AddPhoto from './AddPhoto';
 import ChooseLocation from './ChooseLocation';
 import Confirm from './Confirm';
@@ -13,14 +13,25 @@ import Confirm from './Confirm';
 
 const steps = ['Add Photos and Detials', 'Choose Location', 'Confirm Submission'];
 
-export default function HorizontalLinearStepper() {
+export default function LocationForm() {
 
-  const { createUser } = useApplicationData();
+  const { createLocation } = useApplicationData();
 
   const [file, setFile] = React.useState({});
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
-  const [position, setPosition] = React.useState(null)
+  const [rating, setRating] = React.useState(5);
+
+  const [isDangerous, setIsDangerous] = React.useState(false);
+
+  const [event, setEvent] = React.useState({});
+
+  const [position, setPosition] = React.useState({
+
+    longtitude: null,
+    latitude: null
+
+  })
 
   const isStepOptional = (step) => {
     return step === 1;
@@ -68,44 +79,53 @@ export default function HorizontalLinearStepper() {
 
     if (activeStep === 0) {
       
-      return (<AddPhoto handleSubmit={handleSubmit} onFileChange={onFileChange} />);
+      return (<AddPhoto 
+        
+        handleSubmit={(event) => setEvent({...event})} 
+        onFileChange={onFileChange} 
+        rating={rating} 
+        setRating={setRating} 
+        isDangerous={isDangerous}
+        setIsDangerous={setIsDangerous}
+        
+        
+        />);
 
     } else if (activeStep === 1) {
 
-      return (<ChooseLocation />);
+      return (<ChooseLocation
+      
+        position={position}
+        setPosition={setPosition}
+      
+      />);
 
     } else {
 
-      return (<Confirm />);
+      return (<Confirm
+      
+        file={file}
+      
+      />);
 
     }
-
 
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = () => {
 
     //:name, :email_address, :password, :password_confirmation, :birthday, :image_url, :instagram_handle, :twitter_handle, :tiktok_handle, :personal_link, :summary
     event.preventDefault();
+    // const images = event.currentTarget.images.files; 
     const data = new FormData(event.currentTarget);
 
-
-
-    const user = {
-
-      user: {
-
-        name: data.get('firstName') + " " + data.get('lastName'),
-        summary: data.get('summary'),
-        images: file.selectedFile
-
-      }
-
+    for(let i = 0 ; i< file.length; i++) {
+      // console.log(typeof photos, "hi")
+      data.append(`images[]`, file[i]);
+      // photos.push(images[i])
     }
 
-    console.log(user)
-
-    createUser(user)
+    createLocation(data)
       .then(res => {
 
         console.log(res);
@@ -113,22 +133,12 @@ export default function HorizontalLinearStepper() {
       })
       .catch(err => console.log(err))
 
-    // console.log({
-    //   name: data.get('firstName') + data.get('lastName'),
-    //   email_address: data.get('email'),
-    //   password: data.get('password'),
-    //   password_confirmation: data.get('password_confirmation'),
-    //   birthday: value,
-    //   summary: data.get('summary'),
-    //   image: file
-
-    // });
   };
   // });
   const onFileChange = event => {
 
     // Update the state
-    setFile({ selectedFile: event });
+    setFile([...event]);
     // console.log(event)
 
   };

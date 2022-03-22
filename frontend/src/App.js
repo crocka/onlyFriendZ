@@ -9,6 +9,7 @@ import Location from './components/Location.jsx'
 import CreateLocation from './components/CreateLocation'
 import UserSummary from './components/UserSummary.jsx'
 import {Switch, Route} from "react-router-dom";
+import LocationForm from "./components/AddLocation/LocationForm.jsx"
 
 import './App.css';
 function App() {
@@ -22,7 +23,7 @@ function App() {
         </Switch> */}
       {/* <Map></Map> */}
       <PopupWindow>
-        <SignUp />
+        <LocationForm />
       </PopupWindow>
     </div>
   );

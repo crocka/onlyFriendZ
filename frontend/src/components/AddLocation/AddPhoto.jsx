@@ -1,16 +1,17 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
-
+import Rating from '@mui/material/Rating';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
-import { createTheme, ThemeProvider} from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { DropzoneArea } from 'material-ui-dropzone';
 
@@ -69,7 +70,24 @@ export default function AddPhoto(props) {
               </Grid>
 
               <Grid item xs={12}>
-                <DropzoneArea name="image" onChange={(files) => props.onFileChange(files)} />
+                <Rating
+                  name="rating"
+                  value={props.rating}
+                  onChange={(event, newRating) => {
+                    props.setRating(newRating);
+                  }}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={<Checkbox value="is_dangerous" color="primary" checked={props.isDangerous} onChange={event => props.setIsDangerous(event.target.checked)} />}
+                  label="The location is potentially dangerous and do not recommend visiting alone."
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <DropzoneArea name="images" onChange={(files) => props.onFileChange(files)} />
               </Grid>
 
             </Grid>

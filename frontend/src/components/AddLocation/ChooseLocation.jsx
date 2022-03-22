@@ -20,6 +20,20 @@ const theme = createTheme();
 
 export default function ChooseLocation(props) {
 
+  const handleSubmit = (event) => {
+
+    const data = new FormData(event.currentTarget);
+
+    props.setPosition({
+
+
+      longitude: data.get('longitude'),
+      latitude: data.get('latitude')
+
+    });
+
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -41,10 +55,10 @@ export default function ChooseLocation(props) {
           </Avatar>
 
           <Typography component="h1" variant="h5">
-            Tell us about your photos. If the security of the place is concerning, please let us know by checking the corresponding checkbox. All photos must be suitable to view by all ages. Any photo or text that violate the requirements will be subject to further investigation by the CIA and FBI. Message brought to you by RCMP.
+            Please click on the map below to select the exact location. You may enlarge the map to select as precise as possible.
           </Typography>
 
-          <Box component="form" noValidate onSubmit={props.handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid item xs={12} sm={6}>
 
               <Grid item xs={12} sm={6}>
@@ -57,12 +71,34 @@ export default function ChooseLocation(props) {
                 />
               </Grid>
 
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
 
                 <Map>
                   <LocationMarker position={props.position} setPosition={props.setPosition} />
                 </Map>
                 
+              </Grid>
+
+              </Grid> */}
+
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
+                  id="title"
+                  label="Title or name of the location"
+                  name="longitude"
+                />
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
+                  id="title"
+                  label="Title or name of the location"
+                  name="latitude"
+                />
               </Grid>
 
             </Grid>
