@@ -44,3 +44,13 @@
 }
 
 .leaflet-control-container { position: absolute; left: 0px; margin-top: 40px;} 
+
+#mode-switch {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px;
+  z-index: 400;
+  color: rgb(255, 255, 255); 
+  mix-blend-mode: difference;
+}
