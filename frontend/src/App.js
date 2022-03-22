@@ -13,7 +13,7 @@ import LocationForm from "./components/AddLocation/LocationForm.jsx"
 import LocationMarker from './components/AddLocation/LocationMarker.jsx';
 import * as React from 'react';
 
-import LocationCard from './components/Profile/LocationCard';
+import PictureWall from './components/Profile/PictureWall';
 
 import './App.css';
 function App() {
@@ -32,7 +32,7 @@ function App() {
       <Map></Map>
       <PopupWindow>
         {/* <SignIn></SignIn> */}
-        <LocationCard />
+        {/* <PictureWall /> */}
       </PopupWindow>
     </div>
   );

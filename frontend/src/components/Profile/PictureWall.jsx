@@ -6,7 +6,7 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 
-export default function LocationCard(props) {
+export default function PictureWall(props) {
   
   const { images } = props;
 
