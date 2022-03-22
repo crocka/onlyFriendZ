@@ -29,7 +29,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function UserSummary() {
+export default function UserSummary(props) {
   return (
         <ThemeProvider theme={theme}>
           <Container component="main" maxWidth="xs">
