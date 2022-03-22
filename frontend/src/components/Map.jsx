@@ -4,6 +4,8 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css'
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 import Button from '@mui/material/Button';
 
 let DefaultIcon = L.icon({
@@ -32,6 +34,12 @@ export default function Map(props) {
       }
     }, [colorMode]);
 
+    const styles = {
+      "&MuiButton-contained": {
+        backgroundColor: "white"
+      }
+    };
+
   //   async function addGeoJson() {
   //     const response = await fetch("https://opendata.arcgis.com/datasets/923cb3294384488e8a4ffbeb3b8f6cb2_32.geojson");
   //     const data = await response.json();
@@ -51,7 +59,7 @@ export default function Map(props) {
 
   return (
 
-    <MapContainer doubleClickZoom={false} center={[43.6532, -79.3832]} zoom={13} style={{ backgroundColor: "black", ...props.style }}>
+    <MapContainer doubleClickZoom={false} center={[43.6532, -79.3832]} zoom={13} style={{ backgroundColor: "white", ...props.style }}>
 
       <TileLayer
         ref={ref}
@@ -70,7 +78,7 @@ export default function Map(props) {
         <Popup>You are here</Popup>
       </Marker>
       
-      <Button variant="outlined" id="mode-switch" onClick={onClick}>Switch Map</Button>
+      <Button sx={styles} variant="outlined" id="mode-switch" onClick={onClick}>{colorMode === "light" ? <DarkModeIcon style={{ color: 'black' }} /> : <WbSunnyIcon style={{ color: 'white' }} /> }</Button>
       {props.children}
     </MapContainer>
 

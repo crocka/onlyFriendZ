@@ -51,6 +51,6 @@
   right: 20px;
   padding: 10px;
   z-index: 400;
-  color: rgb(255, 255, 255); 
-  mix-blend-mode: difference;
+  border: none;
+  transform: scale(1.5);
 }
