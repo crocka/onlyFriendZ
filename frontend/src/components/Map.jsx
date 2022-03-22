@@ -16,6 +16,12 @@ export default function Map(props) {
 
   let testData = [{id: 1, title: "CN Tower", description: "The big tower in Toronto", coordinates:[43.6426, -79.3871]}, {id: 2, title: "Ontario Place", description: "Big park", coordinates:[43.6282, -79.4155]}]
 
+    const styles = {
+      "&MuiButton-contained": {
+        backgroundColor: "white"
+      }
+    };
+
   //   async function addGeoJson() {
   //     const response = await fetch("https://opendata.arcgis.com/datasets/923cb3294384488e8a4ffbeb3b8f6cb2_32.geojson");
   //     const data = await response.json();
@@ -35,7 +41,7 @@ export default function Map(props) {
 
   return (
 
-    <MapContainer doubleClickZoom={false} center={[43.6532, -79.3832]} zoom={13} style={{ backgroundColor: "black", ...props.style }}>
+    <MapContainer doubleClickZoom={false} center={[43.6532, -79.3832]} zoom={13} style={{ backgroundColor: "white", ...props.style }}>
 
       <TileLayer
         attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
