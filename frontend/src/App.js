@@ -22,17 +22,22 @@ function App() {
 
   return (
     <div>
-      {/* <Sidebar />
+      <Sidebar />
       <Switch>
         <Route exact from="/welcome" render={props => <PopupWindow><Welcome {...props} /></PopupWindow>} />
         <Route exact from="/signup" render={props => <PopupWindow><SignUp {...props} /></PopupWindow>} />
         <Route exact from="/signin" render={props => <PopupWindow><SignIn {...props} /></PopupWindow>} />
         <Route exact from="/addlocation" render={props => <PopupWindow><LocationForm {...props} /></PopupWindow>} />
-      </Switch> */}
+      </Switch>
       <Map></Map>
       <PopupWindow>
+<<<<<<< HEAD
         {/* <SignIn></SignIn> */}
         {/* <PictureWall /> */}
+=======
+        <SignIn></SignIn>
+        {/* <LocationCard /> */}
+>>>>>>> 7de00f483a0412c6ecb32371c3377f3c363a1011
       </PopupWindow>
     </div>
   );

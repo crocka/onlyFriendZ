@@ -11,7 +11,6 @@ export default function UserProfile(props) {
   return (
     
     <Profile labels={labels}>
- 
       <UserSummary></UserSummary>
       <PictureWall images={user.images}></PictureWall>
       <ReviewList></ReviewList>
