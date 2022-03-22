@@ -21,10 +21,10 @@ const Sidebar = props => {
 
   const data = [
     {name: "Home", icon: <HomeOutlined />, onClick: () => {history.push('/'); setOpen(false)}},
-    // { name: "Profile", icon: <AccountCircle /> , onClick: () => {history.push('/profile'); setOpen(false)}},
     { name: "SignIn", icon: <AccountCircle /> , onClick: () => {history.push('/signin'); setOpen(false)}},
     { name: "SignUp", icon: <AccountCircle /> , onClick: () => {history.push('/signup'); setOpen(false)}},
     { name: "Welcome", icon: <AccountCircle /> , onClick: () => {history.push('/welcome'); setOpen(false)}},
+    { name: "Add Location", icon: <AccountCircle /> , onClick: () => {history.push('/addlocation'); setOpen(false)}},
     // { name: "Logout", icon: <AccountCircle /> , onClick: () => {history.push('/logout'); setOpen(false)}},
   ];
 
