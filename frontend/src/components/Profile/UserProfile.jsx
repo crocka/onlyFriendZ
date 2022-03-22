@@ -9,7 +9,7 @@ export default function UserProfile(props) {
 
   return (
     
-    <Profile user={user} location={location} />
+    <Profile labels={labels} />
 
   );
   
