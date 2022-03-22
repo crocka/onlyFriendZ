@@ -11,68 +11,52 @@ import ChooseLocation from './ChooseLocation';
 import Confirm from './Confirm';
 
 
+
 const steps = ['Add Photos and Detials', 'Choose Location', 'Confirm Submission'];
 
-export default function LocationForm() {
+export default function LocationForm(props) {
 
   const { createLocation } = useApplicationData();
 
   const [file, setFile] = React.useState({});
   const [activeStep, setActiveStep] = React.useState(0);
-  const [skipped, setSkipped] = React.useState(new Set());
-  const [rating, setRating] = React.useState(5);
 
-  const [isDangerous, setIsDangerous] = React.useState(false);
+  // const [rating, setRating] = React.useState(5);
 
-  const [event, setEvent] = React.useState({});
+  // const [isDangerous, setIsDangerous] = React.useState(false);
 
-  const [position, setPosition] = React.useState({
+  const [event, setEvent] = React.useState({
 
-    longtitude: null,
-    latitude: null
+    title: '',
+    description: '',
+    is_dangerous: false,
+    position: {lat: 43, lng: -79}
 
-  })
+  });
 
-  const isStepOptional = (step) => {
-    return step === 1;
-  };
+  // const [position, setPosition] = React.useState({
 
-  const isStepSkipped = (step) => {
-    return skipped.has(step);
-  };
+  //   lng: -79,
+  //   lat: 43
+
+  // })
 
   const handleNext = () => {
-    let newSkipped = skipped;
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
-    }
 
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
+
+    if(activeStep === steps.length - 1){
+
+      handleSubmit();
+
+    }
+    
   };
 
   const handleBack = () => {
+
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
 
-  const handleSkip = () => {
-    if (!isStepOptional(activeStep)) {
-      // You probably want to guard against something like this,
-      // it should never occur unless someone's actively trying to break something.
-      throw new Error("You can't skip a step that isn't optional.");
-    }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(activeStep);
-      return newSkipped;
-    });
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
   };
 
   const handlePage = () => {
@@ -81,22 +65,27 @@ export default function LocationForm() {
       
       return (<AddPhoto 
         
-        handleSubmit={(event) => setEvent({...event})} 
+        // handleSubmit={(event) => setEvent({...event})} 
         onFileChange={onFileChange} 
-        rating={rating} 
-        setRating={setRating} 
-        isDangerous={isDangerous}
-        setIsDangerous={setIsDangerous}
-        
-        
+        // rating={rating} 
+        // setRating={setRating} 
+        // isDangerous={isDangerous}
+        // setIsDangerous={setIsDangerous}
+
+        setEvent={setEvent}
+        event={event}
+
         />);
 
     } else if (activeStep === 1) {
 
       return (<ChooseLocation
       
-        position={position}
-        setPosition={setPosition}
+        // position={position}
+        // setPosition={setPosition}
+
+        setEvent={setEvent}
+        event={event}
       
       />);
 
@@ -114,16 +103,35 @@ export default function LocationForm() {
 
   const handleSubmit = () => {
 
-    //:name, :email_address, :password, :password_confirmation, :birthday, :image_url, :instagram_handle, :twitter_handle, :tiktok_handle, :personal_link, :summary
-    event.preventDefault();
-    // const images = event.currentTarget.images.files; 
-    const data = new FormData(event.currentTarget);
+    // //:name, :email_address, :password, :password_confirmation, :birthday, :image_url, :instagram_handle, :twitter_handle, :tiktok_handle, :personal_link, :summary
+    // event.preventDefault();
+    // // const images = event.currentTarget.images.files; 
+    const data = new FormData();
+
+    data.append('latitude', event.position.lat);
+    data.append('longitude', event.position.lng);
+
+    for(let key of Object.keys(event)){
+
+      data.append(key, event[key]);
+
+    }
 
     for(let i = 0 ; i< file.length; i++) {
-      // console.log(typeof photos, "hi")
+      
       data.append(`images[]`, file[i]);
-      // photos.push(images[i])
+      
     }
+
+    console.log(
+      data.get('title'),
+      data.get('description'),
+      data.get('is_dangerous'),
+      data.get('longitude'),
+      data.get('latitude'),
+      data.get('images[]')
+
+    )
 
     createLocation(data)
       .then(res => {
@@ -134,7 +142,7 @@ export default function LocationForm() {
       .catch(err => console.log(err))
 
   };
-  // });
+
   const onFileChange = event => {
 
     // Update the state
@@ -143,36 +151,28 @@ export default function LocationForm() {
 
   };
 
-
   return (
     <Box sx={{ width: '100%' }}>
       <Stepper activeStep={activeStep}>
-        {steps.map((label, index) => {
-          const stepProps = {};
-          const labelProps = {};
-          if (isStepOptional(index)) {
-            labelProps.optional = (
-              <Typography variant="caption">Optional</Typography>
-            );
-          }
-          if (isStepSkipped(index)) {
-            stepProps.completed = false;
-          }
+        {steps.map((label) => {
+
           return (
-            <Step key={label} {...stepProps}>
-              <StepLabel {...labelProps}>{label}</StepLabel>
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
             </Step>
           );
+
         })}
       </Stepper>
+
       {activeStep === steps.length ? (
         <React.Fragment>
           <Typography sx={{ mt: 2, mb: 1 }}>
-            All steps completed - you&apos;re finished
+            New location submitted. Thank you very much for your valuable contributions!
           </Typography>
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
             <Box sx={{ flex: '1 1 auto' }} />
-            <Button onClick={handleReset}>Reset</Button>
+            <Button onClick={props.handleClose}>Close</Button>
           </Box>
         </React.Fragment>
       ) : (
@@ -182,6 +182,7 @@ export default function LocationForm() {
             {handlePage()}
 
           </Typography>
+          
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
             <Button
               color="inherit"
@@ -190,17 +191,15 @@ export default function LocationForm() {
               sx={{ mr: 1 }}
             >
               Back
+
             </Button>
+
             <Box sx={{ flex: '1 1 auto' }} />
-            {isStepOptional(activeStep) && (
-              <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                Skip
-              </Button>
-            )}
 
             <Button onClick={handleNext}>
               {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
             </Button>
+            
           </Box>
         </React.Fragment>
       )}

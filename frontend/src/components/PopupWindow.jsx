@@ -4,42 +4,44 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { useHistory } from "react-router-dom";
 import { useEffect } from 'react';
+import { useHistory } from "react-router-dom";
 
 export default function PopupWindow(props) {
 
-  const [open, setOpen] = React.useState(true);
   const [scroll, setScroll] = React.useState('paper');
+  const [open, setOpen] = React.useState(true);
   const history = useHistory();
 
-  const handleClickOpen = (scrollType) => () => {
-    setOpen(true);
-    setScroll(scrollType);
-  };
 
   function handleClose() {
     setOpen(false);
-    history.push('/') 
+    history.push('/')
   };
+
+
+  // const handleClickOpen = (scrollType) => () => {
+  //   setOpen(true);
+  //   setScroll(scrollType);
+  // };
 
   return (
 
     <Dialog
-    open={open}
-    onClose={handleClose}
-    scroll={scroll}
-    aria-labelledby="scroll-dialog-title"
-    aria-describedby="scroll-dialog-description"
-    disableEnforceFocus
+      open={open}
+      onClose={handleClose}
+      scroll={scroll}
+      aria-labelledby="scroll-dialog-title"
+      aria-describedby="scroll-dialog-description"
+      disableEnforceFocus
     >
-    <DialogContent dividers={scroll === 'paper'}>
+      <DialogContent dividers={scroll === 'paper'}>
 
-    {props.children}
+        {props.children}
 
-    </DialogContent>
+      </DialogContent>
     </Dialog>
 
-    
+
   );
 }

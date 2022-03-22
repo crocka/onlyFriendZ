@@ -84,12 +84,11 @@ export default function useApplicationData() {
       })
     );
 
-
   }
 
   function createLocation(location) {
 
-    return (axios.post(`/locations`, { ...location })
+    return (axios.post(`/locations`, location)
       .then(response => {
         setUser(response.data);
       })

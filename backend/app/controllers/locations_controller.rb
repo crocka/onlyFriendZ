@@ -24,8 +24,6 @@ class LocationsController < ApplicationController
           @location.images.attach(params[:images])
 
       end
-
-      byebug
       
       render json: @location, status: :created, location: @location
     else
@@ -55,6 +53,6 @@ class LocationsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def location_params
-      params.permit(:title, :description, :latitude, :longitude, :rating, :is_dangerous)
+      params.permit(:title, :description, :latitude, :longitude, :is_dangerous)
     end
 end
