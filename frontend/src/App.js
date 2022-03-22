@@ -21,12 +21,13 @@ function App() {
 
   return (
     <div>
-      {/* <Sidebar />
+      <Sidebar />
       <Switch>
         <Route exact from="/welcome" render={props => <PopupWindow><Welcome {...props} /></PopupWindow>} />
         <Route exact from="/signup" render={props => <PopupWindow><SignUp {...props} /></PopupWindow>} />
         <Route exact from="/signin" render={props => <PopupWindow><SignIn {...props} /></PopupWindow>} />
-      </Switch> */}
+        <Route exact from="/addlocation" render={props => <PopupWindow><LocationForm {...props} /></PopupWindow>} />
+      </Switch>
       <Map></Map>
       <PopupWindow>
         <SignIn></SignIn>
