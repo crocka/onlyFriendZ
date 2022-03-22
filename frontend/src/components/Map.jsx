@@ -66,9 +66,10 @@ export default function Map(props) {
         }}
       </MapConsumer> */}
 
-      {/* <Marker position={[43.6532, -79.3832]}>
+      <Marker position={[43.6532, -79.3832]}>
         <Popup>You are here</Popup>
-      </Marker> */}
+      </Marker>
+      
       <Button variant="outlined" id="mode-switch" onClick={onClick}>Switch Map</Button>
       {props.children}
     </MapContainer>
