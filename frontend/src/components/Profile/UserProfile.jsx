@@ -9,7 +9,9 @@ export default function UserProfile(props) {
 
   return (
     
-    <Profile labels={labels} />
+    <Profile labels={labels}>
+ 
+    </Profile>
 
   );
   

@@ -13,6 +13,7 @@ import LocationForm from "./components/AddLocation/LocationForm.jsx"
 import LocationMarker from './components/AddLocation/LocationMarker.jsx';
 import * as React from 'react';
 
+import LocationCard from './components/Profile/LocationCard';
 
 import './App.css';
 function App() {
@@ -21,17 +22,17 @@ function App() {
 
   return (
     <div>
-      <Sidebar />
+      {/* <Sidebar />
       <Switch>
         <Route exact from="/welcome" render={props => <PopupWindow><Welcome {...props} /></PopupWindow>} />
         <Route exact from="/signup" render={props => <PopupWindow><SignUp {...props} /></PopupWindow>} />
         <Route exact from="/signin" render={props => <PopupWindow><SignIn {...props} /></PopupWindow>} />
         <Route exact from="/addlocation" render={props => <PopupWindow><LocationForm {...props} /></PopupWindow>} />
-      </Switch>
+      </Switch> */}
       <Map></Map>
       <PopupWindow>
         {/* <SignIn></SignIn> */}
-        <LocationForm />
+        <LocationCard />
       </PopupWindow>
     </div>
   );
