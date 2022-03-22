@@ -18,6 +18,15 @@ class LocationsController < ApplicationController
     @location = Location.new(location_params)
 
     if @location.save
+      
+      if params[:images].present?
+
+          @location.images.attach(params[:images])
+
+      end
+
+      byebug
+      
       render json: @location, status: :created, location: @location
     else
       render json: @location.errors, status: :unprocessable_entity
@@ -46,6 +55,6 @@ class LocationsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def location_params
-      params.require(:location).permit(:title, :description, :latitude, :longitude, :rating, :is_dangerous)
+      params.permit(:title, :description, :latitude, :longitude, :rating, :is_dangerous)
     end
 end
