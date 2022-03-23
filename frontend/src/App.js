@@ -8,7 +8,7 @@ import Fragment from 'react'
 import Location from './components/Location.jsx'
 import CreateLocation from './components/CreateLocation'
 import UserSummary from './components/Summary.jsx'
-import {Switch, Route} from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import LocationForm from "./components/AddLocation/LocationForm.jsx"
 import LocationMarker from './components/AddLocation/LocationMarker.jsx';
 import * as React from 'react';
@@ -20,9 +20,26 @@ import useApplicationData from './hooks/useApplicationData.jsx'
 import './App.css';
 function App() {
 
-  const { state } = useApplicationData;
+  const { getUser } = useApplicationData();
+  const [images, setImages] = React.useState([]);
 
-  console.log(state)
+  function user() {
+  
+    let img_src;
+
+    getUser(20).then(response => {
+
+      console.log(response)
+
+      img_src = response.data.images
+
+      setImages(img_src);
+
+    }).catch(err => console.error);
+
+  }
+
+  user();
 
   return (
     <div>
@@ -35,8 +52,12 @@ function App() {
       </Switch>
       {/* <Map></Map> */}
       <PopupWindow>
-        <SignUp></SignUp>
+        {/* <SignUp></SignUp> */}
         {/* <LocationCard /> */}
+        {images.map((image) => {
+
+          return ( <img src={image} alt=""/>);
+        })}
       </PopupWindow>
     </div>
   );

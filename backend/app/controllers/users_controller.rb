@@ -7,11 +7,26 @@ class UsersController < ApplicationController
     @users = User.all
 
     render json: @users
+  
   end
 
   # GET /users/1
   def show
-    render json: @user
+
+    images = []
+
+    @user.images.each do |image|
+      images.push(rails_blob_path(image, only_path: true))
+    end
+
+    render json: { 
+      
+      user: @user,
+      images: images
+
+     }
+    
+    
   end
 
   # POST /users
