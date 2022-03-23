@@ -129,7 +129,7 @@ export default function useApplicationData() {
     return (axios.post(`/login`, { ...user })
       .then(response => {
 
-        console.log(response);
+        return response.data
 
       })
     );
@@ -159,7 +159,8 @@ export default function useApplicationData() {
     deleteLocation,
     logInUser,
     logOutUser,
-    getUser
+    getUser,
+    getLocation
 
   };
 

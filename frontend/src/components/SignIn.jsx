@@ -49,6 +49,7 @@ export default function SignIn() {
     })
       .then(res => {
 
+        console.log(res)
         document.cookie = res.user_id;
         
       })
