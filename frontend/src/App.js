@@ -15,31 +15,40 @@ import * as React from 'react';
 
 import PictureWall from './components/Profile/PictureWall';
 
-import useApplicationData from './hooks/useApplicationData.jsx'
+import UserProfile from './components/Profile/UserProfile';
+
+import useApplicationData from './hooks/useApplicationData.jsx';
 
 import './App.css';
 function App() {
 
   const { getUser } = useApplicationData();
-  const [images, setImages] = React.useState([]);
+  const [response, setResponse] = React.useState({});
 
-  function user() {
+
+  React.useEffect(() => {
+
+    function user() {
+
+      let res;
   
-    let img_src;
+      getUser(20).then(response => {
+  
+        console.log(response)
+  
+        res = response.data
+    
+        setResponse(res);
+  
+      }).catch(err => console.error);
+  
+    }
+  
+    user();
 
-    getUser(20).then(response => {
+  }, [])
 
-      console.log(response)
-
-      img_src = response.data.images
-
-      setImages(img_src);
-
-    }).catch(err => console.error);
-
-  }
-
-  user();
+  // console.log(response)
 
   return (
     <div>
@@ -54,10 +63,12 @@ function App() {
       <PopupWindow>
         {/* <SignUp></SignUp> */}
         {/* <LocationCard /> */}
-        {images.map((image) => {
+        {/* {response.images.map((image) => {
 
-          return ( <img src={image} alt=""/>);
-        })}
+          return (<img src={image} alt="" />);
+        })} */}
+
+        <UserProfile user={response} />
       </PopupWindow>
     </div>
   );

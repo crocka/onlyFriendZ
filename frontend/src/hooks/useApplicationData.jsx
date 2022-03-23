@@ -85,6 +85,12 @@ export default function useApplicationData() {
 
   }
 
+  function getLocation(id) {
+
+    return (axios.get(`/locations/${id}`));
+
+  }
+
   function updateLocation(id, location) {
 
     return (axios.put(`/locations/${id}`, { ...location })

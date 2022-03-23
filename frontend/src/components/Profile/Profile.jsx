@@ -2,8 +2,7 @@ import React from 'react';
 import Tabs from './Tabs';
 import Summary from '../Summary';
 import PictureWall from './PictureWall';
-import ReviewList from './ReviewList';
-import Contact from '../Contact';
+// import ReviewList from './ReviewList';
 import Alert from '@mui/material/Alert';
 
 
@@ -19,10 +18,10 @@ export default function Profile(props) {
       {obj.is_dangerous ? (<Alert severity="error">This location is labelled as potentially dangerous. Please do not go alone!</Alert>) : ''}
 
       <Tabs tabLabels={labels}>
-        <Summary title={obj.title} summary={obj.summary} ></Summary>
+        <Summary obj={obj} ></Summary>
         <PictureWall images={obj.images}></PictureWall>
-        <ReviewList></ReviewList>
-        <Contact></Contact>
+        <div/>
+        {/* <ReviewList></ReviewList> */}
       </Tabs>
     </React.Fragment>
 

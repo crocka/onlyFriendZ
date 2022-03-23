@@ -14,22 +14,12 @@ import IconButton from '@mui/material/IconButton';
 import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="/">
-        onlyFriendZ
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
 const theme = createTheme();
 
-export default function UserSummary(props) {
+export default function Summary(props) {
+
+  const { obj } = props;
+
   return (
         <ThemeProvider theme={theme}>
           <Container component="main" maxWidth="xs">
@@ -42,10 +32,10 @@ export default function UserSummary(props) {
               }}
             >
               <div className="profile-pic">
-                <img src='https://upload.wikimedia.org/wikipedia/en/thumb/3/3b/SpongeBob_SquarePants_character.svg/640px-SpongeBob_SquarePants_character.svg.png' width={250} height={250}/>
+                <img src={obj.images[0]} alt="" width={250} height={250}/>
               </div>
-              <Typography className="info"component="h1" variant="h5">Spongebob, 25</Typography>
-              <div class="biography">I am lonely on my birthday. Someone join me to hangout and take pictures!</div>
+              <Typography className="info"component="h1" variant="h5">{obj.title}</Typography>
+              <div class="biography">{obj.summary}</div>
               <div className="interact-buttons">
                 <IconButton className="back" sx={{ m: 1, color: 'red', border: "solid 2px" }}>
                   <KeyboardBackspaceOutlinedIcon />

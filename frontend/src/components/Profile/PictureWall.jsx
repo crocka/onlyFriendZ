@@ -17,11 +17,11 @@ export default function PictureWall(props) {
         <Box sx={{ width: 500, height: 450, overflowY: 'scroll' }}>
           <ImageList variant="masonry" cols={3} gap={8}>
             {images.map((item) => (
-              <ImageListItem key={item.img}>
+              <ImageListItem key={item}>
                 <img
-                  src={`${item.img}?w=248&fit=crop&auto=format`}
+                  src={item}
                   srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                  alt={item.title}
+                  alt={images.title && images.title}
                   loading="lazy"
                 />
                 <ImageListItemBar position="below" title={item.author} />

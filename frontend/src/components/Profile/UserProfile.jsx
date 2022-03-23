@@ -6,7 +6,7 @@ export default function UserProfile(props) {
 
   const { user } = props;
   
-  const labels = ['Personal Summary', 'Favorite Places', 'Reviews', 'Contact me'];
+  const labels = ['Personal Summary', 'Favorite Places', 'Reviews'];
 
   return (
     
