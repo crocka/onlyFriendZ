@@ -17,6 +17,8 @@ L.Marker.prototype.options.icon = DefaultIcon;
 
 export default function Map(props) {
   const [colorMode, setColorMode] = useState("light");
+  const [position, setPosition] = useState([43, -79]);
+
   let testData = [{ id: 1, title: "CN Tower", description: "The big tower in Toronto", coordinates: [43.6426, -79.3871] }, { id: 2, title: "Ontario Place", description: "Big park", coordinates: [43.6282, -79.4155] }]
   const dark = 'https:///cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'
   const light = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
@@ -37,6 +39,21 @@ export default function Map(props) {
       ref.current.setUrl(colorMode === "light" ? light : dark);
     }
   }, [colorMode]);
+
+
+  navigator.geolocation.watchPosition(position => {
+
+    const coords = position.coords;
+    setPosition([coords.latitude, coords.longitude]);
+
+  });
+
+  // useEffect(() => {
+
+  //   console.log(position);
+
+
+  // }, [position])
 
   //   async function addGeoJson() {
   //     const response = await fetch("https://opendata.arcgis.com/datasets/923cb3294384488e8a4ffbeb3b8f6cb2_32.geojson");
@@ -72,7 +89,7 @@ export default function Map(props) {
         }}
       </MapConsumer> */}
 
-      {testData.map(place => (
+      {/* {testData.map(place => (
         <Marker
           key={place.id}
           position={place.coordinates}
@@ -84,7 +101,11 @@ export default function Map(props) {
             </div>
           </Popup>
         </Marker>
-      ))}
+      ))} */}
+
+      <Marker position={position} ></Marker>
+
+
 
       {/* <Marker position={[43.6532, -79.3832]}>
         <Popup>You are here</Popup>

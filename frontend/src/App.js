@@ -7,7 +7,7 @@ import Sidebar from './components/Sidebar.jsx'
 import Fragment from 'react'
 import Location from './components/Location.jsx'
 import CreateLocation from './components/CreateLocation'
-import UserSummary from './components/UserSummary.jsx'
+import UserSummary from './components/Summary.jsx'
 import {Switch, Route} from "react-router-dom";
 import LocationForm from "./components/AddLocation/LocationForm.jsx"
 import LocationMarker from './components/AddLocation/LocationMarker.jsx';
@@ -15,11 +15,14 @@ import * as React from 'react';
 
 import PictureWall from './components/Profile/PictureWall';
 
+import useApplicationData from './hooks/useApplicationData.jsx'
+
 import './App.css';
 function App() {
 
+  const { state } = useApplicationData;
 
-
+  console.log(state)
   return (
     <div>
       <Sidebar />
@@ -31,13 +34,8 @@ function App() {
       </Switch>
       <Map></Map>
       <PopupWindow>
-<<<<<<< HEAD
-        {/* <SignIn></SignIn> */}
-        {/* <PictureWall /> */}
-=======
         <SignIn></SignIn>
         {/* <LocationCard /> */}
->>>>>>> 7de00f483a0412c6ecb32371c3377f3c363a1011
       </PopupWindow>
     </div>
   );

@@ -4,7 +4,7 @@ class UserReviewsController < ApplicationController
   #GET /user_reviews
   def index
 
-    @user_reviewS = UserReview.all
+    @user_reviews = UserReview.all
 
     render json: @user_reviews
     

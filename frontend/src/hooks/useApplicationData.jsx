@@ -32,17 +32,17 @@ export default function useApplicationData() {
 
       axios.get('/users'),
       axios.get('/locations'),
-      axios.get(`/users/favourite_locations`),
-      axios.get(`/users/user_reviews`),
-      axios.get(`/locations/comments`)
+      axios.get(`/user/favourite_locations`),
+      axios.get(`/user/user_reviews`),
+      axios.get(`/location/comments`)
 
     ]).then(response => {
 
-      setState({ ...state, users: response[0].data, locations: response[1].data, favourite_locations: response[2].data, user_reviews: response[3].data, comments: response[4].data });
+      setState(prev => {return {...prev, users: response[0].data, locations: response[1].data, favourite_locations: response[2].data, user_reviews: response[3].data, comments: response[4].data }});
 
-    });
+    }).catch(err => console.log(err));
 
-  }, [state]);
+  }, []);
 
 
   function updateUser(id, user) {

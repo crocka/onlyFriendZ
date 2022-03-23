@@ -3,12 +3,12 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :create, :show, :update, :destroy]
   resources :locations, only: [:index, :create, :show, :update, :destroy]
 
-  scope :users do
+  scope "/user" do
     resources :favourite_locations, only: [:index, :show, :create, :destroy]
     resources :user_reviews, only: [:index, :show, :create, :destroy]
   end
 
-  scope :locations do
+  scope "/location" do
     resources :comments, only: [:index, :show, :create, :destroy]
   end
 
