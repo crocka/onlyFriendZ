@@ -19,13 +19,12 @@ class UsersController < ApplicationController
       images.push(rails_blob_path(image, only_path: true))
     end
 
-    render json: { 
+    render json: {
       
-      user: @user,
+      user: @user, 
       images: images
 
-     }
-    
+    }
     
   end
 

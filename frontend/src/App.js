@@ -60,7 +60,12 @@ function App() {
         <Route exact from="/addlocation" render={props => <PopupWindow><LocationForm {...props} /></PopupWindow>} />
       </Switch>
       <Map></Map>
-      <PopupWindow>{/* <SignUp></SignUp> */}{/* <LocationCard /> */}{/* {response.images.map((image) => {return (<img src={image} alt="" />);})} */}<UserProfile user={response} /></PopupWindow>
+      <PopupWindow>
+        <SignIn></SignIn>
+        {/* <LocationCard /> */}
+        {/* {response.images.map((image) => {return (<img src={image} alt="" />);})} */}
+        {/* <UserProfile user={response} /> */}
+      </PopupWindow>
     </div>
 
   );

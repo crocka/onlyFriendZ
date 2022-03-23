@@ -47,7 +47,11 @@ export default function SignIn() {
       password: data.get('password')
 
     })
-      .then(res => console.log(res))
+      .then(res => {
+
+        document.cookie = res.user_id;
+        
+      })
       .catch(err => console.log(err))
 
     // console.log({
