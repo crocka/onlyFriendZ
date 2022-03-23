@@ -15,6 +15,7 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import useApplicationData from '../hooks/useApplicationData';
 import { DropzoneArea } from 'material-ui-dropzone';
+import { useHistory } from "react-router-dom";
 
 
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -41,9 +42,9 @@ const theme = createTheme();
 export default function SignUp() {
 
   const { createUser } = useApplicationData();
-
   const [value, setValue] = React.useState(new Date());
   const [file, setFile] = React.useState([]);
+  const history = useHistory()
 
   const Input = styled('input')({
     display: 'none',
@@ -108,7 +109,7 @@ export default function SignUp() {
         .then(res => {
 
           console.log(res);
-
+          history.push('/')
         })
         .catch(err => console.log(err))
 
@@ -125,7 +126,6 @@ export default function SignUp() {
     };
   // });
   const onFileChange = event => {
-
     // Update the state
     setFile([...event]);
     // console.log(event)

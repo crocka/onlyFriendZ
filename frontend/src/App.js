@@ -31,19 +31,19 @@ function App() {
     function user() {
 
       let res;
-  
+
       getUser(20).then(response => {
-  
+
         console.log(response)
-  
+
         res = response.data
-    
+
         setResponse(res);
-  
+
       }).catch(err => console.error);
-  
+
     }
-  
+
     user();
 
   }, [])
@@ -59,18 +59,10 @@ function App() {
         <Route exact from="/signin" render={props => <PopupWindow><SignIn {...props} /></PopupWindow>} />
         <Route exact from="/addlocation" render={props => <PopupWindow><LocationForm {...props} /></PopupWindow>} />
       </Switch>
-      {/* <Map></Map> */}
-      <PopupWindow>
-        {/* <SignUp></SignUp> */}
-        {/* <LocationCard /> */}
-        {/* {response.images.map((image) => {
-
-          return (<img src={image} alt="" />);
-        })} */}
-
-        <UserProfile user={response} />
-      </PopupWindow>
+      <Map></Map>
+      <PopupWindow>{/* <SignUp></SignUp> */}{/* <LocationCard /> */}{/* {response.images.map((image) => {return (<img src={image} alt="" />);})} */}<UserProfile user={response} /></PopupWindow>
     </div>
+
   );
 }
 
