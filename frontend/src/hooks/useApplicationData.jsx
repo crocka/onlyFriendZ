@@ -38,7 +38,15 @@ export default function useApplicationData() {
 
     ]).then(response => {
 
-      setState(prev => {return {...prev, users: response[0].data, locations: response[1].data, favourite_locations: response[2].data, user_reviews: response[3].data, comments: response[4].data }});
+      setState(prev => {
+        
+        console.log(prev)
+
+        return { ...prev, users: response[0].data, locations: response[1].data, favourite_locations: response[2].data, user_reviews: response[3].data, comments: response[4].data };
+
+      });
+
+      console.log(response)
 
     }).catch(err => console.log(err));
 

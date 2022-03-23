@@ -23,6 +23,7 @@ function App() {
   const { state } = useApplicationData;
 
   console.log(state)
+
   return (
     <div>
       <Sidebar />
@@ -32,9 +33,9 @@ function App() {
         <Route exact from="/signin" render={props => <PopupWindow><SignIn {...props} /></PopupWindow>} />
         <Route exact from="/addlocation" render={props => <PopupWindow><LocationForm {...props} /></PopupWindow>} />
       </Switch>
-      <Map></Map>
+      {/* <Map></Map> */}
       <PopupWindow>
-        <SignIn></SignIn>
+        <SignUp></SignUp>
         {/* <LocationCard /> */}
       </PopupWindow>
     </div>

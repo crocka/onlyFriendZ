@@ -54,6 +54,7 @@ export default function SignUp() {
     const handleChange = (newValue) => {
       setValue(newValue);
     };
+    
     const handleSubmit = (event) => {
 
       //:name, :email_address, :password, :password_confirmation, :birthday, :image_url, :instagram_handle, :twitter_handle, :tiktok_handle, :personal_link, :summary
@@ -61,7 +62,7 @@ export default function SignUp() {
       // const images = event.currentTarget.images.files; 
       const data = new FormData(event.currentTarget);
       const name = `${data.get('firstName')} ${data.get('lastName')}`;
-      data.append("name", name)
+      data.append("name", name);
       // console.log(Object.keys(event.currentTarget.files.files));
       // let images = [];
       // Object.keys(event.currentTarget.files.files).forEach((file)=> {
@@ -185,10 +186,10 @@ export default function SignUp() {
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                   <DesktopDatePicker
                     label="Birthdate"
-                    inputFormat="MM/dd/yyyy"
+                    inputFormat="yyyy-MM-dd"
                     value={value}
                     onChange={handleChange}
-                    renderInput={(params) => <TextField required {...params} />}
+                    renderInput={(params) => <TextField required {...params} name='birthday'/>}
                   />
                 </LocalizationProvider>
               </Grid>
@@ -240,7 +241,6 @@ export default function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              // onClick={createUser}
             >
               Sign Up
             </Button>
