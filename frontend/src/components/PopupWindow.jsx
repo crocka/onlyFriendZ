@@ -10,7 +10,7 @@ export default function PopupWindow(props) {
   const history = useHistory();
 
 
-  async function handleClose() {
+  function handleClose() {
     setOpen(false);
     history.push('/');
   };
