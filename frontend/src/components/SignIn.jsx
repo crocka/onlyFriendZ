@@ -57,11 +57,8 @@ export default function SignIn() {
 
     })
       .then(res => {
-
-        console.log(res)
         Cookies.set('UserID', res.user_id)
         document.location.href="/";
-        
       })
       .catch(err => console.log(err))
 

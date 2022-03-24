@@ -11,6 +11,8 @@ import UserSummary from './components/Summary.jsx'
 import { Switch, Route } from "react-router-dom";
 import LocationForm from "./components/AddLocation/LocationForm.jsx"
 import LocationMarker from './components/AddLocation/LocationMarker.jsx';
+import * as React from 'react';
+import ReviewList from './components/Profile/ReviewList';
 import { useEffect, useState } from "react";
 import Cookies from 'js-cookie'
 
@@ -23,7 +25,8 @@ import useApplicationData from './hooks/useApplicationData.jsx';
 import './App.css';
 function App() {
 
-  const { getUser,getUserReviews } = useApplicationData();
+  const { getUser, state, getUserReviews } = useApplicationData();
+  const [userReview, setUserReview] = React.useState([]);
   const [response, setResponse] = useState({});
   const [userLogin, setUserLogin] = useState(false);
 
@@ -84,14 +87,12 @@ function App() {
         {!userLogin && <Route path='*' exact={true} component={Welcome} />}
       </Switch>
       <Map></Map>
-      {/* <PopupWindow> */}
-        {/* <SignIn></SignIn> */}
-        {/* <LocationCard /> */}
-        {/* {response.images.map((image) => {return (<img src={image} alt="" />);})} */}
-        {/* <UserProfile user={response} /> */}
-      {/* </PopupWindow> */}
-    </div>
-
+        {/* <SignIn></SignIn> 
+        <LocationCard />
+        {response.images.map((image) => {return (<img src={image} alt="" />);})}
+        <UserProfile user={response} />
+        <ReviewList reviewArray={userReview} state={state} user_id={16} /> */}
+        </div>
   );
 }
 

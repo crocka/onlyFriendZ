@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       render json: session
     else
     # If user's login doesn't work, send them back to the login form.
-      redirect_to root_url
+    render json: { error: 'Incorrect password ' }, status: :unauthorized
     end
   end
 
