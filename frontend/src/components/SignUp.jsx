@@ -16,8 +16,8 @@ import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import useApplicationData from '../hooks/useApplicationData';
 import { DropzoneArea } from 'material-ui-dropzone';
 import { useHistory } from "react-router-dom";
-
-
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -40,11 +40,17 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
-
   const { createUser } = useApplicationData();
   const [value, setValue] = React.useState(new Date());
   const [file, setFile] = React.useState([]);
+  const [scroll, setScroll] = React.useState('paper');
+  const [open, setOpen] = React.useState(true);
   const history = useHistory()
+
+  function handleClose() {
+    setOpen(false);
+  };
+  
 
   const Input = styled('input')({
     display: 'none',
@@ -133,6 +139,15 @@ export default function SignUp() {
   };
 
   return (
+    <Dialog
+    open={true}
+    onClose={handleClose}
+    scroll={scroll}
+    aria-labelledby="scroll-dialog-title"
+    aria-describedby="scroll-dialog-description"
+    disableEnforceFocus
+  >
+    <DialogContent dividers={scroll === 'paper'}>
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -246,7 +261,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="#" onClick={() => history.push('/signin')} variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
@@ -256,5 +271,7 @@ export default function SignUp() {
         <Copyright sx={{ mt: 5 }} />
       </Container>
     </ThemeProvider>
+    </DialogContent>
+    </Dialog>
   );
 }

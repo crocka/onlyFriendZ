@@ -13,6 +13,10 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useApplicationData from '../hooks/useApplicationData';
+import Cookies from 'js-cookie'
+import { useHistory } from "react-router-dom";
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
 
 
 
@@ -33,9 +37,14 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
-
-
+  const [scroll, setScroll] = React.useState('paper');
+  const [open, setOpen] = React.useState(true);
+  const history = useHistory()
   const { logInUser } = useApplicationData();
+
+  function handleClose() {
+    setOpen(false);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -50,7 +59,8 @@ export default function SignIn() {
       .then(res => {
 
         console.log(res)
-        document.cookie = res.user_id;
+        Cookies.set('UserID', res.user_id)
+        document.location.href="/";
         
       })
       .catch(err => console.log(err))
@@ -62,6 +72,15 @@ export default function SignIn() {
   };
 
   return (
+    <Dialog
+    open={true}
+    onClose={handleClose}
+    scroll={scroll}
+    aria-labelledby="scroll-dialog-title"
+    aria-describedby="scroll-dialog-description"
+    disableEnforceFocus
+  >
+    <DialogContent dividers={scroll === 'paper'}>
         <ThemeProvider theme={theme}>
           <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -119,7 +138,7 @@ export default function SignIn() {
                     </Link>
                   </Grid>
                   <Grid item>
-                    <Link href="#" variant="body2">
+                    <Link href="#" onClick={() => history.push('/signup')} variant="body2">
                       {"Don't have an account? Sign Up"}
                     </Link>
                   </Grid>
@@ -129,7 +148,7 @@ export default function SignIn() {
             <Copyright sx={{ mt: 8, mb: 4 }} />
           </Container>
         </ThemeProvider>
-
-
+            </DialogContent>
+            </Dialog>
   );
 }
