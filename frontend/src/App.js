@@ -11,7 +11,8 @@ import UserSummary from './components/Summary.jsx'
 import { Switch, Route } from "react-router-dom";
 import LocationForm from "./components/AddLocation/LocationForm.jsx"
 import LocationMarker from './components/AddLocation/LocationMarker.jsx';
-import * as React from 'react';
+import { useEffect, useState } from "react";
+import Cookies from 'js-cookie'
 
 import PictureWall from './components/Profile/PictureWall';
 
@@ -23,10 +24,11 @@ import './App.css';
 function App() {
 
   const { getUser } = useApplicationData();
-  const [response, setResponse] = React.useState({});
+  const [response, setResponse] = useState({});
+  const [userLogin, setUserLogin] = useState(false);
 
 
-  React.useEffect(() => {
+  useEffect(() => {
 
     function user() {
 
@@ -44,28 +46,41 @@ function App() {
 
     }
 
+  function checkUserLogin() {
+    if(Cookies.get('UserID')) {
+      setUserLogin(true)
+    } else {
+      setUserLogin(false)
+    }
+  }
+
     user();
+    checkUserLogin();
 
   }, [])
 
   // console.log(response)
 
+
+
   return (
     <div>
       <Sidebar />
       <Switch>
-        <Route exact from="/welcome" render={props => <PopupWindow><Welcome {...props} /></PopupWindow>} />
-        <Route exact from="/signup" render={props => <PopupWindow><SignUp {...props} /></PopupWindow>} />
-        <Route exact from="/signin" render={props => <PopupWindow><SignIn {...props} /></PopupWindow>} />
-        <Route exact from="/addlocation" render={props => <PopupWindow><LocationForm {...props} /></PopupWindow>} />
+        {!userLogin && <Route exact from="/" render={props => <Welcome {...props} />} />}
+        {!userLogin && <Route exact from="/welcome" render={props => <Welcome {...props} />} />}
+        {!userLogin && <Route exact from="/signup" render={props => <SignUp {...props} />} />}
+        {!userLogin && <Route exact from="/signin" render={props => <SignIn {...props} />} />}
+        {userLogin && <Route exact from="/addlocation" render={props => <PopupWindow><LocationForm {...props} /></PopupWindow>} />}
+        {!userLogin && <Route path='*' exact={true} component={Welcome} />}
       </Switch>
       <Map></Map>
-      <PopupWindow>
-        <SignIn></SignIn>
+      {/* <PopupWindow> */}
+        {/* <SignIn></SignIn> */}
         {/* <LocationCard /> */}
         {/* {response.images.map((image) => {return (<img src={image} alt="" />);})} */}
         {/* <UserProfile user={response} /> */}
-      </PopupWindow>
+      {/* </PopupWindow> */}
     </div>
 
   );
