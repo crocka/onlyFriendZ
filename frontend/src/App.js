@@ -12,7 +12,7 @@ import { Switch, Route } from "react-router-dom";
 import LocationForm from "./components/AddLocation/LocationForm.jsx"
 import LocationMarker from './components/AddLocation/LocationMarker.jsx';
 import * as React from 'react';
-
+import ReviewList from './components/Profile/ReviewList';
 import PictureWall from './components/Profile/PictureWall';
 
 import UserProfile from './components/Profile/UserProfile';
@@ -22,9 +22,12 @@ import useApplicationData from './hooks/useApplicationData.jsx';
 import './App.css';
 function App() {
 
-  const { getUser } = useApplicationData();
+  const { getUser, state, getUserReviews } = useApplicationData();
   const [response, setResponse] = React.useState({});
+  const [userReview, setUserReview] = React.useState([]);
 
+
+  // console.log(state)
 
   React.useEffect(() => {
 
@@ -32,7 +35,7 @@ function App() {
 
       let res;
 
-      getUser(20).then(response => {
+      getUser(16).then(response => {
 
         console.log(response)
 
@@ -45,6 +48,14 @@ function App() {
     }
 
     user();
+
+
+    getUserReviews(16).then(res => {
+
+      console.log(res);
+      setUserReview(res);
+
+    }).catch(err => console.error);
 
   }, [])
 
@@ -65,6 +76,7 @@ function App() {
         {/* <LocationCard /> */}
         {/* {response.images.map((image) => {return (<img src={image} alt="" />);})} */}
         {/* <UserProfile user={response} /> */}
+        {/* <ReviewList reviewArray={userReview} state={state} user_id={16} /> */}
       </PopupWindow>
     </div>
 

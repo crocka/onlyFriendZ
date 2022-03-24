@@ -1,20 +1,24 @@
 import React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
+// import { DataGrid } from '@mui/x-data-grid';
 
-export default function Review () {
+export default function Review (props) {
+
+  const {reviewerName, comment} = props;
+
   return (
     <div style={{ height: 250, width: '100%' }}>
-      <DataGrid
-        columns={[{ field: 'username' }, { field: 'age' }, { field: 'review' }]}
+      {/* <DataGrid
+        columns={[{ field: 'username' }, { field: 'review' }]}
         rows={[
           {
-            id: 1,
-            username: 'test',
-            age: 30,
-            review: 'test review'
+           username: reviewerName,
+           review: comment
           }
         ]}
-      />
+      /> */}
+
+      <p>{reviewerName}</p>
+      <p>{comment}</p>
     </div>
   )
 }

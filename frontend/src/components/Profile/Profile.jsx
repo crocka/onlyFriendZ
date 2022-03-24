@@ -2,7 +2,7 @@ import React from 'react';
 import Tabs from './Tabs';
 import Summary from '../Summary';
 import PictureWall from './PictureWall';
-// import ReviewList from './ReviewList';
+import ReviewList from './ReviewList';
 import Alert from '@mui/material/Alert';
 
 
@@ -20,8 +20,7 @@ export default function Profile(props) {
       <Tabs tabLabels={labels}>
         <Summary obj={obj} ></Summary>
         <PictureWall images={obj.images}></PictureWall>
-        <div/>
-        {/* <ReviewList></ReviewList> */}
+        <ReviewList ></ReviewList>
       </Tabs>
     </React.Fragment>
 

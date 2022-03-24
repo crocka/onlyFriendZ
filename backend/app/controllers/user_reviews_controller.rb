@@ -54,3 +54,4 @@ class UserReviewsController < ApplicationController
       params.require(:user_review).permit(:reviewer_id, :user_id, :comment)
     end
 end
+
