@@ -8,12 +8,12 @@ export default function UserProfile(props) {
   
   const labels = ['Personal Summary', 'Favorite Places', 'Reviews'];
 
-  return (
+  return user ? (
     
-    <Profile labels={labels} obj={normalizeObject(user)}>
+    <Profile labels={labels} obj={ normalizeObject(user) }>
 
     </Profile>
 
-  );
+  ) : null ;
   
 }

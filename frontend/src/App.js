@@ -29,11 +29,23 @@ const ActionCableProvider = require('react-actioncable-provider');
 function App(props) {
 
   const { getUser, state, getUserReviews } = useApplicationData();
-  const [userReview, setUserReview] = React.useState([]);
   const [response, setResponse] = useState({});
   const [userLogin, setUserLogin] = useState(false);
+  const [initialPos, setInitialPos] = useState([]);
 
-  // console.log(state)
+  async function getInitialPosition() {
+
+    await navigator.geolocation.getCurrentPosition(position => {
+
+      const coords = position.coords;
+      setInitialPos([coords.latitude, coords.longitude]);
+
+    })
+
+  };
+
+  getInitialPosition();
+
 
   useEffect(() => {
 
@@ -72,11 +84,11 @@ function App(props) {
 
     //   }).catch(err => console.error);
 
-  }, [])
+  }, []);
 
-  console.log(response)
+  // console.log(response)
 
-
+  console.log(state);
 
   return (
     <div>
@@ -90,8 +102,9 @@ function App(props) {
           {userLogin && <Route exact from="/addlocation" render={props => <PopupWindow><LocationForm {...props} /></PopupWindow>} />}
           {!userLogin && <Route path='*' exact={true} component={Welcome} />}
         </Switch>
-        <Map cableApp={props.cableApp} state={state}></Map>
-        {/* <MarkerList /> */}
+        <Map cableApp={props.cableApp} state={state}>
+          {state && <MarkerList state={state} /> }
+        </Map>
         {/* <SignIn cableApp={props.cableApp } </SignIn> 
         <LocationCard />
         {response.images.map((image) => {return (<img src={image} alt="" />);})}

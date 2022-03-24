@@ -6,36 +6,74 @@ import React, {Fragment} from 'react';
 
 export default function MarkerList(props) {
 
-  const { positions, state } = props;
+  const { state } = props;
 
-  return (
+  const [positions, setPositions] = useState({});
+
+  useEffect(() => {
+
+    const cookie = Cookies.get('UserID')
+    //if logged in user
+    if (cookie) {
+
+      const sub = props.cableApp.cable.subscriptions.create({ channel: 'MarkersChannel', user_id: cookie, position: position }, { received: (data) => updateMarker(data) });
+
+    }
+
+  }, [position])
+
+
+  navigator.geolocation.watchPosition(position => {
+
+    const coords = position.coords;
+    setPosition([coords.latitude, coords.longitude]);
+    // props.cableApp.sub.send({lat: coords.latitude, lng: coords.longitude})
+
+  });
+
+  function updateMarker(data) {
+
+    const key = Object.keys(data)[0];
+
+    const value = data[key];
+
+    setPositions(prev => {
+
+      const obj = {...prev};
+      obj[key] = value;
+      return obj;
+
+    })
+  };
+
+  return state ? (
 
     <Fragment>
       {Object.keys(positions).map(user_id => {
 
-        return (
+        return  (
           
-          < Marker key={user_id} position={positions[user_id]} >
-            {/* <Popup>
+          < Marker key={user_id} position={positions[user_id]}
+          
+          eventHandlers={{
+            click: () => {
+              console.log('marker clicked')
+            },
+          }}
+          >
+            <Popup>
+              <p>sdafasfd</p>
               <UserProfile user={getUserFromUserId(state, user_id)} >
+
               </UserProfile>
-            </Popup > */}
+            </Popup >
           </Marker >
 
         );
       })
       }
     </Fragment >
-  );
+  ) : null;
 
 };
 //positions = {1: [locations]}
-//return(
-{/* <Fragment>
-//<div>
-//</div>
-
-
-// <p></p>
-</Fragment> */}
-// ); */}
