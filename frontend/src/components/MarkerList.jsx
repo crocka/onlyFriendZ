@@ -1,7 +1,7 @@
 import { Marker, Popup } from 'react-leaflet';
 import UserProfile from './Profile/UserProfile';
 import { getUserFromUserId } from '../helpers';
-import React, {Fragment} from 'react';
+import React, {Fragment, userEffect } from 'react';
 
 
 export default function MarkerList(props) {
