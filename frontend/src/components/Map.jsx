@@ -51,11 +51,11 @@ export default function Map(props) {
     //if logged in user
     if (cookie) {
 
-      const sub = props.cableApp.cable.subscriptions.create({ channel: 'MarkersChannel', user_id: cookie, position: position }, { received: (data) => updateMarker(data) });
+      // const sub = props.cableApp.cable.subscriptions.create({ channel: 'MarkersChannel', user_id: cookie, position: position }, { received: (data) => updateMarker(data) });
 
     }
 
-  }, [position, props.cableApp.cable.subscriptions])
+  }, [])
 
 
   navigator.geolocation.watchPosition(position => {

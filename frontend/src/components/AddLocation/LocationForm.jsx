@@ -9,17 +9,18 @@ import useApplicationData from '../../hooks/useApplicationData';
 import AddPhoto from './AddPhoto';
 import ChooseLocation from './ChooseLocation';
 import Confirm from './Confirm';
+import { useHistory } from "react-router-dom";
+import { HistoryOutlined } from '@material-ui/icons';
 
 
 
 const steps = ['Add Photos and Detials', 'Choose Location', 'Confirm Submission'];
 
 export default function LocationForm(props) {
-
   const { createLocation } = useApplicationData();
-
   const [file, setFile] = React.useState({});
   const [activeStep, setActiveStep] = React.useState(0);
+  const history = useHistory();
 
   // const [rating, setRating] = React.useState(5);
 
@@ -172,7 +173,7 @@ export default function LocationForm(props) {
           </Typography>
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
             <Box sx={{ flex: '1 1 auto' }} />
-            <Button onClick={props.handleClose}>Close</Button>
+            <Button onClick={() => history.push('/')}>Close</Button>
           </Box>
         </React.Fragment>
       ) : (
