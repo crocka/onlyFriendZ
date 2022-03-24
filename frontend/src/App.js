@@ -45,55 +45,50 @@ function App(props) {
   getInitialPosition();
 
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    function user() {
+  //   function user() {
 
-      let res;
+  //     let res;
 
-      getUser(Cookies.get('UserID')).then(response => {
+  //     getUser(16).then(response => {
 
-        console.log(response)
+  //       console.log(response)
 
-        res = response.data
+  //       res = response.data
 
-        setResponse(res);
+  //       setResponse(res);
 
-      }).catch(err => console.error);
+  //     }).catch(err => console.error);
 
-    }
+  //   }
 
-    function checkUserLogin() {
-      if (Cookies.get('UserID')) {
-        setUserLogin(true)
-      } else {
-        setUserLogin(false)
-      }
-    }
+  //   function checkUserLogin() {
+  //     if (Cookies.get('UserID')) {
+  //       setUserLogin(true)
+  //     } else {
+  //       setUserLogin(false)
+  //     }
+  //   }
 
-    checkUserLogin();
-    // if (userLogin === true) {
-    user();
-    // }
+  //   user();
+  //   checkUserLogin();
 
 
-    //   getUserReviews(16).then(res => {
+  //   //   getUserReviews(16).then(res => {
 
-    //     console.log(res);
-    //     setUserReview(res);
+  //   //     console.log(res);
+  //   //     setUserReview(res);
 
-    //   }).catch(err => console.error);
+  //   //   }).catch(err => console.error);
 
-  }, []);
-
-  // console.log(response)
+  // }, [
 
   console.log(state);
 
-  return (
+  return state ? (
     <div>
-      {/* <ActionCableProvider url={"ws://localhost:3000/cable"}> */}
-        <Sidebar response={response} />
+        <Sidebar />
         <Switch>
           {!userLogin && <Route exact from="/" render={props => <Welcome {...props} />} />}
           {!userLogin && <Route exact from="/welcome" render={props => <Welcome {...props} />} />}
@@ -102,9 +97,11 @@ function App(props) {
           {userLogin && <Route exact from="/addlocation" render={props => <PopupWindow><LocationForm {...props} /></PopupWindow>} />}
           {!userLogin && <Route path='*' exact={true} component={Welcome} />}
         </Switch>
-        <Map cableApp={props.cableApp} state={state}>
-          {state && <MarkerList state={state} /> }
+
+        <Map position={initialPos}>
+          {/* <MarkerList state={state} cableApp={props.cableApp} /> */}
         </Map>
+
         {/* <SignIn cableApp={props.cableApp } </SignIn> 
         <LocationCard />
         {response.images.map((image) => {return (<img src={image} alt="" />);})}
@@ -113,7 +110,7 @@ function App(props) {
 
       {/* </ActionCableProvider> */}
     </div >
-  );
+  ) : null;
 }
 
 export default App;

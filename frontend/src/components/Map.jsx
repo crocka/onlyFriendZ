@@ -18,9 +18,9 @@ L.Marker.prototype.options.icon = DefaultIcon;
 
 export default function Map(props) {
 
+  const { position } = props;
+
   const [colorMode, setColorMode] = useState("light");
-  const [position, setPosition] = useState([43,-79]);
-  
 
   const dark = 'https:///cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'
   const light = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
@@ -44,7 +44,7 @@ export default function Map(props) {
 
   return (
 
-    <MapContainer doubleClickZoom={false} center={initialPosition} zoom={13} style={{ backgroundColor: "black", ...props.style }}>
+    <MapContainer doubleClickZoom={false} center={position} zoom={13} style={{ backgroundColor: "black", ...props.style }}>
 
       <TileLayer
         ref={ref}
