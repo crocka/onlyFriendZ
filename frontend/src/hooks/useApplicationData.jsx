@@ -123,6 +123,12 @@ export default function useApplicationData() {
 
   }
 
+  function getUserReviews(id) {
+
+    return (axios.get(`/user/userReview/${id}`));
+
+  }
+
 
   function logInUser(user) {
 
@@ -160,7 +166,8 @@ export default function useApplicationData() {
     logInUser,
     logOutUser,
     getUser,
-    getLocation
+    getLocation,
+    getUserReviews
 
   };
 
