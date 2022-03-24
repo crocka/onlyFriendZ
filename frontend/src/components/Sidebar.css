@@ -1,8 +1,25 @@
 
-.navigation-toggle {
+/* .navigation-toggle {
   position: absolute;
   align-items: flex-start;
   flex-direction: row;
+} */
+
+.navigation-current-user {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  transform: scale(0.83);
+}
+
+.profile-picture{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0%;
 }
 
 .navigation-logo {
@@ -18,5 +35,9 @@
   height: 40px;
   z-index: 999;
   position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
 }
+
 

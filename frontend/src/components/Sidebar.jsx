@@ -11,22 +11,24 @@ import {
   AccountCircle,
 } from "@material-ui/icons";
 import "./Sidebar.css"
-import Cookies from 'js-cookie'
+import Cookies, { get } from 'js-cookie'
 import { withRouter, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Avatar from '@mui/material/Avatar';
+
 
 
 const Sidebar = props => {
   const [open, setOpen] = useState(false);
   const [userLogin, setUserLogin] = useState(false);
   const history = useHistory();
-
+  const { response } = props;
   const data = [
     {name: "Home", icon: <HomeOutlined />, onClick: () => {history.push('/'); setOpen(false)}},
     { name: "Add Location", icon: <AccountCircle /> , onClick: () => {history.push('/addlocation'); setOpen(false)}},
-    { name: "Welcome", icon: <AccountCircle /> , onClick: () => {history.push('/welcome'); setOpen(false)}},
-    { name: "SignIn", icon: <AccountCircle /> , onClick: () => {history.push('/signin'); setOpen(false)}},
-    { name: "SignUp", icon: <AccountCircle /> , onClick: () => {history.push('/signup'); setOpen(false)}},
+    // { name: "Welcome", icon: <AccountCircle /> , onClick: () => {history.push('/welcome'); setOpen(false)}},
+    // { name: "SignIn", icon: <AccountCircle /> , onClick: () => {history.push('/signin'); setOpen(false)}},
+    // { name: "SignUp", icon: <AccountCircle /> , onClick: () => {history.push('/signup'); setOpen(false)}},
     { name: "Logout", icon: <AccountCircle /> , onClick: () => {logout(); setOpen(false)}},
   ];
 
@@ -45,10 +47,23 @@ const Sidebar = props => {
     }
   }
 
+  // async function getUserImage(userID) {
+  //   let imageSrc = "";
+  //   await axios.get(`/users/${userID}`)
+  //   .then(response => {
+  //     imageSrc = response.data.images[0];
+  //   })
+  //   console.log("image src is: " + imageSrc);
+  //   return imageSrc;
+  // }
+
   useEffect(() => {
     checkUserLogin();
+    // getUserImage(Cookies.get('UserID'));
   }, [])
-
+  // console.log(`UserID ${Cookies.get('UserID')}'s name is '` + getUserImage(Cookies.get('UserID')));
+  // console.log(response.images[0])
+  
   return (
     <div className="navigation">
     <div className="navigation-toggle">
@@ -58,6 +73,14 @@ const Sidebar = props => {
         <Button href="/">
         <img src="images/logo.png" height="30" alt="navigation-logo"/>
         </Button>
+      </div>
+    <div className="navigation-current-user">
+    John Doe 
+      <Button onClick={() => history.push('/addlocation')}>
+        <div className="profile-picture">
+          <Avatar alt="avatar" src="https://nickelodeonuniverse.com/wp-content/uploads/Patrick.png" />
+          </div>
+      </Button>
       </div>
       <Drawer open={open} anchor={"left"} onClose={() => setOpen(false)}>
         <List>

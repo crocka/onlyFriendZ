@@ -42,6 +42,63 @@ export default function Map(props) {
     }
   }, [colorMode]);
 
+<<<<<<< HEAD
+=======
+
+
+  useEffect(() => {
+
+    const cookie = Cookies.get('UserID')
+    //if logged in user
+    if (cookie) {
+
+      // const sub = props.cableApp.cable.subscriptions.create({ channel: 'MarkersChannel', user_id: cookie, position: position }, { received: (data) => updateMarker(data) });
+
+    }
+
+  }, [])
+
+
+  navigator.geolocation.watchPosition(position => {
+
+    const coords = position.coords;
+    setPosition([coords.latitude, coords.longitude]);
+    // props.cableApp.sub.send({lat: coords.latitude, lng: coords.longitude})
+
+  });
+
+  function updateMarker(data) {
+
+    console.log(data)
+    const key = Object.keys(data)[0];
+    const value = data[key]
+    console.log(key);
+    setPositions(prev => {
+      const obj = {...prev};
+      obj[key] = value;
+      return obj;
+    })
+console.log(positions);
+  };
+
+  //   async function addGeoJson() {
+  //     const response = await fetch("https://opendata.arcgis.com/datasets/923cb3294384488e8a4ffbeb3b8f6cb2_32.geojson");
+  //     const data = await response.json();
+  //     console.log(data);
+  //     return (<GeoJSON data={data}></GeoJSON>);
+  //     // return data;
+  // }
+
+  // navigator.geolocation.getCurrentPosition(info => {
+
+  //   setPosition(info.coords);
+
+  // });
+
+  // console.log(position)
+  // addGeoJson();
+
+>>>>>>> 54677538b161bfe9fcb83f4318f5b972c1f47262
   return (
 
     <MapContainer doubleClickZoom={false} center={initialPosition} zoom={13} style={{ backgroundColor: "black", ...props.style }}>

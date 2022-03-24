@@ -24,8 +24,6 @@ import useApplicationData from './hooks/useApplicationData.jsx';
 
 import './App.css';
 
-const ActionCableProvider = require('react-actioncable-provider');
-
 function App(props) {
 
   const { getUser, state, getUserReviews } = useApplicationData();
@@ -53,7 +51,7 @@ function App(props) {
 
       let res;
 
-      getUser(16).then(response => {
+      getUser(Cookies.get('UserID')).then(response => {
 
         console.log(response)
 
@@ -73,8 +71,10 @@ function App(props) {
       }
     }
 
-    user();
     checkUserLogin();
+    // if (userLogin === true) {
+    user();
+    // }
 
 
     //   getUserReviews(16).then(res => {
@@ -84,16 +84,24 @@ function App(props) {
 
     //   }).catch(err => console.error);
 
+<<<<<<< HEAD
   }, []);
 
   // console.log(response)
 
   console.log(state);
+=======
+  })
+
+  console.log(response);
+  console.log(userLogin);
+  console.log(Cookies.get('UserID'));
+>>>>>>> 54677538b161bfe9fcb83f4318f5b972c1f47262
 
   return (
     <div>
       {/* <ActionCableProvider url={"ws://localhost:3000/cable"}> */}
-        <Sidebar />
+        <Sidebar response={response} />
         <Switch>
           {!userLogin && <Route exact from="/" render={props => <Welcome {...props} />} />}
           {!userLogin && <Route exact from="/welcome" render={props => <Welcome {...props} />} />}
