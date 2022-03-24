@@ -41,7 +41,7 @@ function App(props) {
 
       let res;
 
-      getUser(16).then(response => {
+      getUser(Cookies.get('UserID')).then(response => {
 
         console.log(response)
 
@@ -61,8 +61,10 @@ function App(props) {
       }
     }
 
-    user();
     checkUserLogin();
+    // if (userLogin === true) {
+    user();
+    // }
 
 
     //   getUserReviews(16).then(res => {
@@ -72,16 +74,16 @@ function App(props) {
 
     //   }).catch(err => console.error);
 
-  }, [])
+  })
 
-  console.log(response)
-
-
+  console.log(response);
+  console.log(userLogin);
+  console.log(Cookies.get('UserID'));
 
   return (
     <div>
       {/* <ActionCableProvider url={"ws://localhost:3000/cable"}> */}
-        <Sidebar />
+        <Sidebar response={response} />
         <Switch>
           {!userLogin && <Route exact from="/" render={props => <Welcome {...props} />} />}
           {!userLogin && <Route exact from="/welcome" render={props => <Welcome {...props} />} />}
