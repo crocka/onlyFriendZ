@@ -69,11 +69,15 @@ export default function Map(props) {
   function updateMarker(data) {
 
     console.log(data)
-
+    const key = Object.keys(data)[0];
+    const value = data[key]
+    console.log(key);
     setPositions(prev => {
-      return {...prev, data}
+      const obj = {...prev};
+      obj[key] = value;
+      return obj;
     })
-
+console.log(positions);
   };
 
   //   async function addGeoJson() {
@@ -126,7 +130,7 @@ export default function Map(props) {
         </Marker>
       ))} */}
 
-      <Marker position={position} ></Marker>
+      {/* <Marker position={position} ></Marker> */}
 
 
 
