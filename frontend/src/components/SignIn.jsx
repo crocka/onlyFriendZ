@@ -59,8 +59,12 @@ export default function SignIn() {
       .then(res => {
 
         console.log(res)
+        if (res.user_id === undefined) {
+          alert("Incorrect Login Information")
+        } else {
         Cookies.set('UserID', res.user_id)
         document.location.href="/";
+        }
         
       })
       .catch(err => console.log(err))
