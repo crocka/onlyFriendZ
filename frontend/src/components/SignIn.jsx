@@ -36,7 +36,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function SignIn(props) {
   const [scroll, setScroll] = React.useState('paper');
   const [open, setOpen] = React.useState(true);
   const history = useHistory()
@@ -59,6 +59,8 @@ export default function SignIn() {
       .then(res => {
         Cookies.set('UserID', res.user_id)
         document.location.href="/";
+
+        const sub = props.cableApp.cable.subscriptions.create({channel: 'MarkersChannel', user_id: res.user_id});
       })
       .catch(err => console.log(err))
 

@@ -23,7 +23,10 @@ import UserProfile from './components/Profile/UserProfile';
 import useApplicationData from './hooks/useApplicationData.jsx';
 
 import './App.css';
-function App() {
+
+const ActionCableProvider = require('react-actioncable-provider');
+
+function App(props) {
 
   const { getUser, state, getUserReviews } = useApplicationData();
   const [userReview, setUserReview] = React.useState([]);
@@ -50,24 +53,24 @@ function App() {
 
     }
 
-  function checkUserLogin() {
-    if(Cookies.get('UserID')) {
-      setUserLogin(true)
-    } else {
-      setUserLogin(false)
+    function checkUserLogin() {
+      if (Cookies.get('UserID')) {
+        setUserLogin(true)
+      } else {
+        setUserLogin(false)
+      }
     }
-  }
 
     user();
     checkUserLogin();
 
 
-  //   getUserReviews(16).then(res => {
+    //   getUserReviews(16).then(res => {
 
-  //     console.log(res);
-  //     setUserReview(res);
+    //     console.log(res);
+    //     setUserReview(res);
 
-  //   }).catch(err => console.error);
+    //   }).catch(err => console.error);
 
   }, [])
 
@@ -77,22 +80,26 @@ function App() {
 
   return (
     <div>
-      <Sidebar />
-      <Switch>
-        {!userLogin && <Route exact from="/" render={props => <Welcome {...props} />} />}
-        {!userLogin && <Route exact from="/welcome" render={props => <Welcome {...props} />} />}
-        {!userLogin && <Route exact from="/signup" render={props => <SignUp {...props} />} />}
-        {!userLogin && <Route exact from="/signin" render={props => <SignIn {...props} />} />}
-        {userLogin && <Route exact from="/addlocation" render={props => <PopupWindow><LocationForm {...props} /></PopupWindow>} />}
-        {!userLogin && <Route path='*' exact={true} component={Welcome} />}
-      </Switch>
-      <Map></Map>
-        {/* <SignIn></SignIn> 
+      {/* <ActionCableProvider url={"ws://localhost:3000/cable"}> */}
+        <Sidebar />
+        <Switch>
+          {!userLogin && <Route exact from="/" render={props => <Welcome {...props} />} />}
+          {!userLogin && <Route exact from="/welcome" render={props => <Welcome {...props} />} />}
+          {!userLogin && <Route exact from="/signup" render={props => <SignUp {...props} />} />}
+          {!userLogin && <Route exact from="/signin" render={props => <SignIn {...props} />} />}
+          {userLogin && <Route exact from="/addlocation" render={props => <PopupWindow><LocationForm {...props} /></PopupWindow>} />}
+          {!userLogin && <Route path='*' exact={true} component={Welcome} />}
+        </Switch>
+        <Map cableApp={props.cableApp} state={state}></Map>
+        {/* <MarkerList /> */}
+        {/* <SignIn cableApp={props.cableApp } </SignIn> 
         <LocationCard />
         {response.images.map((image) => {return (<img src={image} alt="" />);})}
         <UserProfile user={response} />
         <ReviewList reviewArray={userReview} state={state} user_id={16} /> */}
-        </div>
+
+      {/* </ActionCableProvider> */}
+    </div >
   );
 }
 

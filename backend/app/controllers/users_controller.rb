@@ -46,6 +46,9 @@ class UsersController < ApplicationController
       end
 
       render json: @user, status: :created, location: @user
+
+      ActionCable.server.broadcast('markers_channel', { messages: 'sign up' })
+
     else
       render json: @user.errors, status: :unprocessable_entity
     end
