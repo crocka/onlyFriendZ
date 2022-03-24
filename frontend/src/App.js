@@ -84,19 +84,11 @@ function App(props) {
 
     //   }).catch(err => console.error);
 
-<<<<<<< HEAD
   }, []);
 
   // console.log(response)
 
   console.log(state);
-=======
-  })
-
-  console.log(response);
-  console.log(userLogin);
-  console.log(Cookies.get('UserID'));
->>>>>>> 54677538b161bfe9fcb83f4318f5b972c1f47262
 
   return (
     <div>
