@@ -76,7 +76,7 @@ const Sidebar = props => {
       </div>
     <div className="navigation-current-user">
     John Doe 
-      <Button onClick={() => history.push('/addlocation')}>
+      <Button onClick={() => history.push(`/userprofile/${Cookies.get('UserID')}`)}>
         <div className="profile-picture">
           <Avatar alt="avatar" src="https://nickelodeonuniverse.com/wp-content/uploads/Patrick.png" />
           </div>
