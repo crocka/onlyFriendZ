@@ -94,6 +94,7 @@ function App(props) {
         {!userLogin && <Route exact from="/signup" render={props => <SignUp {...props} />} />}
         {!userLogin && <Route exact from="/signin" render={props => <SignIn {...props} />} />}
         {userLogin && <Route exact from="/addlocation" render={props => <PopupWindow><LocationForm {...props} initialPos={initialPos} /></PopupWindow>} />}
+        {userLogin && <Route path="/userprofile/:id" render={props => <PopupWindow><UserProfile {...props} /></PopupWindow>} />}
         {!userLogin && <Route path='*' exact={true} component={Welcome} />}
       </Switch>
 

@@ -1,21 +1,30 @@
 import React from 'react';
 import Profile from './Profile';
 import normalizeObject from './normalizeObject';
+import { useParams } from "react-router-dom";
 
 export default function UserProfile(props) {
 
-  const { user } = props;
+  const {id} = useParams();
 
-  console.log(user)
+  return (
+    <div>
+      This marker belongs to User ID = {id}
+    </div>
+  )
+
+  // const { user } = props;
+
+  // console.log(user)
   
-  const labels = ['Personal Summary', 'Favorite Places', 'Reviews'];
+  // const labels = ['Personal Summary', 'Favorite Places', 'Reviews'];
 
-  return user ? (
+  // return user ? (
     
-    <Profile labels={labels} obj={ normalizeObject(user) }>
+  //   <Profile labels={labels} obj={ normalizeObject(user) }>
 
-    </Profile>
+  //   </Profile>
 
-  ) : null ;
+  // ) : null ;
   
 }

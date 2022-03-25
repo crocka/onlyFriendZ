@@ -4,6 +4,7 @@ import { getUserFromUserId } from '../helpers';
 import React, { Fragment, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import SignIn from './SignIn'
+import { useHistory } from "react-router-dom"
 
 export default function MarkerList(props) {
 
@@ -14,6 +15,8 @@ export default function MarkerList(props) {
   const [positions, setPositions] = useState({});
 
   const [mount, setMount] = useState(false);
+
+  const history = useHistory();
 
   useEffect(() => {
 
@@ -53,8 +56,10 @@ export default function MarkerList(props) {
   function handleClick(user_id) {
 
     //route to user profile
-    setMount(false);
-
+    // setMount(false);
+    console.log(`Moving to /userprofile/${user_id}`);
+    history.push(`/userprofile/${user_id}`);
+    
   }
 
   function handleHover() {
