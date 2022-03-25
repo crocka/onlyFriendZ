@@ -1,14 +1,18 @@
 import { Marker, Popup } from 'react-leaflet';
 import UserProfile from './Profile/UserProfile';
 import { getUserFromUserId } from '../helpers';
-import React, {Fragment, userEffect } from 'react';
-
+import React, { Fragment, useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 
 export default function MarkerList(props) {
 
-  const { state } = props;
+  const { state, initialPos } = props;
+
+  const [position, setPosition] = useState(initialPos);
 
   const [positions, setPositions] = useState({});
+
+  const [mount, setMount] = useState(false);
 
   useEffect(() => {
 
@@ -27,7 +31,6 @@ export default function MarkerList(props) {
 
     const coords = position.coords;
     setPosition([coords.latitude, coords.longitude]);
-    // props.cableApp.sub.send({lat: coords.latitude, lng: coords.longitude})
 
   });
 
@@ -39,35 +42,61 @@ export default function MarkerList(props) {
 
     setPositions(prev => {
 
-      const obj = {...prev};
+      const obj = { ...prev };
       obj[key] = value;
       return obj;
 
     })
   };
 
+  function handleClick() {
+
+    //route to user profile
+  }
+
+  function handleHover() {
+
+    setMount(true);
+
+  }
+
+  function handleOut() {
+
+    setMount(false);
+
+  }
+
   return state ? (
 
     <Fragment>
       {Object.keys(positions).map(user_id => {
 
-        return  (
-          
-          < Marker key={user_id} position={positions[user_id]}
-          
-          eventHandlers={{
-            click: () => {
-              console.log('marker clicked')
-            },
-          }}
-          >
-            <Popup>
-              <p>sdafasfd</p>
-              <UserProfile user={getUserFromUserId(state, user_id)} >
+        return (
 
-              </UserProfile>
-            </Popup >
-          </Marker >
+          <Fragment>
+
+            < Marker key={user_id} position={positions[user_id]}
+
+              eventHandlers={{
+                click: () => {
+                  handleClick();
+                },
+
+                mouseover: () => {
+                  handleHover();
+                },
+
+                mouseout: () => {
+                  handleOut();
+                }
+              }}
+            >
+
+            </Marker >
+
+            {mount ? <UserProfile user={getUserFromUserId(state, user_id)} > </UserProfile> : ''}
+
+          </Fragment >
 
         );
       })

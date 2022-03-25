@@ -14,7 +14,7 @@ import LocationMarker from './components/AddLocation/LocationMarker.jsx';
 import * as React from 'react';
 import ReviewList from './components/Profile/ReviewList';
 import { useEffect, useState } from "react";
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
 
 import PictureWall from './components/Profile/PictureWall';
 
@@ -22,28 +22,44 @@ import UserProfile from './components/Profile/UserProfile';
 
 import useApplicationData from './hooks/useApplicationData.jsx';
 
+import MarkerList from './components/MarkerList';
+
 import './App.css';
 
 function App(props) {
 
-  const { getUser, state, getUserReviews } = useApplicationData();
+  const { getUser, state } = useApplicationData();
   const [response, setResponse] = useState({});
   const [userLogin, setUserLogin] = useState(false);
   const [initialPos, setInitialPos] = useState([]);
 
-  async function getInitialPosition() {
+  const promise = new Promise(function (resolve, reject) {
 
-    await navigator.geolocation.getCurrentPosition(position => {
-
-      const coords = position.coords;
-      setInitialPos([coords.latitude, coords.longitude]);
+    navigator.geolocation.getCurrentPosition(function (pos) {
+      
+      resolve([pos.coords.latitude, pos.coords.longitude]);
 
     })
+  })
 
-  };
+  promise.then(function (value) {
+    setInitialPos(value);
+  });
 
-  getInitialPosition();
+  
+  useEffect(() => {
 
+    function checkUserLogin() {
+      if (Cookies.get('UserID')) {
+        setUserLogin(true)
+      } else {
+        setUserLogin(false)
+      }
+    }
+
+    checkUserLogin();
+
+  }, [userLogin]);
 
   // useEffect(() => {
 
@@ -63,46 +79,31 @@ function App(props) {
 
   //   }
 
-  //   function checkUserLogin() {
-  //     if (Cookies.get('UserID')) {
-  //       setUserLogin(true)
-  //     } else {
-  //       setUserLogin(false)
-  //     }
-  //   }
+  //   console.log(userLogin)
 
   //   user();
-  //   checkUserLogin();
 
+  // }, []);
 
-  //   //   getUserReviews(16).then(res => {
+  console.log(initialPos)
 
-  //   //     console.log(res);
-  //   //     setUserReview(res);
-
-  //   //   }).catch(err => console.error);
-
-  // }, [
-
-  console.log(state);
-
-  return state ? (
+  return (state && initialPos && response) ? (
     <div>
-        <Sidebar />
-        <Switch>
-          {!userLogin && <Route exact from="/" render={props => <Welcome {...props} />} />}
-          {!userLogin && <Route exact from="/welcome" render={props => <Welcome {...props} />} />}
-          {!userLogin && <Route exact from="/signup" render={props => <SignUp {...props} />} />}
-          {!userLogin && <Route exact from="/signin" render={props => <SignIn {...props} />} />}
-          {userLogin && <Route exact from="/addlocation" render={props => <PopupWindow><LocationForm {...props} /></PopupWindow>} />}
-          {!userLogin && <Route path='*' exact={true} component={Welcome} />}
-        </Switch>
+      <Sidebar response={response} />
+      <Switch>
+        {!userLogin && <Route exact from="/" render={props => <Welcome {...props} />} />}
+        {!userLogin && <Route exact from="/welcome" render={props => <Welcome {...props} />} />}
+        {!userLogin && <Route exact from="/signup" render={props => <SignUp {...props} />} />}
+        {!userLogin && <Route exact from="/signin" render={props => <SignIn {...props} />} />}
+        {userLogin && <Route exact from="/addlocation" render={props => <PopupWindow><LocationForm {...props} /></PopupWindow>} />}
+        {!userLogin && <Route path='*' exact={true} component={Welcome} />}
+      </Switch>
 
-        <Map position={initialPos}>
-          {/* <MarkerList state={state} cableApp={props.cableApp} /> */}
-        </Map>
+      <Map position={initialPos}>
+        <MarkerList state={state} cableApp={props.cableApp} initialPos={initialPos} />
+      </Map>
 
-        {/* <SignIn cableApp={props.cableApp } </SignIn> 
+      {/* <SignIn cableApp={props.cableApp } </SignIn> 
         <LocationCard />
         {response.images.map((image) => {return (<img src={image} alt="" />);})}
         <UserProfile user={response} />
