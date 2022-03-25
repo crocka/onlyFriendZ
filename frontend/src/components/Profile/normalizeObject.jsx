@@ -4,6 +4,7 @@ export default function normalizeObject(object) {
 
     title: '',
     summary: '',
+    birthday: '',
     images: [],
     reviews: [],
     is_dangerous: false
@@ -42,6 +43,9 @@ export default function normalizeObject(object) {
 
       result.is_dangerous = object[key];
 
+    } else if (key === 'birthday') {
+
+      result.birthday = object[key];
     }
 
   }

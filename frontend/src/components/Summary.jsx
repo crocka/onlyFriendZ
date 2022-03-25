@@ -13,6 +13,7 @@ import MessageIcon from '@mui/icons-material/Message';
 import IconButton from '@mui/material/IconButton';
 import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Avatar from '@mui/material/Avatar';
 
 const theme = createTheme();
 
@@ -21,32 +22,38 @@ export default function Summary(props) {
   const { obj } = props;
 
   return (
-        <ThemeProvider theme={theme}>
-          <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-              }}
-            >
-              <div className="profile-pic">
-                <img src={obj.images[0]} alt="" width={250} height={250}/>
-              </div>
-              <Typography className="info"component="h1" variant="h5">{obj.title}</Typography>
-              <div className="biography">{obj.summary}</div>
-              <div className="interact-buttons">
-                <IconButton className="back" sx={{ m: 1, color: 'red', border: "solid 2px" }}>
-                  <KeyboardBackspaceOutlinedIcon />
-                </IconButton>
-                <IconButton className="message" sx={{ m: 1, color: 'blue', border: "solid 2px"}}> 
-                <MessageIcon />
-                </IconButton>
-              </div>
-            </Box>
-          </Container>
-        </ThemeProvider>
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <div className="profile-pic">
+            <Avatar
+              alt="Remy Sharp"
+              src={obj.images[0]}
+              sx={{ width:400, height: 400}}
+            />
+            {/* <img src={obj.images[0]} alt="" width={250} height={250} /> */}
+          </div>
+          <Typography className="info" component="h1" variant="h5">{obj.title}</Typography>
+          <div className="biography">{obj.summary}</div>
+          {obj.birthday === '' ? '' : <div className='birthday'>{obj.birthday}</div>}
+          <div className="interact-buttons">
+            <IconButton className="back" sx={{ m: 1, color: 'red', border: "solid 2px" }}>
+              <KeyboardBackspaceOutlinedIcon />
+            </IconButton>
+            <IconButton className="message" sx={{ m: 1, color: 'blue', border: "solid 2px" }}>
+              <MessageIcon />
+            </IconButton>
+          </div>
+        </Box>
+      </Container>
+    </ThemeProvider>
 
 
   );

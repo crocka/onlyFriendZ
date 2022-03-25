@@ -97,16 +97,16 @@ function App(props) {
         {!userLogin && <Route path='*' exact={true} component={Welcome} />}
       </Switch>
 
-      {/* <Map position={initialPos}>
+      <Map position={initialPos}>
         <MarkerList state={state} cableApp={props.cableApp} initialPos={initialPos} user={response} />
-      </Map> */}
+      </Map>
 
       {/* <SignIn cableApp={props.cableApp } </SignIn> 
         <LocationCard />
         {response.images.map((image) => {return (<img src={image} alt="" />);})}
         <UserProfile user={response} />
         <ReviewList reviewArray={userReview} state={state} user_id={16} /> */}
-      <PopupWindow><UserProfile user={response} /></PopupWindow>
+      {/* <PopupWindow><UserProfile user={response} /></PopupWindow> */}
       {/* </ActionCableProvider> */}
     </div >
   );

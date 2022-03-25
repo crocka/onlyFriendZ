@@ -78,7 +78,7 @@ export default function MarkerList(props) {
 
         return (
 
-          <Fragment>
+          <Fragment key={user_id}>
 
             < Marker key={user_id} position={positions[user_id]}
 
