@@ -6,7 +6,13 @@ import { useParams } from "react-router-dom";
 
 export default function UserProfile(props) {
 
-  const { id } = useParams();
+  let { id } = useParams();
+
+  if (id === undefined) {
+
+    id = props.id;
+
+  }
 
   const [user, setUser] = React.useState({});
 

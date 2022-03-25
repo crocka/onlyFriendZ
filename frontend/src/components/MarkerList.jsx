@@ -85,7 +85,7 @@ export default function MarkerList(props) {
     // console.log(mount)
 
   }
-  
+
 
   return state !== {} ? (
 
@@ -106,7 +106,7 @@ export default function MarkerList(props) {
 
                 mouseover: (e) => {
                   handleHover();
-               
+
                   // e.target.openPopup();
 
                   // console.log(e)
@@ -121,9 +121,48 @@ export default function MarkerList(props) {
 
 
             </Marker >
-            {/* <Box sx={{ zIndex: 'tooltip'}} />  */}
 
-            {/* {mount === true ? <Box sx={{ zIndex: 'tooltip', position: 'sticky', top: '20px' }} /> : ""} */}
+            <div>
+
+              <Popover
+                // id={id}
+                open={mount}
+                // anchorEl={null}
+                // onClose={handleOut}
+                // disableAutoFocus={true}
+                // anchorEl={anchorEl}
+                // disableEnforceFocus={true}
+                // onClose={handlePopoverClose}
+                sx={{
+                  pointerEvents: 'none',
+                }}
+
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                }}
+
+                transformOrigin={{
+                  vertical: 'botton',
+                  horizontal: 'right',
+                }}
+
+                disableRestoreFocus
+              >
+                <Box
+                  sx={{
+                    zIndex: 'tooltip'
+
+                  }}
+                >
+
+                  <UserProfile id={user_id} />
+
+                </Box>
+                {/* <Typography sx={{ p: 2 }}>The content of the Popover.</Typography> */}
+              </Popover>
+
+            </div>
 
           </Fragment >
 
@@ -132,45 +171,6 @@ export default function MarkerList(props) {
       }
 
       {/* {mount === true ? '' : ''} */}
-      <div>
-
-        <Popover
-          // id={id}
-          open={mount}
-          // anchorEl={null}
-          // onClose={handleOut}
-          // disableAutoFocus={true}
-          // anchorEl={anchorEl}
-          // disableEnforceFocus={true}
-          // onClose={handlePopoverClose}
-          sx={{
-            pointerEvents: 'none',
-          }}
-
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-          }}
-
-          transformOrigin={{
-            vertical: 'botton',
-            horizontal: 'right',
-          }}
-
-          disableRestoreFocus
-        >
-          <Box
-            sx={{
-              zIndex: 'tooltip',
-              width: 300,
-              height: 300,
-
-            }}
-          />
-          {/* <Typography sx={{ p: 2 }}>The content of the Popover.</Typography> */}
-        </Popover>
-
-      </div>
 
     </Fragment >
   ) : null;
