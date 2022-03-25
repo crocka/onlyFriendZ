@@ -24,16 +24,18 @@ export default function MarkerList(props) {
       const sub = props.cableApp.cable.subscriptions.create({ channel: 'MarkersChannel', user_id: cookie, position: position }, { received: (data) => updateMarker(data) });
 
     }
-
-  }, [position])
-
-
-  navigator.geolocation.watchPosition(position => {
+    
+    navigator.geolocation.watchPosition(position => {
 
     const coords = position.coords;
     setPosition([coords.latitude, coords.longitude]);
 
   });
+
+  }, [position])
+
+
+  console.log(position)
 
   function updateMarker(data) {
 
@@ -97,6 +99,7 @@ export default function MarkerList(props) {
               }}
             >
 
+              <Popup>{user_id}</Popup>
             </Marker >
 
             {/* { mount===true ? '':<UserProfile user={getUserFromUserId(state, user_id)} > </UserProfile> } */}

@@ -19,6 +19,7 @@ import Cookies from 'js-cookie';
 import PictureWall from './components/Profile/PictureWall';
 
 import UserProfile from './components/Profile/UserProfile';
+import LocationProfile from './components/Profile/LocationProfile';
 
 import useApplicationData from './hooks/useApplicationData.jsx';
 
@@ -76,7 +77,7 @@ function App(props) {
   // console.log(userLogin)
 
 
-  // console.log(initialPos)
+  console.log(initialPos)
   // console.log(isEmptyObject(state))
   // console.log(initialPos.length === 0)
   // console.log(response == {})
@@ -106,7 +107,7 @@ function App(props) {
         {response.images.map((image) => {return (<img src={image} alt="" />);})}
         <UserProfile user={response} />
         <ReviewList reviewArray={userReview} state={state} user_id={16} /> */}
-      {/* <PopupWindow><UserProfile user={response} /></PopupWindow> */}
+      <PopupWindow><LocationProfile location_id={20} /></PopupWindow>
       {/* </ActionCableProvider> */}
     </div >
   );
