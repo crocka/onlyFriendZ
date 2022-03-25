@@ -32,7 +32,7 @@ export default function AddPhoto(props) {
         >
 
           <Typography component="h1" variant="h6">
-            Tell us about your photos. If the security of the place is concerning, please let us know by checking the corresponding checkbox. All photos must be suitable to view by all ages. Any photo or text that violate the requirements will be subject to further investigation by the CIA and FBI. Message brought to you by RCMP.
+            Add a location and a brief description and picture of that location so that others can see. 
           </Typography>
 
 
@@ -42,6 +42,7 @@ export default function AddPhoto(props) {
               <TextField
                 required
                 fullWidth
+                margin="normal"
                 id="title"
                 label="Title or name of the location"
                 name="title"
@@ -49,12 +50,12 @@ export default function AddPhoto(props) {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={6}>
               <TextField
                 id="description"
                 name="description"
                 required
-                label="Please briefly describe this beautiful place"
+                label="Brief description of the location"
                 multiline
                 rows={4}
                 fullWidth
@@ -73,7 +74,7 @@ export default function AddPhoto(props) {
             <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="is_dangerous" color="primary" checked={props.event.is_dangerous} onChange={(event) => props.setEvent({...props.event, is_dangerous: event.target.checked})} />}
-                label="The location is potentially dangerous and do not recommend visiting alone."
+                label="Potentially dangerous location"
               />
             </Grid>
 

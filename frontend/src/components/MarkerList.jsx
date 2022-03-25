@@ -5,6 +5,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import SignIn from './SignIn'
 import { useHistory } from "react-router-dom"
+import Tooltip from '@mui/material/Tooltip';
 
 export default function MarkerList(props) {
 
@@ -75,7 +76,6 @@ export default function MarkerList(props) {
     // console.log(mount)
 
   }
-
   return state !== {} ? (
 
     <Fragment>
@@ -84,7 +84,6 @@ export default function MarkerList(props) {
         return (
 
           <Fragment key={user_id}>
-
             < Marker key={user_id} position={positions[user_id]}
 
               eventHandlers={{
@@ -105,7 +104,6 @@ export default function MarkerList(props) {
             </Marker >
 
             {/* { mount===true ? '':<UserProfile user={getUserFromUserId(state, user_id)} > </UserProfile> } */}
-
           </Fragment >
 
         );
