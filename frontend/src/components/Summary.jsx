@@ -35,7 +35,7 @@ export default function Summary(props) {
                 <img src={obj.images[0]} alt="" width={250} height={250}/>
               </div>
               <Typography className="info"component="h1" variant="h5">{obj.title}</Typography>
-              <div class="biography">{obj.summary}</div>
+              <div className="biography">{obj.summary}</div>
               <div className="interact-buttons">
                 <IconButton className="back" sx={{ m: 1, color: 'red', border: "solid 2px" }}>
                   <KeyboardBackspaceOutlinedIcon />

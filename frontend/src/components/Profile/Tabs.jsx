@@ -21,24 +21,28 @@ export default function Tabs(props) {
     <Box sx={{ width: '100%', typography: 'body1' }}>
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <TabList onChange={handleChange} aria-label="lab API tabs example">
+          <TabList onChange={handleChange}>
 
             {tabLabels.map((label, index) => {
 
-              return (<Tab value={index + 1} label={label} />);
-            })}
+              return (<Tab key={`${index}`} value={`${index + 1}`} label={label} />);
+
+            })
+            }
+
 
           </TabList>
         </Box>
 
-
         {arrayChildren.map((child, index) => {
 
-          return (<TabPanel value={index + 1} index={index} >{child}</TabPanel>);
+          return (<TabPanel key={`${index}`} value={`${index + 1}`} index={index} >{child}</TabPanel>);
 
         })}
 
       </TabContext>
     </Box>
+
+
   );
 }

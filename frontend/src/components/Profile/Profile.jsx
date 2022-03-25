@@ -17,11 +17,12 @@ export default function Profile(props) {
     <React.Fragment>
       {obj.is_dangerous ? (<Alert severity="error">This location is labelled as potentially dangerous. Please do not go alone!</Alert>) : ''}
 
-      <Tabs value={1} tabLabels={labels}>
-        <Summary value={1} obj={obj} ></Summary>
-        <PictureWall value={2} images={obj.images}></PictureWall>
-        <ReviewList value={3} ></ReviewList>
+      <Tabs tabLabels={labels}>
+        <Summary key='1' obj={obj} ></Summary>
+        <PictureWall key='2' images={obj.images}></PictureWall>
+        <ReviewList key='3' ></ReviewList>
       </Tabs>
+
     </React.Fragment>
 
   );
