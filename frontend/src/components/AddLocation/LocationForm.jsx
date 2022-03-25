@@ -17,6 +17,8 @@ import { HistoryOutlined } from '@material-ui/icons';
 const steps = ['Add Photos and Detials', 'Choose Location', 'Confirm Submission'];
 
 export default function LocationForm(props) {
+
+  const {initialPos} = props;
   const { createLocation } = useApplicationData();
   const [file, setFile] = React.useState({});
   const [activeStep, setActiveStep] = React.useState(0);
@@ -87,6 +89,7 @@ export default function LocationForm(props) {
 
         setEvent={setEvent}
         event={event}
+        initialPos={initialPos}
       
       />);
 

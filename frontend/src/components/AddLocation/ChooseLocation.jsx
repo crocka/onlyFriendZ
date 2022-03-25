@@ -11,11 +11,10 @@ import Container from '@mui/material/Container';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import { MapContainer, TileLayer, Marker } from 'react-leaflet'
+
 import LocationMarker from './LocationMarker.jsx';
 
-import {
-  Marker
-} from 'react-leaflet';
 
 const theme = createTheme();
 
@@ -39,11 +38,17 @@ export default function ChooseLocation(props) {
 
           <Grid item xs={12} sm={6}>
 
-            <Map style={{ height: "650px", width: "550px" }}>
-              <LocationMarker setPosition={(position) => props.setEvent({...props.event, position: position})}></LocationMarker>
-              <Marker position={[props.event.position.lat, props.event.position.lng]}>
-              </Marker>
-            </Map>
+              <MapContainer doubleClickZoom={false} center={props.initialPos} zoom={13} style={{ backgroundColor: "black", height: "650px", width: "550px" }}>
+
+                <TileLayer
+                  attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+                  url={'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'}
+                />
+                <LocationMarker setPosition={(position) => props.setEvent({ ...props.event, position: position })}></LocationMarker>
+                <Marker position={[props.event.position.lat, props.event.position.lng]}>
+                </Marker>
+
+              </MapContainer>
 
           </Grid>
 

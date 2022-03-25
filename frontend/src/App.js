@@ -28,79 +28,77 @@ import './App.css';
 
 function App(props) {
 
+  let userId = Cookies.get('UserID');
+
+  const [userLogin, setUserLogin] = useState(userId);
+
   const { getUser, state } = useApplicationData();
+
   const [response, setResponse] = useState({});
-  const [userLogin, setUserLogin] = useState(false);
+
   const [initialPos, setInitialPos] = useState([]);
 
-  const promise = new Promise(function (resolve, reject) {
-
-    navigator.geolocation.getCurrentPosition(function (pos) {
-      
-      resolve([pos.coords.latitude, pos.coords.longitude]);
-
-    })
-  })
-
-  promise.then(function (value) {
-    setInitialPos(value);
-  });
-
-  
   useEffect(() => {
 
-    function checkUserLogin() {
-      if (Cookies.get('UserID')) {
-        setUserLogin(true)
-      } else {
-        setUserLogin(false)
-      }
-    }
+    const promise = new Promise(function (resolve, reject) {
 
-    checkUserLogin();
+      navigator.geolocation.getCurrentPosition(function (pos) {
+
+        resolve([pos.coords.latitude, pos.coords.longitude]);
+
+      })
+    })
+
+    promise.then(function (value) {
+      setInitialPos(value);
+    });
+
+    setUserLogin(Cookies.get('UserID'));
+
+  }, []);
+
+  useEffect(() => {
+
+    if(userLogin) {
+
+      getUser(userLogin).then(response => {
+
+        console.log(response)
+  
+        setResponse(response.data);
+  
+      }).catch(err => console.error);
+
+    }
 
   }, [userLogin]);
 
-  // useEffect(() => {
+  // console.log(userLogin)
 
-  //   function user() {
 
-  //     let res;
+  // console.log(initialPos)
+  // console.log(isEmptyObject(state))
+  // console.log(initialPos.length === 0)
+  // console.log(response == {})
+  // console.log(state == {} || initialPos == [] || response == {});
 
-  //     getUser(16).then(response => {
+  // console.log(Object.keys(state).length === 0)
 
-  //       console.log(response)
-
-  //       res = response.data
-
-  //       setResponse(res);
-
-  //     }).catch(err => console.error);
-
-  //   }
-
-  //   console.log(userLogin)
-
-  //   user();
-
-  // }, []);
-
-  console.log(initialPos)
-
-  return (state && initialPos && response) ? (
+  return (initialPos.length === 0) ? null : (
     <div>
+      {/* the response is a empty if user is not logged in, so we also need to pass in the userLogin to render the Avatar only when user is logged in */}
       <Sidebar response={response} />
       <Switch>
         {!userLogin && <Route exact from="/" render={props => <Welcome {...props} />} />}
         {!userLogin && <Route exact from="/welcome" render={props => <Welcome {...props} />} />}
         {!userLogin && <Route exact from="/signup" render={props => <SignUp {...props} />} />}
         {!userLogin && <Route exact from="/signin" render={props => <SignIn {...props} />} />}
-        {userLogin && <Route exact from="/addlocation" render={props => <PopupWindow><LocationForm {...props} /></PopupWindow>} />}
+        {userLogin && <Route exact from="/addlocation" render={props => <PopupWindow><LocationForm {...props} initialPos={initialPos} /></PopupWindow>} />}
         {!userLogin && <Route path='*' exact={true} component={Welcome} />}
       </Switch>
 
       <Map position={initialPos}>
-        <MarkerList state={state} cableApp={props.cableApp} initialPos={initialPos} />
+        <MarkerList state={state} cableApp={props.cableApp} initialPos={initialPos} user={response} />
       </Map>
 
       {/* <SignIn cableApp={props.cableApp } </SignIn> 
@@ -111,7 +109,7 @@ function App(props) {
 
       {/* </ActionCableProvider> */}
     </div >
-  ) : null;
+  );
 }
 
 export default App;

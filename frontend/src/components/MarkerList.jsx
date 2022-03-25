@@ -3,6 +3,7 @@ import UserProfile from './Profile/UserProfile';
 import { getUserFromUserId } from '../helpers';
 import React, { Fragment, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
+import SignIn from './SignIn'
 
 export default function MarkerList(props) {
 
@@ -49,27 +50,31 @@ export default function MarkerList(props) {
     })
   };
 
-  function handleClick() {
+  function handleClick(user_id) {
 
     //route to user profile
+    setMount(false);
+
   }
 
   function handleHover() {
 
-    setMount(true);
+    setMount(prev => !prev);
+    // console.log(mount)
 
   }
 
   function handleOut() {
 
-    setMount(false);
+    setMount(prev => !prev);
+    // console.log(mount)
 
   }
 
-  return state ? (
+  return state !== {} ? (
 
     <Fragment>
-      {Object.keys(positions).map(user_id => {
+      {Object.keys(positions).map((user_id) => {
 
         return (
 
@@ -79,7 +84,7 @@ export default function MarkerList(props) {
 
               eventHandlers={{
                 click: () => {
-                  handleClick();
+                  handleClick(user_id);
                 },
 
                 mouseover: () => {
@@ -94,13 +99,16 @@ export default function MarkerList(props) {
 
             </Marker >
 
-            {mount ? <UserProfile user={getUserFromUserId(state, user_id)} > </UserProfile> : ''}
+            {/* { mount===true ? '':<UserProfile user={getUserFromUserId(state, user_id)} > </UserProfile> } */}
 
           </Fragment >
 
         );
       })
       }
+
+      { mount===true ? '': ''}
+      
     </Fragment >
   ) : null;
 

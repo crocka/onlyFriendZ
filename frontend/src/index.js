@@ -6,13 +6,13 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from "react-router-dom";
 // import ActionCableProvider from 'react-actioncable-provider';
 import ActionCable from 'actioncable';
+import Cookies from 'js-cookie';
 const ActionCableProvider = require('react-actioncable-provider');
  
 const CableApp = {};
 const cable = ActionCable.createConsumer('ws://localhost:3000/cable');
 
 CableApp.cable = cable;
-{/* <ActionCableProvider cable={cable}>...</ActionCableProvider>; */}
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(

@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet'
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css'
-import icon from 'leaflet/dist/images/marker-icon.png';
+// import icon from 'leaflet/dist/images/marker-icon.png';
+// import icon from '../../public/images/mapIcon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
@@ -10,8 +11,10 @@ import Button from '@mui/material/Button';
 import Cookies from 'js-cookie';
 
 let DefaultIcon = L.icon({
-  iconUrl: icon,
-  shadowUrl: iconShadow
+  iconUrl: '../../../images/mapPin.svg',
+  shadowUrl: iconShadow,
+  iconSize: [41, 51], // size of the icon
+  iconAnchor: [20, 51], // point of the icon which will correspond to marker's location
 });
 
 L.Marker.prototype.options.icon = DefaultIcon;
@@ -22,8 +25,8 @@ export default function Map(props) {
 
   const [colorMode, setColorMode] = useState("light");
 
-  const dark = 'https:///cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'
-  const light = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+  const dark = 'https:///cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png';
+  const light = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 
   const onClick = () => {
     setColorMode((colorMode) => (colorMode === "light" ? "dark" : "light"));

@@ -34,7 +34,7 @@ export default function Tabs(props) {
 
         {arrayChildren.map((child, index) => {
 
-          return (<TabPanel value={index + 1} >{child}</TabPanel>);
+          return (<TabPanel value={index + 1} index={index} >{child}</TabPanel>);
 
         })}
 
