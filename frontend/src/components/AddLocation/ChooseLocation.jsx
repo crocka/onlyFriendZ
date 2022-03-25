@@ -33,7 +33,7 @@ export default function ChooseLocation(props) {
         >
 
           <Typography component="h1" variant="h6">
-            Please click on the map below to select the exact location. You may enlarge the map to select as precise as possible.
+            Double click on the map to select the location.
           </Typography>
 
           <Grid item xs={12} sm={6}>
