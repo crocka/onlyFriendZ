@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       
       render json: session
 
-      ActionCable.server.broadcast('markers_channel', { messages: 'signin' })
+      # ActionCable.server.broadcast('markers_channel', { messages: 'signin' })
 
     else
     # If user's login doesn't work, send them back to the login form.
