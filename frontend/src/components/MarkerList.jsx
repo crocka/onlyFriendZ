@@ -69,20 +69,28 @@ export default function MarkerList(props) {
 
   }
 
-  function handleHover() {
+  function handleHover(user_id) {
 
     setMount(prev => !prev);
     // setAnchorEl(e.currentTarget);
     // console.log(mount)
 
     // document.getElementById(`marker-${user_id}`).append('<')
+
+    document.getElementById(`popover-${user_id}`).appendChild(`<UserProfile id={user_id} />`);
   }
 
-  function handleOut() {
+  function handleOut(user_id) {
 
     setMount(prev => !prev);
+    document.getElementById(`popover-${user_id}`).removeChild();
     // setAnchorEl(null);
     // console.log(mount)
+
+  }
+
+  function handleUserProfile(user_id) {
+
 
   }
 
@@ -104,16 +112,17 @@ export default function MarkerList(props) {
                   handleClick(user_id);
                 },
 
-                mouseover: (e) => {
-                  handleHover();
+                mouseover: (user_id) => {
+                  handleHover(user_id);
 
+                  // appendUserProfile(user_id);
                   // e.target.openPopup();
 
                   // console.log(e)
                 },
 
-                mouseout: () => {
-                  handleOut();
+                mouseout: (user_id) => {
+                  handleOut(user_id);
                   // e.target.closePopup();
                 }
               }}
@@ -125,7 +134,7 @@ export default function MarkerList(props) {
             <div>
 
               <Popover
-                // id={id}
+                id={user_id}
                 open={mount}
                 // anchorEl={null}
                 // onClose={handleOut}
@@ -150,13 +159,15 @@ export default function MarkerList(props) {
                 disableRestoreFocus
               >
                 <Box
+                  id={`popover-${user_id}`}
                   sx={{
                     zIndex: 'tooltip'
 
                   }}
                 >
 
-                  <UserProfile id={user_id} />
+                  {/* {handleUserProfile(user_id)} */}
+                  {/* <UserProfile id={user_id} /> */}
 
                 </Box>
                 {/* <Typography sx={{ p: 2 }}>The content of the Popover.</Typography> */}
