@@ -2,10 +2,11 @@ import React from 'react';
 import Profile from './Profile';
 import normalizeObject from './normalizeObject';
 import useApplicationData from '../../hooks/useApplicationData.jsx';
+import { useParams } from "react-router-dom";
 
 export default function UserProfile(props) {
 
-  const { user_id } = props;
+  const { id } = useParams();
 
   const [user, setUser] = React.useState({});
 
@@ -13,7 +14,7 @@ export default function UserProfile(props) {
 
   React.useEffect(() => {
 
-    getUser(user_id).then(response => {
+    getUser(id).then(response => {
 
       setUser(response.data);
 

@@ -95,6 +95,7 @@ function App(props) {
         {!userLogin && <Route exact from="/signup" render={props => <SignUp {...props} />} />}
         {!userLogin && <Route exact from="/signin" render={props => <SignIn {...props} />} />}
         {userLogin && <Route exact from="/addlocation" render={props => <PopupWindow><LocationForm {...props} initialPos={initialPos} /></PopupWindow>} />}
+        {userLogin && <Route path="/userprofile/:id" render={props => <PopupWindow><UserProfile {...props} /></PopupWindow>} />}
         {!userLogin && <Route path='*' exact={true} component={Welcome} />}
       </Switch>
 
@@ -107,7 +108,7 @@ function App(props) {
         {response.images.map((image) => {return (<img src={image} alt="" />);})}
         <UserProfile user={response} />
         <ReviewList reviewArray={userReview} state={state} user_id={16} /> */}
-      <PopupWindow><LocationProfile location_id={20} /></PopupWindow>
+      {/* <PopupWindow><LocationProfile location_id={20} /></PopupWindow> */}
       {/* </ActionCableProvider> */}
     </div >
   );

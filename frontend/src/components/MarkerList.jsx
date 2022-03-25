@@ -3,7 +3,10 @@ import UserProfile from './Profile/UserProfile';
 import { getUserFromUserId } from '../helpers';
 import React, { Fragment, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import SignIn from './SignIn'
+import SignIn from './SignIn';
+import { useHistory } from "react-router-dom";
+import Paper from '@mui/material/Paper';
+import Tooltip from '@mui/material/Tooltip';
 
 export default function MarkerList(props) {
 
@@ -15,6 +18,8 @@ export default function MarkerList(props) {
 
   const [mount, setMount] = useState(false);
 
+  const history = useHistory();
+
   useEffect(() => {
 
     const cookie = Cookies.get('UserID')
@@ -24,13 +29,13 @@ export default function MarkerList(props) {
       const sub = props.cableApp.cable.subscriptions.create({ channel: 'MarkersChannel', user_id: cookie, position: position }, { received: (data) => updateMarker(data) });
 
     }
-    
+
     navigator.geolocation.watchPosition(position => {
 
-    const coords = position.coords;
-    setPosition([coords.latitude, coords.longitude]);
+      const coords = position.coords;
+      setPosition([coords.latitude, coords.longitude]);
 
-  });
+    });
 
   }, [position])
 
@@ -56,22 +61,25 @@ export default function MarkerList(props) {
 
     //route to user profile
     setMount(false);
+    // console.log(`Moving to /userprofile/${user_id}`);
+    history.push(`/userprofile/${user_id}`);
 
   }
 
   function handleHover() {
 
     setMount(prev => !prev);
-    // console.log(mount)
+    console.log(mount)
 
   }
 
   function handleOut() {
 
     setMount(prev => !prev);
-    // console.log(mount)
+    console.log(mount)
 
   }
+  console.log(mount)
 
   return state !== {} ? (
 
@@ -81,28 +89,28 @@ export default function MarkerList(props) {
         return (
 
           <Fragment key={user_id}>
+            {/* <Tooltip title={<p>Why</p>} > */}
+              < Marker key={user_id} position={positions[user_id]}
 
-            < Marker key={user_id} position={positions[user_id]}
+                eventHandlers={{
+                  click: () => {
+                    handleClick(user_id);
+                  },
 
-              eventHandlers={{
-                click: () => {
-                  handleClick(user_id);
-                },
+                  mouseover: () => {
+                    handleHover();
+                  },
 
-                mouseover: () => {
-                  handleHover();
-                },
+                  mouseout: () => {
+                    handleOut();
+                  }
+                }}
+              >
 
-                mouseout: () => {
-                  handleOut();
-                }
-              }}
-            >
-
-              <Popup>{user_id}</Popup>
-            </Marker >
-
-            {/* { mount===true ? '':<UserProfile user={getUserFromUserId(state, user_id)} > </UserProfile> } */}
+                <Popup>{user_id}</Popup>
+              </Marker >
+            {/* </Tooltip> */}
+            {mount === true ? <Paper elevation={3} /> : ""}
 
           </Fragment >
 
@@ -110,8 +118,8 @@ export default function MarkerList(props) {
       })
       }
 
-      { mount===true ? '': ''}
-      
+      {mount === true ? '' : ''}
+
     </Fragment >
   ) : null;
 
