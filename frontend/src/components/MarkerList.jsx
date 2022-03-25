@@ -3,9 +3,8 @@ import UserProfile from './Profile/UserProfile';
 import { getUserFromUserId } from '../helpers';
 import React, { Fragment, useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import SignIn from './SignIn';
-import { useHistory } from "react-router-dom";
-import Paper from '@mui/material/Paper';
+import SignIn from './SignIn'
+import { useHistory } from "react-router-dom"
 import Tooltip from '@mui/material/Tooltip';
 
 export default function MarkerList(props) {
@@ -16,7 +15,7 @@ export default function MarkerList(props) {
 
   const [positions, setPositions] = useState({});
 
-  const [mount, setMount] = useState(false);
+  // const [mount, setMount] = useState(false);
 
   const history = useHistory();
 
@@ -29,18 +28,17 @@ export default function MarkerList(props) {
       const sub = props.cableApp.cable.subscriptions.create({ channel: 'MarkersChannel', user_id: cookie, position: position }, { received: (data) => updateMarker(data) });
 
     }
+  }, [position]);
 
-    navigator.geolocation.watchPosition(position => {
+  navigator.geolocation.watchPosition(position => {
+    console.log('watchPosition')
 
-      const coords = position.coords;
-      setPosition([coords.latitude, coords.longitude]);
+    const coords = position.coords;
+    setPosition([coords.latitude, coords.longitude]);
 
-    });
+  });
 
-  }, [position])
-
-
-  console.log(position)
+  console.log(positions)
 
   function updateMarker(data) {
 
@@ -60,7 +58,7 @@ export default function MarkerList(props) {
   function handleClick(user_id) {
 
     //route to user profile
-    setMount(false);
+    // setMount(false);
     // console.log(`Moving to /userprofile/${user_id}`);
     history.push(`/userprofile/${user_id}`);
 
@@ -68,18 +66,18 @@ export default function MarkerList(props) {
 
   function handleHover() {
 
-    setMount(prev => !prev);
-    console.log(mount)
+    // setMount(prev => !prev);
+    // console.log(mount)
 
   }
 
   function handleOut() {
 
-    setMount(prev => !prev);
-    console.log(mount)
+    // setMount(prev => !prev);
+    // console.log(mount)
 
   }
-  console.log(mount)
+  // console.log(mount)
 
   return state !== {} ? (
 
@@ -89,28 +87,30 @@ export default function MarkerList(props) {
         return (
 
           <Fragment key={user_id}>
-            {/* <Tooltip title={<p>Why</p>} > */}
-              < Marker key={user_id} position={positions[user_id]}
+     
+            < Marker key={user_id} position={positions[user_id]}
 
-                eventHandlers={{
-                  click: () => {
-                    handleClick(user_id);
-                  },
+              eventHandlers={{
+                click: () => {
+                  handleClick(user_id);
+                },
 
-                  mouseover: () => {
-                    handleHover();
-                  },
+                mouseover: (e) => {
+                  // handleHover();
+                  e.target.openPopup();
+                },
 
-                  mouseout: () => {
-                    handleOut();
-                  }
-                }}
-              >
+                mouseout: (e) => {
+                  // handleOut();
+                  e.target.closePopup();
+                }
+              }}
+            >
 
-                <Popup>{user_id}</Popup>
-              </Marker >
-            {/* </Tooltip> */}
-            {mount === true ? <Paper elevation={3} /> : ""}
+              <Popup>{user_id}</Popup>
+            </Marker >
+
+            {/* {mount === true ? <Paper elevation={3} /> : ""} */}
 
           </Fragment >
 
@@ -118,7 +118,7 @@ export default function MarkerList(props) {
       })
       }
 
-      {mount === true ? '' : ''}
+      {/* {mount === true ? '' : ''} */}
 
     </Fragment >
   ) : null;
