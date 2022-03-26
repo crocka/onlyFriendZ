@@ -10,9 +10,9 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 3px;
   transform: scale(0.83);
-  left:92%;
+  left:85%;
+  width: 23%;
   position: fixed;
 }
 
