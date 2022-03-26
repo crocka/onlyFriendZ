@@ -8,9 +8,7 @@ import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Cookies from 'js-cookie';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import { CardActionArea } from '@mui/material';
+
 
 
 export default function ReviewList(props) {
@@ -105,17 +103,11 @@ export default function ReviewList(props) {
       </Box>
 
       
-    {reviews ? reviews.map(review => {
+    {reviews !== [] ? reviews.map(review => {
       return (
-        <Card sx={{ width: '100%', mt: 2, mb: 2}} >
-          <CardActionArea>
-            <CardContent style={{backgroundColor: "paper"}}>
-              <Typography variant="body2" color="text.secondary">
-                <Review review_id={review.id} reviewerName={review.reviewer_id} comment={review.comment} />
-              </Typography>
-          </CardContent>
-          </CardActionArea>
-        </Card>
+        
+        <Review key={review.id} review={review} state={state} />
+
       );
           
       }) : ""}

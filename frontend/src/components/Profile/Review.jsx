@@ -1,26 +1,29 @@
 import React from 'react';
-// import { DataGrid } from '@mui/x-data-grid';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import { CardActionArea } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import { getUserFromUserId } from '../../helpers';
 
-export default function Review (props) {
+export default function Review(props) {
 
-  const { review_id, reviewerName, comment} = props;
+  const { review,state } = props;
+  
+  const reviewer = getUserFromUserId(state, review.reviewer_id);
+
+  console.log(review)
 
   return (
-    <div key={review_id} style={{ width: '100%' }}>
-      {/* <DataGrid
-        columns={[{ field: 'username' }, { field: 'review' }]}
-        rows={[
-          {
-           username: reviewerName,
-           review: comment
-          }
-        ]}
-      /> */}
-
-      <p>{reviewerName}</p>
-      <p>{comment}</p>
-    </div>
+    <Card sx={{ width: '100%', mt: 2, mb: 2 }} >
+      <CardActionArea>
+        <CardContent style={{ backgroundColor: "paper" }}>
+          <Typography variant="body2" color="text.secondary">
+            {reviewer.name}
+            {review.comment}
+            {review.updated_at.split('T')[0]}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
   )
 }
-
-//{ }
