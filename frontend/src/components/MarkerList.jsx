@@ -1,7 +1,7 @@
 import { Marker, Popup } from 'react-leaflet';
 import UserProfile from './Profile/UserProfile';
 import { getUserFromUserId } from '../helpers';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState, useRef } from 'react';
 import Cookies from 'js-cookie';
 import SignIn from './SignIn'
 import { useHistory } from "react-router-dom"
@@ -23,6 +23,10 @@ export default function MarkerList(props) {
   const [anchorEl, seAnchorEl] = React.useState(null);
 
   const history = useHistory();
+
+  // const [userOnHover, setUserOnHover] = useState(0);
+
+  const userOnHover = useRef(null);
 
   useEffect(() => {
 
@@ -71,29 +75,41 @@ export default function MarkerList(props) {
 
   function handleHover(user_id) {
 
+    userOnHover.current = user_id;
+
     setMount(prev => !prev);
     // setAnchorEl(e.currentTarget);
     // console.log(mount)
 
     // document.getElementById(`marker-${user_id}`).append('<')
 
-    document.getElementById(`popover-${user_id}`).appendChild(`<UserProfile id={user_id} />`);
+    // document.getElementById(`userPopoverBox`).append(`<UserProfile id={user_id} />`);
+
+    // let z = document.createElement('div'); // is a node
+    // z.innerHTML = `<UserProfile id={${user_id}} />`;
+
+    
+    // userOnHover.current.appendChild(z);
+    // console.log(userOnHover)
+
+    // userOnHover.current = user_id;
+
+    // console.log(userOnHover.current)
+
+    // setUserOnHover(prev => user_id);
+
+    // console.log(user_id)
   }
 
   function handleOut(user_id) {
 
     setMount(prev => !prev);
-    document.getElementById(`popover-${user_id}`).removeChild();
+    // document.getElementById(`popover-${user_id}`).removeChild();
     // setAnchorEl(null);
     // console.log(mount)
 
+    // userOnHover.current = null;
   }
-
-  function handleUserProfile(user_id) {
-
-
-  }
-
 
   return state !== {} ? (
 
@@ -112,7 +128,7 @@ export default function MarkerList(props) {
                   handleClick(user_id);
                 },
 
-                mouseover: (user_id) => {
+                mouseover: () => {
                   handleHover(user_id);
 
                   // appendUserProfile(user_id);
@@ -121,7 +137,7 @@ export default function MarkerList(props) {
                   // console.log(e)
                 },
 
-                mouseout: (user_id) => {
+                mouseout: () => {
                   handleOut(user_id);
                   // e.target.closePopup();
                 }
@@ -131,57 +147,50 @@ export default function MarkerList(props) {
 
             </Marker >
 
-            <div>
-
-              <Popover
-                id={user_id}
-                open={mount}
-                // anchorEl={null}
-                // onClose={handleOut}
-                // disableAutoFocus={true}
-                // anchorEl={anchorEl}
-                // disableEnforceFocus={true}
-                // onClose={handlePopoverClose}
-                sx={{
-                  pointerEvents: 'none',
-                }}
-
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'right',
-                }}
-
-                transformOrigin={{
-                  vertical: 'botton',
-                  horizontal: 'right',
-                }}
-
-                disableRestoreFocus
-              >
-                <Box
-                  id={`popover-${user_id}`}
-                  sx={{
-                    zIndex: 'tooltip'
-
-                  }}
-                >
-
-                  {/* {handleUserProfile(user_id)} */}
-                  {/* <UserProfile id={user_id} /> */}
-
-                </Box>
-                {/* <Typography sx={{ p: 2 }}>The content of the Popover.</Typography> */}
-              </Popover>
-
-            </div>
-
           </Fragment >
 
         );
       })
       }
 
-      {/* {mount === true ? '' : ''} */}
+      <div>
+
+        <Popover
+          // id={user_id}
+          // ref={userOnHover}
+          open={mount}
+          sx={{
+            pointerEvents: 'none',
+          }}
+
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+
+          transformOrigin={{
+            vertical: 'botton',
+            horizontal: 'right',
+          }}
+
+          disableRestoreFocus
+        >
+          <Box
+            
+            id={`userPopoverBox`}
+            sx={{
+              zIndex: 'tooltip'
+            }}
+          >
+
+            {/* {handleUserProfile(user_id)} */}
+            <UserProfile id={userOnHover.current} />
+
+          </Box>
+          {/* <Typography sx={{ p: 2 }}>The content of the Popover.</Typography> */}
+        </Popover>
+
+      </div>
 
     </Fragment >
   ) : null;
