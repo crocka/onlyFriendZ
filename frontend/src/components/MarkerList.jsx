@@ -1,4 +1,4 @@
-import { Marker, Popup } from 'react-leaflet';
+import { Marker, Popup, Circle } from 'react-leaflet';
 import UserProfile from './Profile/UserProfile';
 import LocationProfile from './Profile/LocationProfile';
 import { getUserFromUserId } from '../helpers';
@@ -130,7 +130,7 @@ export default function MarkerList(props) {
           <Fragment key={user_id}>
 
 
-            < Marker draggable id={`marker-${user_id}`} key={user_id} position={positions[user_id]}
+            < Circle draggable id={`marker-${user_id}`} key={user_id} center={positions[user_id] } fillColor="blue" radius={100}
 
               eventHandlers={{
                 click: () => {
@@ -154,7 +154,7 @@ export default function MarkerList(props) {
             >
 
 
-            </Marker >
+            </Circle >
 
           </Fragment >
 
@@ -172,7 +172,7 @@ export default function MarkerList(props) {
             <Fragment key={location.id}>
 
 
-              < Marker draggable id={`marker-${location.id}`} key={location.id} position={[location.latitude, location.longitude]}
+              < Marker id={`marker-${location.id}`} key={location.id} position={[location.latitude, location.longitude]}
 
                 eventHandlers={{
                   click: () => {

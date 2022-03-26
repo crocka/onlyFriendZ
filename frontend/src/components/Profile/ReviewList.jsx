@@ -102,7 +102,7 @@ export default function ReviewList(props) {
 
       {reviews ? reviews.map(review => {
 
-        return (<Review review_id={review.id} reviewrName={review.reviewer_id} comment={review.comment} />);
+        return (<Review review_id={review.id} reviewerName={review.reviewer_id} comment={review.comment} />);
 
       }) : ""}
 

@@ -14,8 +14,7 @@ export default function LocationProfile(props) {
 
   }
 
-  const labels = ['Description', 'Photos', 'Reviews'];
-
+  
   const [location, setLocation] = React.useState({});
 
   const { getLocation } = useApplicationData();
@@ -29,6 +28,10 @@ export default function LocationProfile(props) {
     }).catch(err => console.error);
 
   }, []);
+
+  console.log(normalizeObject(location))
+  
+  const labels = ['Description', 'Photos', 'Reviews'];
 
   return location ? (
     

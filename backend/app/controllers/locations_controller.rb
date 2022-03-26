@@ -10,7 +10,19 @@ class LocationsController < ApplicationController
 
   # GET /locations/1
   def show
-    render json: @location
+
+    images = []
+
+    @location.images.each do |image|
+      images.push(rails_blob_path(image, only_path:true))
+    end
+
+    render json: { 
+      
+      location: @location, 
+      images: images
+
+    }
   end
 
   # POST /locations
