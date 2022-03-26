@@ -73,7 +73,7 @@ export default function ReviewList(props) {
     <React.Fragment>
 
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-        <TextField fullWidth required autoFocus id="standard-basic" name='comment' label="Please leave your reivews or comments..." variant="standard" onChange={(event) => { commentRef.current = event.target.value }} />
+        <TextField fullWidth required autoFocus id="standard-basic" name='comment' label="Please leave your reviews or comments..." variant="standard" onChange={(event) => { commentRef.current = event.target.value }} />
 
 
         {location_id !== undefined ?

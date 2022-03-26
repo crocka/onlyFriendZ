@@ -15,10 +15,13 @@ import Cookies, { get } from 'js-cookie'
 import { withRouter, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Avatar from '@mui/material/Avatar';
+import axios from 'axios';
 
 
 
 const Sidebar = props => {
+  const [username, setUsername] = useState(null);
+  const [avatar, setAvatar] = useState("https://nickelodeonuniverse.com/wp-content/uploads/Patrick.png");
   const [open, setOpen] = useState(false);
   const [userLogin, setUserLogin] = useState(false);
   const history = useHistory();
@@ -47,22 +50,28 @@ const Sidebar = props => {
     }
   }
 
-  // async function getUserImage(userID) {
-  //   let imageSrc = "";
-  //   await axios.get(`/users/${userID}`)
-  //   .then(response => {
-  //     imageSrc = response.data.images[0];
-  //   })
-  //   console.log("image src is: " + imageSrc);
-  //   return imageSrc;
-  // }
+  async function getUserImage(userID) {
+    await axios.get(`/users/${userID}`)
+    .then(response => {
+      setAvatar(response.data.images[0]);
+    })
+  }
+
+  async function getUserName(userID) {
+    await axios.get(`/users/${userID}`)
+    .then(response => {
+      setUsername(response.data.user.name);
+    })
+  }
 
   useEffect(() => {
     checkUserLogin();
-    // getUserImage(Cookies.get('UserID'));
+    getUserImage(Cookies.get('UserID'));
+    getUserName(Cookies.get('UserID'));
   }, [])
   // console.log(`UserID ${Cookies.get('UserID')}'s name is '` + getUserImage(Cookies.get('UserID')));
   // console.log(response.images[0])
+
   
   return (
     <div className="navigation">
@@ -74,14 +83,15 @@ const Sidebar = props => {
         <img src="images/logo.png" height="30" alt="navigation-logo"/>
         </Button>
       </div>
+      {Cookies.get('UserID') > 0 &&
     <div className="navigation-current-user">
-    John Doe 
+    {username}
       <Button onClick={() => history.push(`/userprofile/${Cookies.get('UserID')}`)}>
         <div className="profile-picture">
-          <Avatar alt="avatar" src="https://nickelodeonuniverse.com/wp-content/uploads/Patrick.png" />
+          <Avatar alt="avatar" src={avatar} />
           </div>
       </Button>
-      </div>
+      </div>}
       <Drawer open={open} anchor={"left"} onClose={() => setOpen(false)}>
         <List>
           {data.map((item, index) => { 

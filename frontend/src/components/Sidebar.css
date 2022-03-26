@@ -12,6 +12,8 @@
   align-items: center;
   gap: 3px;
   transform: scale(0.83);
+  left:92%;
+  position: fixed;
 }
 
 .profile-picture{
@@ -27,6 +29,8 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  left: 45%;
+  position: fixed;
 }
 
 .navigation {
@@ -36,8 +40,7 @@
   z-index: 999;
   position: fixed;
   display: flex;
-  justify-content: space-between;
-  align-content: center;
+  align-items: center;
 }
 
 
