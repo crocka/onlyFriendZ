@@ -3,10 +3,11 @@ import React from 'react';
 
 export default function Review (props) {
 
-  const {reviewerName, comment} = props;
+  const { review_id, reviewerName, comment} = props;
 
+  console.log(review_id)
   return (
-    <div style={{ height: 250, width: '100%' }}>
+    <div key={review_id} style={{ width: '100%' }}>
       {/* <DataGrid
         columns={[{ field: 'username' }, { field: 'review' }]}
         rows={[

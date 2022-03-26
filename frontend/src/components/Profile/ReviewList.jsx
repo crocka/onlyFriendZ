@@ -21,6 +21,8 @@ export default function ReviewList(props) {
 
   const reviews = user_id === undefined ? getReviewsFromLocationId(state, location_id) : getReviewsFromUserId(state, user_id);
 
+  console.log(state)
+
   const handleSubmit = (event) => {
 
     event.preventDefault();
@@ -91,7 +93,7 @@ export default function ReviewList(props) {
 
       {reviews ? reviews.map(review => {
 
-        return (<Review reviewrName={review.reviewer_id} comment={review.comment} />);
+        return (<Review review_id={review.id} reviewrName={review.reviewer_id} comment={review.comment} />);
 
       }) : ""}
 

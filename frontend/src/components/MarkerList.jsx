@@ -39,13 +39,20 @@ export default function MarkerList(props) {
     }
   }, [position]);
 
-  navigator.geolocation.watchPosition(position => {
-    // console.log('watchPosition')
+  setInterval(() => {
 
-    const coords = position.coords;
-    setPosition([coords.latitude, coords.longitude]);
 
-  });
+    navigator.geolocation.watchPosition(position => {
+      // console.log('watchPosition')
+
+      const coords = position.coords;
+      setPosition([coords.latitude, coords.longitude]);
+
+    });
+
+
+
+  }, 1000);
 
   // console.log(positions)
 
@@ -88,7 +95,7 @@ export default function MarkerList(props) {
     // let z = document.createElement('div'); // is a node
     // z.innerHTML = `<UserProfile id={${user_id}} />`;
 
-    
+
     // userOnHover.current.appendChild(z);
     // console.log(userOnHover)
 
@@ -121,7 +128,7 @@ export default function MarkerList(props) {
           <Fragment key={user_id}>
 
 
-            < Marker id={`marker-${user_id}`} key={user_id} position={positions[user_id]}
+            < Marker draggable id={`marker-${user_id}`} key={user_id} position={positions[user_id]}
 
               eventHandlers={{
                 click: () => {
@@ -176,7 +183,7 @@ export default function MarkerList(props) {
           disableRestoreFocus
         >
           <Box
-            
+
             id={`userPopoverBox`}
             sx={{
               zIndex: 'tooltip'
