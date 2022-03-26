@@ -130,7 +130,7 @@ export default function MarkerList(props) {
           <Fragment key={user_id}>
 
 
-            < Circle draggable id={`marker-${user_id}`} key={user_id} center={positions[user_id] } fillColor="blue" radius={100}
+            < Circle draggable id={`marker-${user_id}`} key={user_id} center={positions[user_id] } fillColor='#922B21' fillOpacity={100} radius={100} stroke={false}
 
               eventHandlers={{
                 click: () => {
