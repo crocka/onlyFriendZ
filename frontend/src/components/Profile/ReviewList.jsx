@@ -17,11 +17,16 @@ export default function ReviewList(props) {
 
   const [value, setValue] = React.useState(5);
 
+  const [reviews, setReviews] = React.useState([]);
+
   const commentRef = React.useRef('');
 
-  const reviews = user_id === undefined ? getReviewsFromLocationId(state, location_id) : getReviewsFromUserId(state, user_id);
+  React.useEffect(() => {
 
-  console.log(state)
+    setReviews(prev => user_id === undefined ? getReviewsFromLocationId(state, location_id) : getReviewsFromUserId(state, user_id));
+    console.log(reviews)
+
+  }, [state]);
 
   const handleSubmit = (event) => {
 
@@ -39,10 +44,13 @@ export default function ReviewList(props) {
       // data.append('reviewer_id', Cookies.get('UserID'));
 
       data.user_id = user_id;
-      data.reviewer_id =  Cookies.get('UserID');
-// console.log(data)
+      data.reviewer_id = Cookies.get('UserID');
+      // console.log(data)
       createUserReview(data)
+        .then(res => setReviews(prev => prev.push(res)))
         .catch(err => console.log(err));
+
+      console.log(reviews)
     }
 
     if (location_id !== undefined) {
@@ -56,6 +64,7 @@ export default function ReviewList(props) {
       data.location_id = location_id;
 
       createComment(data)
+        .then(res => setReviews(prev => prev.push(res)))
         .catch(err => console.log(err));
     }
   };
@@ -64,7 +73,7 @@ export default function ReviewList(props) {
     <React.Fragment>
 
       <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-        <TextField fullWidth required autoFocus id="standard-basic" name='comment' label="Please leave your reviews or comments..." variant="standard" onChange={(event) => {commentRef.current = event.target.value}} />
+        <TextField fullWidth required autoFocus id="standard-basic" name='comment' label="Please leave your reviews or comments..." variant="standard" onChange={(event) => { commentRef.current = event.target.value }} />
 
 
         {location_id !== undefined ?

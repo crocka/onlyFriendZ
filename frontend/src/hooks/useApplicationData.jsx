@@ -146,7 +146,8 @@ export default function useApplicationData() {
 
     return (axios.post(`/user/user_reviews`, { ...review })
       .then(response => {
-        setUserReview(response.data);
+        setUserReview(response.data)
+        return response.data;
       })
     );
   }
@@ -155,7 +156,8 @@ export default function useApplicationData() {
 
     return (axios.post(`/location/comments`, { ...comment })
       .then(response => {
-        setComment(response.data);
+        setComment(response.data)
+        return response.data;
       })
     );
   }
