@@ -2,10 +2,17 @@ import React from 'react';
 import Profile from './Profile';
 import normalizeObject from './normalizeObject';
 import useApplicationData from '../../hooks/useApplicationData.jsx';
+import { useParams } from "react-router-dom";
 
 export default function LocationProfile(props) {
 
-  const { location_id } = props;
+  let { id } = useParams();
+
+  if (id === undefined) {
+
+    id = props.id;
+
+  }
 
   const labels = ['Description', 'Photos', 'Reviews'];
 
@@ -15,7 +22,7 @@ export default function LocationProfile(props) {
 
   React.useEffect(() => {
 
-    getLocation(location_id).then(response => {
+    getLocation(id).then(response => {
 
       setLocation(response.data);
 
@@ -25,7 +32,7 @@ export default function LocationProfile(props) {
 
   return location ? (
     
-    <Profile labels={labels} obj={normalizeObject(location)} location_id={location_id}>
+    <Profile labels={labels} obj={normalizeObject(location)} location_id={id}>
 
     </Profile>
   ) : null;
