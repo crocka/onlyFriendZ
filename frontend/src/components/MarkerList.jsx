@@ -1,5 +1,6 @@
 import { Marker, Popup } from 'react-leaflet';
 import UserProfile from './Profile/UserProfile';
+import LocationProfile from './Profile/LocationProfile';
 import { getUserFromUserId } from '../helpers';
 import React, { Fragment, useEffect, useState, useRef } from 'react';
 import Cookies from 'js-cookie';
@@ -20,13 +21,17 @@ export default function MarkerList(props) {
 
   const [mount, setMount] = useState(false);
 
-  const [anchorEl, seAnchorEl] = React.useState(null);
+  // const [anchorEl, seAnchorEl] = React.useState(null);
+
+  // console.log('state: ', state)
 
   const history = useHistory();
 
   // const [userOnHover, setUserOnHover] = useState(0);
 
   const userOnHover = useRef(null);
+
+  const locationOnHover = useRef(null);
 
   useEffect(() => {
 
@@ -71,51 +76,48 @@ export default function MarkerList(props) {
     })
   };
 
-  function handleClick(user_id) {
+  function handleClick(id, purpose) {
 
     //route to user profile
     // setMount(false);
     // console.log(`Moving to /userprofile/${user_id}`);
-    history.push(`/userprofile/${user_id}`);
+
+    if (purpose === 'user') {
+
+      history.push(`/userprofile/${id}`);
+
+    } else if (purpose === 'location') {
+
+      history.push(`/locationprofile/${id}`);
+
+    }
+
 
   }
 
-  function handleHover(user_id) {
+  function handleHover(id, purpose) {
 
-    userOnHover.current = user_id;
+    if (purpose === 'user') {
+
+      userOnHover.current = id;
+
+    } else if (purpose === 'location') {
+
+      locationOnHover.current = id;
+
+    }
 
     setMount(prev => !prev);
-    // setAnchorEl(e.currentTarget);
-    // console.log(mount)
 
-    // document.getElementById(`marker-${user_id}`).append('<')
-
-    // document.getElementById(`userPopoverBox`).append(`<UserProfile id={user_id} />`);
-
-    // let z = document.createElement('div'); // is a node
-    // z.innerHTML = `<UserProfile id={${user_id}} />`;
-
-
-    // userOnHover.current.appendChild(z);
-    // console.log(userOnHover)
-
-    // userOnHover.current = user_id;
-
-    // console.log(userOnHover.current)
-
-    // setUserOnHover(prev => user_id);
-
-    // console.log(user_id)
   }
 
-  function handleOut(user_id) {
+  function handleOut(id, purpose) {
 
     setMount(prev => !prev);
-    // document.getElementById(`popover-${user_id}`).removeChild();
-    // setAnchorEl(null);
-    // console.log(mount)
 
-    // userOnHover.current = null;
+    userOnHover.current = null;
+    locationOnHover.current = null;
+
   }
 
   return state !== {} ? (
@@ -132,11 +134,11 @@ export default function MarkerList(props) {
 
               eventHandlers={{
                 click: () => {
-                  handleClick(user_id);
+                  handleClick(user_id, 'user');
                 },
 
                 mouseover: () => {
-                  handleHover(user_id);
+                  handleHover(user_id, 'user');
 
                   // appendUserProfile(user_id);
                   // e.target.openPopup();
@@ -145,7 +147,7 @@ export default function MarkerList(props) {
                 },
 
                 mouseout: () => {
-                  handleOut(user_id);
+                  handleOut(user_id, 'user');
                   // e.target.closePopup();
                 }
               }}
@@ -158,6 +160,49 @@ export default function MarkerList(props) {
 
         );
       })
+      }
+
+      {//some location object/array with its coords
+
+        Array.isArray(state.locations) ? (state.locations.map(location => {
+
+
+          return (
+
+            <Fragment key={location.id}>
+
+
+              < Marker draggable id={`marker-${location.id}`} key={location.id} position={[location.latitude, location.longitude]}
+
+                eventHandlers={{
+                  click: () => {
+                    handleClick(location.id, 'location');
+                  },
+
+                  mouseover: () => {
+                    handleHover(location.id, 'location');
+
+                    // appendUserProfile(user_id);
+                    // e.target.openPopup();
+
+                    // console.log(e)
+                  },
+
+                  mouseout: () => {
+                    handleOut(location.id, 'location');
+                    // e.target.closePopup();
+                  }
+                }}
+              >
+
+
+              </Marker >
+
+            </Fragment >
+          );
+        })) : null
+
+
       }
 
       <div>
@@ -190,8 +235,11 @@ export default function MarkerList(props) {
             }}
           >
 
-            {/* {handleUserProfile(user_id)} */}
-            <UserProfile id={userOnHover.current} />
+            {userOnHover.current === null ?  <LocationProfile id={locationOnHover.current} />
+            
+            : <UserProfile id={userOnHover.current} />} 
+            
+           
 
           </Box>
           {/* <Typography sx={{ p: 2 }}>The content of the Popover.</Typography> */}

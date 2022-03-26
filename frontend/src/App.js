@@ -64,7 +64,7 @@ function App(props) {
 
       getUser(userLogin).then(response => {
 
-        console.log(response)
+        // console.log(response)
   
         setResponse(response.data);
   
@@ -77,7 +77,7 @@ function App(props) {
   // console.log(userLogin)
 
 
-  console.log(initialPos)
+  // console.log(initialPos)
   // console.log(isEmptyObject(state))
   // console.log(initialPos.length === 0)
   // console.log(response == {})
