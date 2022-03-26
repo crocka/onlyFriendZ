@@ -79,7 +79,7 @@ export default function AddPhoto(props) {
             </Grid>
 
             <Grid item xs={12}>
-              <DropzoneArea name="images" onChange={(files) => props.onFileChange(files)} />
+              <DropzoneArea name="images" filesLimit={20} onChange={(files) => props.onFileChange(files)} />
             </Grid>
 
           </Grid>

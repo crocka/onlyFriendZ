@@ -32,7 +32,7 @@ export default function UserProfile(props) {
 
   return user ? (
 
-    <Profile labels={labels} obj={normalizeObject(user)}>
+    <Profile labels={labels} obj={normalizeObject(user)} user_id={id}>
 
     </Profile>
 

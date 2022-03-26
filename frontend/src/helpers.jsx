@@ -4,7 +4,7 @@ export function getUserFromUserId(state, user_id) {
 
     state.users.forEach(user => {
 
-        if (user.id === user_id ){
+        if (user.id === user_id) {
 
             result = user;
         }
@@ -34,14 +34,17 @@ export function getReviewsFromUserId(state, user_id) {
 
     let result = [];
 
-    state.user_reviews.forEach(review => {
+    if(isObject(state.user_reviews) === false) {
+      
+        state.user_reviews.forEach(review => {
 
-        if(review.user_id === user_id) {
+            if(review.user_id == user_id) {
 
-            result.push(review);
-        }
+                result.push(review);
+            }
+        })
+    }
 
-    });
 
     return result;
 
@@ -51,14 +54,21 @@ export function getReviewsFromLocationId(state, location_id) {
 
     let result = [];
 
-    state.comments.forEach(comment => {
+    if (Object.keys(state.comments).length !== 0 ) {
 
-        if (comment.location_id === location_id) {
+        Object.keys(state.comments).forEach(comment => {
 
-            result.push(comment);
-        }
-    });
+            if (state.comments[comment].location_id === location_id) {
+
+                result.push(state.comments[comment]);
+            }
+        });
+    }
 
     return result;
 
 };
+
+const isObject = (obj) => {
+    return Object.prototype.toString.call(obj) === '[object Object]';
+  };

@@ -242,7 +242,7 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <DropzoneArea name="images" onChange={(files) => onFileChange(files)} />
+                <DropzoneArea name="images" filesLimit={20} onChange={(files) => onFileChange(files)} />
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel

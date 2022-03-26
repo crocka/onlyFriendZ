@@ -25,7 +25,7 @@ export default function LocationProfile(props) {
 
   return location ? (
     
-    <Profile labels={labels} obj={normalizeObject(location)}>
+    <Profile labels={labels} obj={normalizeObject(location)} location_id={location_id}>
 
     </Profile>
   ) : null;

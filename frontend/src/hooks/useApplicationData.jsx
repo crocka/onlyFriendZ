@@ -25,6 +25,19 @@ export default function useApplicationData() {
 
   }
 
+
+  function setUserReview(user_review) {
+
+    setState({ ...state, user_reviews: { ...state.user_reviews, user_review } });
+
+  }
+
+  function setComment(comment) {
+
+    setState({ ...state, comments: { ...state.comments, comment } });
+
+  }
+
   //axios requests
   useEffect(() => {
 
@@ -129,6 +142,24 @@ export default function useApplicationData() {
 
   }
 
+  function createUserReview(review) {
+
+    return (axios.post(`/user/user_reviews`, { ...review })
+      .then(response => {
+        setUserReview(response.data);
+      })
+    );
+  }
+
+  function createComment(comment) {
+
+    return (axios.post(`/location/comments`, { ...comment })
+      .then(response => {
+        setComment(response.data);
+      })
+    );
+  }
+
 
   function logInUser(user) {
 
@@ -150,9 +181,6 @@ export default function useApplicationData() {
       })
   }
 
-
-
-
   //return the functions and state that application needs
   return {
 
@@ -167,7 +195,9 @@ export default function useApplicationData() {
     logOutUser,
     getUser,
     getLocation,
-    getUserReviews
+    getUserReviews,
+    createUserReview,
+    createComment
 
   };
 

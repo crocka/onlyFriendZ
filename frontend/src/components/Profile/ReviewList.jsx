@@ -1,44 +1,100 @@
 import React from 'react';
 import Review from './Review'
+import { getReviewsFromUserId, getReviewsFromLocationId } from '../../helpers.jsx';
+import useApplicationData from '../..//hooks/useApplicationData.jsx';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Rating from '@mui/material/Rating';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Cookies from 'js-cookie';
 
 export default function ReviewList(props) {
 
-  //user = {user_id, name, ...}
-  //review = {reviewer_id, user_id, location_id, commentSentence}
-  const { user_id, reviewArray, state } = props;
+  const { user_id, location_id } = props;
 
-  function makeReview() {
+  const { createUserReview, createComment, state } = useApplicationData();
 
-    let result = [];
+  const [value, setValue] = React.useState(5);
 
-    state.users.forEach(user => {
+  const commentRef = React.useRef('');
 
-      reviewArray.forEach((review) => {
+  const reviews = user_id === undefined ? getReviewsFromLocationId(state, location_id) : getReviewsFromUserId(state, user_id);
 
-        if (user.id === review.reviewer_id) {
+  const handleSubmit = (event) => {
 
-          result.push(<Review reviewerName={user.name} comment={review.comment} />);
+    event.preventDefault();
 
-        }
-      })
+    const data = {
 
-    });
+      comment: commentRef.current,
 
-    return result;
-  }
+    };
 
+    if (user_id !== undefined) {
+
+      // data.append('user_id', user_id);
+      // data.append('reviewer_id', Cookies.get('UserID'));
+
+      data.user_id = user_id;
+      data.reviewer_id =  Cookies.get('UserID');
+// console.log(data)
+      createUserReview(data)
+        .catch(err => console.log(err));
+    }
+
+    if (location_id !== undefined) {
+
+      // data.append('rating', value);
+      // data.append('user_id', Cookies.get('UserID'));
+      // data.append('location_id', location_id);
+
+      data.rating = value;
+      data.user_id = Cookies.get('UserID');
+      data.location_id = location_id;
+
+      createComment(data)
+        .catch(err => console.log(err));
+    }
+  };
 
   return (
     <React.Fragment>
-      {/* {makeReview()} */}
-      {state.user_reviews.map(review => {
 
-        if(review.user_id === user_id) {
+      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <TextField fullWidth required autoFocus id="standard-basic" name='comment' label="Please leave your reivews or comments..." variant="standard" onChange={(event) => {commentRef.current = event.target.value}} />
 
-          return (<Review reviewrName={review.reviewer_id} comment={review.comment}/>);
 
-        }
-      })}
+        {location_id !== undefined ?
+          <React.Fragment>
+            <Typography component="legend">How would you rate this place?</Typography>
+            <Rating
+              name="simple-controlled"
+              value={value}
+              onChange={(event, newValue) => {
+                setValue(newValue);
+              }}
+            />
+          </React.Fragment>
+          : ''}
+
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+        >
+          Send
+        </Button>
+
+      </Box>
+
+      {reviews ? reviews.map(review => {
+
+        return (<Review reviewrName={review.reviewer_id} comment={review.comment} />);
+
+      }) : ""}
+
     </React.Fragment>
   )
 }

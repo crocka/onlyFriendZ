@@ -51,7 +51,7 @@ class UserReviewsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_review_params
-      params.require(:user_review).permit(:reviewer_id, :user_id, :comment)
+      params.permit(:reviewer_id, :user_id, :comment)
     end
 end
 
