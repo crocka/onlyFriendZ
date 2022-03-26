@@ -44,11 +44,12 @@ export default function MarkerList(props) {
     }
   }, [position]);
 
-  setInterval(() => {
+  // setInterval(() => {
 
+    // console.log('watching position: ' + position)
 
     navigator.geolocation.watchPosition(position => {
-      // console.log('watchPosition')
+      console.log('watchPosition')
 
       const coords = position.coords;
       setPosition([coords.latitude, coords.longitude]);
@@ -57,7 +58,7 @@ export default function MarkerList(props) {
 
 
 
-  }, 1000);
+  // }, 1000);
 
   // console.log(positions)
 
