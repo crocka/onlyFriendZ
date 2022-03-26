@@ -16,11 +16,15 @@ export default function Review(props) {
   return (
     <Card sx={{ width: '100%', mt: 2, mb: 2 }} >
       <CardActionArea>
-        <CardContent style={{ backgroundColor: "paper" }}>
-          <Typography variant="body2" color="text.secondary">
+        <CardContent style={{ backgroundColor: "gray" }}>
+          <Typography variant="h6" color="text.secondary" > 
             {reviewer.name}
-            {review.comment}
-            {review.updated_at.split('T')[0]}
+          </Typography>
+          <Typography variant="body1">
+          {review.comment}
+          </Typography>
+          <Typography variant="body2" align="right">
+          {review.updated_at.split('T')[0]}
           </Typography>
         </CardContent>
       </CardActionArea>
