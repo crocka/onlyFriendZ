@@ -45,7 +45,12 @@ export default function SignUp() {
   const [file, setFile] = React.useState([]);
   const [scroll, setScroll] = React.useState('paper');
   const [open, setOpen] = React.useState(true);
-  const history = useHistory()
+  const history = useHistory();
+
+  const [firstName, setFirstName] = React.useState('');
+  const [lastName, setLastName] = React.useState('');
+  const [errors, setErrors] = React.useState(false);
+
 
   function handleClose() {
     setOpen(false);
@@ -111,14 +116,18 @@ export default function SignUp() {
 
       // console.log(images)
 
+      validate(data) ? 
       createUser(data)
         .then(res => {
 
           console.log(res);
           history.push('/')
         })
-        .catch(err => console.log(err))
+        .catch(err => {setErrors(true)})
 
+        :
+
+        setErrors(true);
       // console.log({
       //   name: data.get('firstName') + data.get('lastName'),
       //   email_address: data.get('email'),
@@ -137,6 +146,15 @@ export default function SignUp() {
     // console.log(event)
 
   };
+
+  const validate = (data) => {
+    if (data.get('firstName') === '' || data.get('lastName') === '' || data.get('email_address') === '' || data.get('password') === '' || data.get('password_confirmation') === '' || data.get('password') !== data.get('password_confirmation') || data.get('summary') === '') {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  
 
   return (
     <Dialog
@@ -175,7 +193,11 @@ export default function SignUp() {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  error={errors}
+                  value={firstName}
+                  onChange={(e) => {setFirstName(e.target.value)}}
                 />
+                {errors.firstName && <p>{errors.firstName}</p>}
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -185,6 +207,9 @@ export default function SignUp() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                  error={errors}
+                  value={lastName}
+                  onChange={(e) => {setLastName(e.target.value)}}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -195,6 +220,7 @@ export default function SignUp() {
                   label="Email Address"
                   name="email_address"
                   autoComplete="email"
+                  error={errors}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -204,8 +230,10 @@ export default function SignUp() {
                     inputFormat="yyyy-MM-dd"
                     value={value}
                     onChange={handleChange}
-                    renderInput={(params) => <TextField required {...params} name='birthday'/>}
+                    renderInput={(params) => <TextField error={errors}
+                    required {...params} name='birthday'/>}
                   />
+
                 </LocalizationProvider>
               </Grid>
               <Grid item xs={12}>
@@ -217,6 +245,7 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  error={errors}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -228,6 +257,7 @@ export default function SignUp() {
                   type="password"
                   id="password_confirmation"
                   autoComplete="confirm password"
+                  error={errors}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -236,6 +266,7 @@ export default function SignUp() {
                   name="summary"
                   required
                   label="Brief summary of yourself"
+                  error={errors}
                   multiline
                   rows={4}
                   fullWidth
@@ -252,6 +283,7 @@ export default function SignUp() {
               </Grid>
             </Grid>
             <Button
+              onClick={validate}
               type="submit"
               fullWidth
               variant="contained"
