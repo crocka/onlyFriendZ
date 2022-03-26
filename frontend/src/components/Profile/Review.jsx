@@ -5,7 +5,6 @@ export default function Review (props) {
 
   const { review_id, reviewerName, comment} = props;
 
-  console.log(review_id)
   return (
     <div key={review_id} style={{ width: '100%' }}>
       {/* <DataGrid
