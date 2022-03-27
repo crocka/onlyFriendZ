@@ -39,12 +39,21 @@ const theme = createTheme();
 export default function SignIn(props) {
   const [scroll, setScroll] = React.useState('paper');
   const [open, setOpen] = React.useState(true);
+  const [error, setError] = React.useState(false);
   const history = useHistory()
   const { logInUser } = useApplicationData();
 
   function handleClose() {
     setOpen(false);
   };
+
+  function resetError() {
+    setError(false);
+  }
+
+  function handleError() {
+    setError(true);
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -62,7 +71,10 @@ export default function SignIn(props) {
 
         // const sub = props.cableApp.cable.subscriptions.create({channel: 'MarkersChannel', user_id: res.user_id});
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.log(err);
+        handleError();
+      })
 
     // console.log({
     //   email: data.get('email'),
@@ -102,6 +114,8 @@ export default function SignIn(props) {
                   margin="normal"
                   required
                   fullWidth
+                  error={error}
+                  onClick={resetError}
                   id="email"
                   label="Email Address"
                   name="email"
@@ -112,12 +126,16 @@ export default function SignIn(props) {
                   margin="normal"
                   required
                   fullWidth
+                  error={error}
+                  onClick={resetError}
                   name="password"
                   label="Password"
                   type="password"
                   id="password"
                   autoComplete="current-password"
                 />
+                {error && <tag style={{color:"red"}}>Incorrect email or password</tag>}
+                <br/>
                 <FormControlLabel
                   control={<Checkbox value="remember" color="primary" />}
                   label="Remember me"
