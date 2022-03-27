@@ -26,8 +26,8 @@ export default function ReviewList(props) {
   React.useEffect(() => {
 
     setReviews(prev => user_id === undefined ? getReviewsFromLocationId(state, location_id) : getReviewsFromUserId(state, user_id));
-    console.log(reviews)
-    console.log(state)
+    // console.log(reviews)
+    // console.log(state)
 
   }, [state]);
 
@@ -53,7 +53,7 @@ export default function ReviewList(props) {
         .then(res => setReviews(prev => prev.push(res)))
         .catch(err => console.log(err));
 
-      // console.log(reviews)
+      console.log(reviews)
     }
 
     if (location_id !== undefined) {
@@ -70,6 +70,8 @@ export default function ReviewList(props) {
       createComment(data)
         .then(res => setReviews(prev => prev.push(res)))
         .catch(err => console.log(err));
+
+        console.log(reviews)
     }
   };
 
