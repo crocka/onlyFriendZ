@@ -60,7 +60,7 @@ export default function SignIn(props) {
         Cookies.set('UserID', res.user_id)
         document.location.href="/";
 
-        const sub = props.cableApp.cable.subscriptions.create({channel: 'MarkersChannel', user_id: res.user_id});
+        // const sub = props.cableApp.cable.subscriptions.create({channel: 'MarkersChannel', user_id: res.user_id});
       })
       .catch(err => console.log(err))
 

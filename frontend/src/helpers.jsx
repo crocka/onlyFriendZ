@@ -53,18 +53,19 @@ export function getReviewsFromUserId(state, user_id) {
 export function getReviewsFromLocationId(state, location_id) {
 
     let result = [];
+    
+    if (isObject(state.comments) === false ) {
 
-    if (Object.keys(state.comments).length !== 0 ) {
+        state.comments.forEach(comment => {
 
-        Object.keys(state.comments).forEach(comment => {
+            if (comment.location_id == location_id) {
 
-            if (state.comments[comment].location_id === location_id) {
-
-                result.push(state.comments[comment]);
+                result.push(comment);
             }
         });
     }
 
+ 
     return result;
 
 };
