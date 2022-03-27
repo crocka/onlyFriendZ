@@ -6,10 +6,8 @@ import React, { Fragment, useEffect, useState, useRef } from 'react';
 import Cookies from 'js-cookie';
 import SignIn from './SignIn'
 import { useHistory } from "react-router-dom"
-import Card from '@mui/material/Card';
 import Popover from '@mui/material/Popover';
 import Box from '@mui/material/Box';
-import { modalUnstyledClasses } from '@mui/material';
 
 export default function MarkerList(props) {
 
@@ -33,28 +31,31 @@ export default function MarkerList(props) {
 
   const locationOnHover = useRef(null);
 
+  const cookie = Cookies.get('UserID');
+
   useEffect(() => {
 
-    const cookie = Cookies.get('UserID')
-    //if logged in user
-    if (cookie) {
 
-      const sub = props.cableApp.cable.subscriptions.create({ channel: 'MarkersChannel', user_id: cookie, position: position }, { received: (data) => updateMarker(data) });
+  //if logged in user
+  // if (cookie) {
 
-    }
-  }, [position]);
+    const sub = props.cableApp.cable.subscriptions.create({ channel: 'MarkersChannel', user_id: cookie, position: position }, { received: (data) => {updateMarker(data); console.log('increate', data)} });
+
+    navigator.geolocation.watchPosition(position => {
+      // console.log('watchPosition', position)
+  
+      const coords = position.coords;
+      setPosition([coords.latitude, coords.longitude]);
+      // sub.send({ channel: 'MarkersChannel', user_id: cookie, position: position }, { received: (data) => updateMarker(data) })
+      sub.send({ channel: 'MarkersChannel', user_id: cookie, position: [coords.latitude, coords.longitude] });
+      console.log('insend',[coords.latitude, coords.longitude])
+    });
+  // }
+  }, []);
 
   // setInterval(() => {
 
-    // console.log('watching position: ' + position)
-
-    navigator.geolocation.watchPosition(position => {
-      console.log('watchPosition')
-
-      const coords = position.coords;
-      setPosition([coords.latitude, coords.longitude]);
-
-    });
+  // console.log('watching position: ' + position)
 
 
 
@@ -75,6 +76,8 @@ export default function MarkerList(props) {
       return obj;
 
     })
+
+    // console.log(position)
   };
 
   function handleClick(id, purpose) {
@@ -131,7 +134,7 @@ export default function MarkerList(props) {
           <Fragment key={user_id}>
 
 
-            < Circle draggable id={`marker-${user_id}`} key={user_id} center={positions[user_id] } fillColor='#922B21' fillOpacity={100} radius={100} stroke={false}
+            < Circle draggable id={`marker-${user_id}`} key={user_id} center={positions[user_id]} fillColor='#922B21' fillOpacity={100} radius={100} stroke={false}
 
               eventHandlers={{
                 click: () => {
@@ -236,11 +239,11 @@ export default function MarkerList(props) {
             }}
           >
 
-            {userOnHover.current === null ?  <LocationProfile id={locationOnHover.current} />
-            
-            : <UserProfile id={userOnHover.current} />} 
-            
-           
+            {userOnHover.current === null ? <LocationProfile id={locationOnHover.current} />
+
+              : <UserProfile id={userOnHover.current} />}
+
+
 
           </Box>
           {/* <Typography sx={{ p: 2 }}>The content of the Popover.</Typography> */}

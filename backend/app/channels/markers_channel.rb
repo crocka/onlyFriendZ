@@ -9,6 +9,8 @@ class MarkersChannel < ApplicationCable::Channel
 
   def receive(data)
 
+    ActionCable.server.broadcast('markers_channel', { "#{data['user_id']}": data['position'] })
+
   end
 
   def unsubscribed

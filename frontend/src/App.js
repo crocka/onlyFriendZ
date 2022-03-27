@@ -77,7 +77,7 @@ function App(props) {
   // console.log(userLogin)
 
 
-  // console.log(initialPos)
+  console.log(initialPos)
   // console.log(isEmptyObject(state))
   // console.log(initialPos.length === 0)
   // console.log(response == {})
@@ -85,6 +85,7 @@ function App(props) {
 
   // console.log(Object.keys(state).length === 0)
 
+  
   return (initialPos.length === 0) ? null : (
     <div>
       {/* the response is a empty if user is not logged in, so we also need to pass in the userLogin to render the Avatar only when user is logged in */}
@@ -101,7 +102,7 @@ function App(props) {
       </Switch>
 
       <Map position={initialPos}>
-        <MarkerList state={state} cableApp={props.cableApp} initialPos={initialPos} user={response} />
+        {userId === undefined ? '' : <MarkerList state={state} cableApp={props.cableApp} initialPos={initialPos} user={response} />}
       </Map>
 
       {/* <SignIn cableApp={props.cableApp } </SignIn> 
