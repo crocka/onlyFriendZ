@@ -1,5 +1,5 @@
 class Comment < ApplicationRecord
 
-  belongs_to :locations
+  belongs_to :location
   
 end
