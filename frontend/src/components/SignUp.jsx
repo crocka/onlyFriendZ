@@ -55,6 +55,10 @@ export default function SignUp() {
   function handleClose() {
     setOpen(false);
   };
+
+  function resetErrors() {
+    setErrors(false);
+  }
   
 
   const Input = styled('input')({
@@ -194,6 +198,7 @@ export default function SignUp() {
                   label="First Name"
                   autoFocus
                   error={errors}
+                  onClick={resetErrors}
                   value={firstName}
                   onChange={(e) => {setFirstName(e.target.value)}}
                 />
@@ -208,6 +213,7 @@ export default function SignUp() {
                   name="lastName"
                   autoComplete="family-name"
                   error={errors}
+                  onClick={resetErrors}
                   value={lastName}
                   onChange={(e) => {setLastName(e.target.value)}}
                 />
@@ -221,6 +227,7 @@ export default function SignUp() {
                   name="email_address"
                   autoComplete="email"
                   error={errors}
+                  onClick={resetErrors}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -246,6 +253,7 @@ export default function SignUp() {
                   id="password"
                   autoComplete="new-password"
                   error={errors}
+                  onClick={resetErrors}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -258,6 +266,7 @@ export default function SignUp() {
                   id="password_confirmation"
                   autoComplete="confirm password"
                   error={errors}
+                  onClick={resetErrors}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -267,6 +276,7 @@ export default function SignUp() {
                   required
                   label="Brief summary of yourself"
                   error={errors}
+                  onClick={resetErrors}
                   multiline
                   rows={4}
                   fullWidth
@@ -282,6 +292,8 @@ export default function SignUp() {
                 />
               </Grid>
             </Grid>
+            <br />
+            {errors && <tag style={{color:"red"}}>Please fill out the required fields!</tag>}
             <Button
               onClick={validate}
               type="submit"
