@@ -152,7 +152,7 @@ export default function SignUp() {
   };
 
   const validate = (data) => {
-    if (data.get('firstName') === '' || data.get('lastName') === '' || data.get('email_address') === '' || data.get('password') === '' || data.get('password_confirmation') === '' || data.get('password') !== data.get('password_confirmation') || data.get('summary') === '') {
+    if (data.get('firstName').trim() === '' || data.get('lastName').trim() === '' || data.get('email_address').trim() === '' || data.get('password').trim() === '' || data.get('password_confirmation').trim() === '' || data.get('password').trim() !== data.get('password_confirmation').trim() || data.get('summary').trim() === '') {
       return false;
     } else {
       return true;
