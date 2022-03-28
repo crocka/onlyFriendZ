@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import useApplicationData from '../hooks/useApplicationData';
 import Cookies from 'js-cookie'
 import {
@@ -15,8 +15,9 @@ import {
    Container,
    Dialog,
    DialogContent
-  } from '@mui/material';
+} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useHistory } from "react-router-dom";
 
@@ -36,9 +37,9 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn(props) {
-  const [scroll, setScroll] = React.useState('paper');
-  const [open, setOpen] = React.useState(true);
-  const [error, setError] = React.useState(false);
+  const [scroll, setScroll] = useState('paper');
+  const [open, setOpen] = useState(true);
+  const [error, setError] = useState(false);
   const history = useHistory()
   const { logInUser } = useApplicationData();
 

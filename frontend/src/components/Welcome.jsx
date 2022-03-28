@@ -1,13 +1,15 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
-import Link from '@mui/material/Link';
-import Cookies from 'js-cookie'
+import React, { useState } from 'react';
+import {
+  Link,
+  Button,
+  CssBaseline,
+  Box,
+  Typography,
+  Container,
+  Dialog,
+  DialogContent
+} from '@mui/material/';
+
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useHistory } from "react-router-dom";
 
@@ -27,8 +29,8 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Welcome() {
-  const [scroll, setScroll] = React.useState('paper');
-  const [open, setOpen] = React.useState(true);
+  const [scroll, setScroll] = useState('paper');
+  const [open, setOpen] = useState(true);
   const history = useHistory()
 
   function handleClose() {
