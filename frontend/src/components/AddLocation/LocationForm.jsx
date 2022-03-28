@@ -37,12 +37,21 @@ export default function LocationForm(props) {
 
   });
 
+  function resetEvent() {
+    setEvent({
+      title: '',
+      description: '',
+      is_dangerous: false,
+      position: {lat: 43, lng: -79}
+    })
+  }
+
   // const [position, setPosition] = React.useState({
 
   //   lng: -79,
   //   lat: 43
 
-  // })
+  // })  
 
   const handleNext = () => {
 
@@ -110,6 +119,7 @@ export default function LocationForm(props) {
     // //:name, :email_address, :password, :password_confirmation, :birthday, :image_url, :instagram_handle, :twitter_handle, :tiktok_handle, :personal_link, :summary
     // event.preventDefault();
     // // const images = event.currentTarget.images.files; 
+    console.log("Handle submit");
     const data = new FormData();
 
     data.append('latitude', event.position.lat);
@@ -127,24 +137,29 @@ export default function LocationForm(props) {
       
     }
 
-    console.log(
-      data.get('title'),
-      data.get('description'),
-      data.get('is_dangerous'),
-      data.get('longitude'),
-      data.get('latitude'),
-      data.get('images[]')
+    // console.log(
+    //   data.get('title'),
+    //   data.get('description'),
+    //   data.get('is_dangerous'),
+    //   data.get('longitude'),
+    //   data.get('latitude'),
+    //   data.get('images[]')
 
-    )
-
-    createLocation(data)
+    // )
+    // console.log(data);
+    console.log("Validate = " + validate(data));
+    if (validate(data)) {
+      console.log("Creating location");
+      createLocation(data)
       .then(res => {
-
         console.log(res);
-
       })
       .catch(err => console.log(err))
-
+    } else {
+      alert("You must enter all the required fields.")
+      resetEvent();
+      setActiveStep(0);
+    }
   };
 
   const onFileChange = event => {
@@ -154,6 +169,14 @@ export default function LocationForm(props) {
     // console.log(event)
 
   };
+
+  const validate = (data) => {
+    if (data.get('title') === '' || data.get('description') === '' || data.get('longitude') === '' || data.get('latitude') === '' || data.get('images[]') === '' ) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   return (
     <Box sx={{ width: '100%' }}>
