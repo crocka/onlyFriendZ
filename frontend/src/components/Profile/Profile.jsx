@@ -19,7 +19,7 @@ export default function Profile(props) {
 
       <Tabs tabLabels={labels}>
         <Summary key='1' obj={obj} ></Summary>
-        <PictureWall key='2' images={obj.images}></PictureWall>
+        <PictureWall key='2' images={obj.images} location_id={location_id}></PictureWall>
         <ReviewList key='3' user_id={user_id} location_id={location_id} initialState={state}></ReviewList>
       </Tabs>
 

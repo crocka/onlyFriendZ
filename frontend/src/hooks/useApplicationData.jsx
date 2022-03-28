@@ -200,6 +200,16 @@ export default function useApplicationData() {
       })
   }
 
+  function updateLocationImage(location_id, data) {
+
+    return (axios.post(`/locations/images/${location_id}`, data)
+      .then(response => {
+        return (response.data);
+      })
+    );
+
+  }
+
   //return the functions and state that application needs
   return {
 
@@ -217,7 +227,8 @@ export default function useApplicationData() {
     getUserReviews,
     createUserReview,
     createComment,
-    getState
+    getState,
+    updateLocationImage
 
   };
 

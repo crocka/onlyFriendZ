@@ -30,7 +30,7 @@ export default function UserProfile(props) {
 
   }, []);
 
-  const labels = ['Personal Summary', 'Favorite Places', 'Reviews'];
+  const labels = ['Personal Summary', 'Photos', 'Reviews'];
 
   return user ? (
 

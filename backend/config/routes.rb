@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
+  post '/locations/images/:id' => 'locations#images'
 
   mount ActionCable.server, at: '/cable'
 

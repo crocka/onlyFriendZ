@@ -1,5 +1,29 @@
 class LocationsController < ApplicationController
-  before_action :set_location, only: [:show, :update]
+  before_action :set_location, only: [:show, :update, :images]
+
+  # POST /locations/images/:id
+  def images
+
+    if params[:images].present?
+
+      @location.images.attach(params[:images])
+
+    end
+
+    images = []
+
+    @location.images.each do |image|
+      images.push(rails_blob_path(image, only_path:true))
+    end
+
+    render json: { 
+      
+      location: @location, 
+      images: images
+
+    }
+  
+  end
 
   # GET /locations
   def index

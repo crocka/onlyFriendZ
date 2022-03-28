@@ -32,12 +32,26 @@ export default function ReviewList(props) {
     getState()
       .then(state => {
 
+        console.log('rendering')
         setState(state);
         setReviews(prev => user_id === undefined ? getReviewsFromLocationId(state, location_id) : getReviewsFromUserId(state, user_id));
 
       })
 
   }, [reviews]);
+
+  // React.useEffect(() => {
+
+  //   console.log('rendering2')
+  //   getState()
+  //     .then(state => {
+
+  //       setState(state);
+  //       // setReviews(prev => user_id === undefined ? getReviewsFromLocationId(state, location_id) : getReviewsFromUserId(state, user_id));
+
+  //     })
+
+  // }, [reviews]);
 
   const handleSubmit = (event) => {
 
@@ -68,6 +82,8 @@ export default function ReviewList(props) {
 
 
           });
+
+          // setState(prev => prev);
           formRef.current.reset();
 
         })

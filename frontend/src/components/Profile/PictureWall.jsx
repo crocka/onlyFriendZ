@@ -1,19 +1,85 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
+import { DropzoneArea } from 'material-ui-dropzone';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
+import useApplicationData from '../../hooks/useApplicationData.jsx';
 
 export default function PictureWall(props) {
-  
-  const { images } = props;
+
+  const { images, location_id } = props;
+
+  const { updateLocationImage } = useApplicationData();
+
+  const [file, setFile] = React.useState({});
+
+  const [hidden, setHidden] = React.useState(true);
+
+  const handleSubmit = (event) => {
+
+    // event.preventDefault();
+
+    const data = new FormData();
+
+    for (let i = 0; i < file.length; i++) {
+
+      data.append(`images[]`, file[i]);
+
+    }
+
+    updateLocationImage(location_id, data)
+      .catch(err => console.log(err))
+
+  }
+
+  const onFileChange = event => {
+
+    // Update the state
+    setFile([...event]);
+    // console.log(event)
+
+  };
 
   return (
 
-    <Grid item xs={12} md={4} lg={3}>
-      <Paper>
+    <React.Fragment>
+      {location_id !== undefined ?
+
+        <React.Fragment>
+
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            <Button
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              onClick={() => setHidden(prev => !prev)}
+            >
+              {hidden ? 'Add photos' : 'Close'}
+
+            </Button>
+
+            <Grid item hidden={hidden}>
+              <DropzoneArea name="images" filesLimit={20} onChange={(files) => onFileChange(files)} />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Send
+              </Button>
+            </Grid>
+          </Box>
+
+        </React.Fragment>
+
+        : ''}
+
+      <Grid item xs={12} md={4} lg={3}>
+        {/* <Paper> */}
         <Box sx={{ width: 500, height: 450, overflowY: 'scroll' }}>
           <ImageList variant="masonry" cols={3} gap={8}>
             {images.map((item) => (
@@ -29,8 +95,8 @@ export default function PictureWall(props) {
             ))}
           </ImageList>
         </Box>
-      </Paper>
-    </Grid>
-
+        {/* </Paper> */}
+      </Grid>
+    </React.Fragment>
   );
 }
