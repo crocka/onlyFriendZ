@@ -16,7 +16,7 @@ let userIcon = L.icon({
   shadowUrl: iconShadow,
   iconSize: [25, 25], // size of the icon
   iconAnchor: [25, 25], // point of the icon which will correspond to marker's location
-  shadowAnchor: [15,50]
+  shadowAnchor: [20,50]
 });
 
 
