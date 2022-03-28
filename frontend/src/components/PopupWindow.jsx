@@ -1,28 +1,18 @@
-import * as React from 'react';
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
+import React, { useState } from 'react';
+import { Dialog, DialogContent } from '@mui/material/';
 import { useHistory } from "react-router-dom";
 
 export default function PopupWindow(props) {
-
-  const [scroll, setScroll] = React.useState('paper');
-  const [open, setOpen] = React.useState(true);
+  const [scroll, setScroll] = useState('paper');
+  const [open, setOpen] = useState(true);
   const history = useHistory();
-
 
   function handleClose() {
     setOpen(false);
     history.push('/');
   };
 
-
-  // const handleClickOpen = (scrollType) => () => {
-  //   setOpen(true);
-  //   setScroll(scrollType);
-  // };
-
   return (
-
     <Dialog
       open={open}
       onClose={handleClose}
@@ -32,12 +22,8 @@ export default function PopupWindow(props) {
       disableEnforceFocus
     >
       <DialogContent dividers={scroll === 'paper'}>
-
         {props.children}
-
       </DialogContent>
     </Dialog>
-
-
   );
 }

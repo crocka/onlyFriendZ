@@ -25,7 +25,17 @@ export default function ReviewList(props) {
 
   const [reviews, setReviews] = React.useState([])
 
+  const [error, setError] = React.useState(false);
+
   const commentRef = React.useRef('');
+
+  function resetError() {
+    setError(false);
+  }
+
+  function handleError() {
+    setError(true);
+  }
 
   React.useEffect(() => {
 
@@ -74,6 +84,7 @@ export default function ReviewList(props) {
       data.user_id = user_id;
       data.reviewer_id = Cookies.get('UserID');
       // console.log(data)
+      if (commentRef.current.trim() !== "") {
       createUserReview(data)
         .then(res => {
           // console.log(res)
@@ -104,8 +115,9 @@ export default function ReviewList(props) {
             })
         })
         .catch(err => console.log(err));
-
-
+      } else {
+        handleError();
+      }
     }
 
     if (location_id !== undefined) {
@@ -153,8 +165,9 @@ export default function ReviewList(props) {
   return (
     <React.Fragment>
 
+      {error && <tag style={{color:"red"}}>Please enter a comment for your review!</tag>}
       <Box ref={formRef} component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-        {user_id == Cookies.get('UserID') ? '' : <TextField fullWidth required autoFocus id="standard-basic" name='comment' label="Please leave your reviews or comments..." variant="standard" onChange={(event) => { commentRef.current = event.target.value }} />}
+        {user_id === Cookies.get('UserID') ? '' : <TextField fullWidth required autoFocus id="standard-basic" name='comment' label="Please leave your reviews or comments..." variant="standard" onChange={(event) => { commentRef.current = event.target.value }} error={error} onClick={resetError} />}
 
 
         {location_id !== undefined ?
@@ -170,7 +183,7 @@ export default function ReviewList(props) {
           </React.Fragment>
           : ''}
 
-        {user_id == Cookies.get('UserID') ? '' : <Button
+        {user_id === Cookies.get('UserID') ? '' : <Button
           type="submit"
           fullWidth
           variant="contained"

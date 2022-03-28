@@ -171,7 +171,8 @@ export default function LocationForm(props) {
   };
 
   const validate = (data) => {
-    if (data.get('title') === '' || data.get('description') === '' || data.get('longitude') === '' || data.get('latitude') === '' || data.get('images[]') === '' ) {
+    console.log(data.get('images[]'));
+    if (data.get('title').trim() === '' || data.get('description').trim() === '' || data.get('longitude').trim() === '' || data.get('latitude').trim() === '' || data.get('images[]') === null) {
       return false;
     } else {
       return true;
