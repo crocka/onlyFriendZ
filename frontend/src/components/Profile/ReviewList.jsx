@@ -13,23 +13,31 @@ import Cookies from 'js-cookie';
 
 export default function ReviewList(props) {
 
-  const { user_id, location_id } = props;
+  const { user_id, location_id, initialState } = props;
 
-  const { createUserReview, createComment, state } = useApplicationData();
+  const { createUserReview, createComment, getState } = useApplicationData();
 
   const [value, setValue] = React.useState(5);
 
-  const [reviews, setReviews] = React.useState([]);
+  const [state, setState] = React.useState(initialState);
+
+  const formRef = React.useRef();
+
+  const [reviews, setReviews] = React.useState([])
 
   const commentRef = React.useRef('');
 
   React.useEffect(() => {
 
-    setReviews(prev => user_id === undefined ? getReviewsFromLocationId(state, location_id) : getReviewsFromUserId(state, user_id));
-    // console.log(reviews)
-    // console.log(state)
+    getState()
+      .then(state => {
 
-  }, [state]);
+        setState(state);
+        setReviews(prev => user_id === undefined ? getReviewsFromLocationId(state, location_id) : getReviewsFromUserId(state, user_id));
+
+      })
+
+  }, [reviews]);
 
   const handleSubmit = (event) => {
 
@@ -50,10 +58,22 @@ export default function ReviewList(props) {
       data.reviewer_id = Cookies.get('UserID');
       // console.log(data)
       createUserReview(data)
-        .then(res => setReviews(prev => prev.push(res)))
+        .then(res => {
+          // console.log(res)
+          setReviews(prev => {
+
+            prev.push({...res});
+            console.log(prev)
+            return prev;
+
+
+          });
+          formRef.current.reset();
+
+        })
         .catch(err => console.log(err));
 
-      console.log(reviews)
+
     }
 
     if (location_id !== undefined) {
@@ -68,17 +88,30 @@ export default function ReviewList(props) {
 
       // console.log(data)
       createComment(data)
-        .then(res => setReviews(prev => prev.push(res)))
+        .then(res => {
+          // console.log(res)
+
+          setReviews(prev => {
+
+            prev.push({ ...res });
+            // console.log(prev)
+            return prev;
+
+          });
+          formRef.current.reset();
+
+        })
         .catch(err => console.log(err));
 
-        console.log(reviews)
+      
     }
+    console.log(reviews)
   };
 
   return (
     <React.Fragment>
 
-      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+      <Box ref={formRef} component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
         <TextField fullWidth required autoFocus id="standard-basic" name='comment' label="Please leave your reviews or comments..." variant="standard" onChange={(event) => { commentRef.current = event.target.value }} />
 
 
@@ -106,16 +139,18 @@ export default function ReviewList(props) {
 
       </Box>
 
-      
-    {reviews !== [] ? reviews.map(review => {
-      return (
-        
-        <Review key={review.id} review={review} state={state} />
 
-      );
-          
-      }) : ""}
-        
+      {reviews.slice().reverse().map(review => {
+
+        // console.log(review)
+        return (
+
+          <Review key={review.id} review={review} state={state} />
+
+        );
+
+      })}
+
 
     </React.Fragment>
   )

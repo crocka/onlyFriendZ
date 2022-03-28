@@ -14,6 +14,7 @@ export default function LocationProfile(props) {
 
   }
 
+  const { state } = props;
   
   const [location, setLocation] = React.useState({});
 
@@ -35,7 +36,7 @@ export default function LocationProfile(props) {
 
   return location ? (
     
-    <Profile labels={labels} obj={normalizeObject(location)} location_id={id}>
+    <Profile labels={labels} obj={normalizeObject(location)} location_id={id} state={state} >
 
     </Profile>
   ) : null;

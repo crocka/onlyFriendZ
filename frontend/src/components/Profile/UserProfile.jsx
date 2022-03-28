@@ -14,6 +14,8 @@ export default function UserProfile(props) {
 
   }
 
+  const { state } = props;
+
   const [user, setUser] = React.useState({});
 
   const { getUser } = useApplicationData();
@@ -32,7 +34,7 @@ export default function UserProfile(props) {
 
   return user ? (
 
-    <Profile labels={labels} obj={normalizeObject(user)} user_id={id}>
+    <Profile labels={labels} obj={normalizeObject(user)} user_id={id} state={state}>
 
     </Profile>
 

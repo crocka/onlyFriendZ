@@ -14,12 +14,12 @@ export default function Review(props) {
 
   reviewer = reviewer === undefined ? getUserFromUserId(state, review.user_id) : '';
 
-  console.log(review)
+  // console.log(review)
 
   return (
     <Card sx={{ width: '100%', mt: 2, mb: 2 }} >
       <CardActionArea>
-        <CardContent style={{ backgroundColor: "gray" }}>
+        <CardContent style={{ backgroundColor: "light gray" }}>
           <Typography variant="h6" color="text.secondary" >
             {reviewer.name}
           </Typography>

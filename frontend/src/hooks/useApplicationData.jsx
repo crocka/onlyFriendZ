@@ -61,6 +61,23 @@ export default function useApplicationData() {
 
   }, []);
 
+  function getState() {
+
+    return (Promise.all([
+
+      axios.get('/users'),
+      axios.get('/locations'),
+      axios.get(`/user/favourite_locations`),
+      axios.get(`/user/user_reviews`),
+      axios.get(`/location/comments`)
+
+    ]).then(response => {
+
+      return { users: response[0].data, locations: response[1].data, favourite_locations: response[2].data, user_reviews: response[3].data, comments: response[4].data };
+
+    }))
+  }
+
   function getUser(id) {
 
     return (axios.get(`/users/${id}`));
@@ -199,7 +216,8 @@ export default function useApplicationData() {
     getLocation,
     getUserReviews,
     createUserReview,
-    createComment
+    createComment,
+    getState
 
   };
 
