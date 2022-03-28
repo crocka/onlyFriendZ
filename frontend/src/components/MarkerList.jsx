@@ -8,6 +8,17 @@ import SignIn from './SignIn'
 import { useHistory } from "react-router-dom"
 import Popover from '@mui/material/Popover';
 import Box from '@mui/material/Box';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import L from 'leaflet';
+
+let userIcon = L.icon({
+  iconUrl: '../../../images/mapMarkerRed.png',
+  shadowUrl: iconShadow,
+  iconSize: [25, 25], // size of the icon
+  iconAnchor: [25, 25], // point of the icon which will correspond to marker's location
+  shadowAnchor: [15,50]
+});
+
 
 export default function MarkerList(props) {
 
@@ -168,7 +179,7 @@ export default function MarkerList(props) {
           <Fragment key={user_id}>
 
 
-            < Circle draggable id={`marker-${user_id}`} key={user_id} center={positions[user_id]} fillColor='#922B21' fillOpacity={100} radius={100} stroke={false}
+            < Marker draggable id={`marker-${user_id}`} key={user_id} position={positions[user_id]} stroke={false} icon={userIcon}
 
               eventHandlers={{
                 click: () => {
@@ -192,7 +203,7 @@ export default function MarkerList(props) {
             >
 
 
-            </Circle >
+            </Marker >
 
           </Fragment >
 

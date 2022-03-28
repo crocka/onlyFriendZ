@@ -11,16 +11,17 @@ import Button from '@mui/material/Button';
 import Cookies from 'js-cookie';
 
 let DefaultIcon = L.icon({
-  iconUrl: '../../../images/mapPin.svg',
+  iconUrl: '../../../images/mapMarker.png',
   shadowUrl: iconShadow,
-  iconSize: [41, 51], // size of the icon
-  iconAnchor: [20, 51], // point of the icon which will correspond to marker's location
+  iconSize: [50, 50], // size of the icon
+  iconAnchor: [25, 25], // point of the icon which will correspond to marker's location
+  shadowAnchor: [15,35]
 });
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
 export default function Map(props) {
-
+ 
   const { position } = props;
 
   const [colorMode, setColorMode] = useState("light");

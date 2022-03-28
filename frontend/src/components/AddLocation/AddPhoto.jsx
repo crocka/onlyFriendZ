@@ -36,9 +36,9 @@ export default function AddPhoto(props) {
           </Typography>
 
 
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12}>
 
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 required
                 fullWidth
@@ -50,7 +50,7 @@ export default function AddPhoto(props) {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 id="description"
                 name="description"
