@@ -14,12 +14,21 @@ import IconButton from '@mui/material/IconButton';
 import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
+import { useHistory } from "react-router-dom";
 
 const theme = createTheme();
 
 export default function Summary(props) {
 
+  const [open, setOpen] = React.useState(true);
+  const history = useHistory();
+
   const { obj } = props;
+
+  function handleClose() {
+    setOpen(false);
+    history.push('/');
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -44,7 +53,7 @@ export default function Summary(props) {
           <div className="biography">{obj.summary}</div>
           {obj.birthday === '' ? '' : <div className='birthday'>{obj.birthday}</div>}
           <div className="interact-buttons">
-            <IconButton className="back" sx={{ m: 1, color: 'red', border: "solid 2px" }}>
+            <IconButton className="back" onClick={handleClose} sx={{ m: 1, color: 'red', border: "solid 2px" }}>
               <KeyboardBackspaceOutlinedIcon />
             </IconButton>
             <IconButton className="message" sx={{ m: 1, color: 'blue', border: "solid 2px" }}>
