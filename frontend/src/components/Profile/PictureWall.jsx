@@ -1,6 +1,7 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import { DropzoneArea } from 'material-ui-dropzone';
+import Cookies from 'js-cookie';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ImageList from '@mui/material/ImageList';
@@ -10,9 +11,9 @@ import useApplicationData from '../../hooks/useApplicationData.jsx';
 
 export default function PictureWall(props) {
 
-  const { images, location_id } = props;
+  const { images, location_id, user_id } = props;
 
-  const { updateLocationImage } = useApplicationData();
+  const { updateLocationImage, updateUserImage } = useApplicationData();
 
   const [file, setFile] = React.useState({});
 
@@ -20,7 +21,7 @@ export default function PictureWall(props) {
 
   const handleSubmit = (event) => {
 
-    // event.preventDefault();
+    event.preventDefault();
 
     const data = new FormData();
 
@@ -30,8 +31,30 @@ export default function PictureWall(props) {
 
     }
 
-    updateLocationImage(location_id, data)
-      .catch(err => console.log(err))
+    if (user_id == Cookies.get('UserID')) {
+
+      updateUserImage(user_id, data)
+      .then(() => {
+
+        alert("You look amazing!");
+        setHidden(true);
+
+      })
+      .catch(err => console.log(err));
+
+
+    } else {
+
+      updateLocationImage(location_id, data)
+        .then(() => {
+
+          alert("Thank you for your contributions");
+          setHidden(true);
+
+        })
+        .catch(err => console.log(err));
+
+    }
 
   }
 
@@ -39,14 +62,13 @@ export default function PictureWall(props) {
 
     // Update the state
     setFile([...event]);
-    // console.log(event)
-
+ 
   };
 
   return (
 
     <React.Fragment>
-      {location_id !== undefined ?
+      {location_id !== undefined || user_id == Cookies.get('UserID') ?
 
         <React.Fragment>
 

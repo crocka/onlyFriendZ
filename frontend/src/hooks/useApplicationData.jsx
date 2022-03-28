@@ -210,6 +210,16 @@ export default function useApplicationData() {
 
   }
 
+  function updateUserImage(user_id, data) {
+
+    return (axios.post(`/users/images/${user_id}`, data)
+      .then(response => {
+        return (response.data);
+      })
+    );
+
+  }
+
   //return the functions and state that application needs
   return {
 
@@ -228,7 +238,8 @@ export default function useApplicationData() {
     createUserReview,
     createComment,
     getState,
-    updateLocationImage
+    updateLocationImage,
+    updateUserImage
 
   };
 

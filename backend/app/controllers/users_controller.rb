@@ -1,6 +1,30 @@
 class UsersController < ApplicationController
 
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:show, :update, :destroy, :images]
+
+    # POST /users/images/:id
+    def images
+
+      if params[:images].present?
+  
+        @user.images.attach(params[:images])
+  
+      end
+  
+      images = []
+  
+      @user.images.each do |image|
+        images.push(rails_blob_path(image, only_path:true))
+      end
+  
+      render json: { 
+        
+        location: @user, 
+        images: images
+  
+      }
+    
+  end
 
   # GET /users
   def index

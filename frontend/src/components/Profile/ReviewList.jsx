@@ -32,13 +32,16 @@ export default function ReviewList(props) {
     getState()
       .then(state => {
 
-        console.log('rendering')
         setState(state);
-        setReviews(prev => user_id === undefined ? getReviewsFromLocationId(state, location_id) : getReviewsFromUserId(state, user_id));
+        setReviews(prev => {
+
+          return user_id === undefined ? getReviewsFromLocationId(state, location_id) : getReviewsFromUserId(state, user_id);
+
+        });
 
       })
 
-  }, [reviews]);
+  }, []);
 
   // React.useEffect(() => {
 
@@ -76,10 +79,9 @@ export default function ReviewList(props) {
           // console.log(res)
           setReviews(prev => {
 
-            prev.push({...res});
+            prev.push({ ...res });
             console.log(prev)
             return prev;
-
 
           });
 
@@ -87,16 +89,26 @@ export default function ReviewList(props) {
           formRef.current.reset();
 
         })
+        .then(() => {
+
+          getState()
+            .then(state => {
+
+              setState(state);
+              setReviews(prev => {
+
+                return user_id === undefined ? getReviewsFromLocationId(state, location_id) : getReviewsFromUserId(state, user_id);
+
+              });
+
+            })
+        })
         .catch(err => console.log(err));
 
 
     }
 
     if (location_id !== undefined) {
-
-      // data.append('rating', value);
-      // data.append('user_id', Cookies.get('UserID'));
-      // data.append('location_id', location_id);
 
       data.rating = value;
       data.user_id = Cookies.get('UserID');
@@ -117,18 +129,32 @@ export default function ReviewList(props) {
           formRef.current.reset();
 
         })
+        .then(() => {
+
+          getState()
+            .then(state => {
+
+              setState(state);
+              setReviews(prev => {
+
+                return user_id === undefined ? getReviewsFromLocationId(state, location_id) : getReviewsFromUserId(state, user_id);
+
+              });
+
+            })
+        })
         .catch(err => console.log(err));
 
-      
+
     }
-    console.log(reviews)
+
   };
 
   return (
     <React.Fragment>
 
       <Box ref={formRef} component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-        <TextField fullWidth required autoFocus id="standard-basic" name='comment' label="Please leave your reviews or comments..." variant="standard" onChange={(event) => { commentRef.current = event.target.value }} />
+        {user_id == Cookies.get('UserID') ? '' : <TextField fullWidth required autoFocus id="standard-basic" name='comment' label="Please leave your reviews or comments..." variant="standard" onChange={(event) => { commentRef.current = event.target.value }} />}
 
 
         {location_id !== undefined ?
@@ -144,14 +170,14 @@ export default function ReviewList(props) {
           </React.Fragment>
           : ''}
 
-        <Button
+        {user_id == Cookies.get('UserID') ? '' : <Button
           type="submit"
           fullWidth
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
         >
           Send
-        </Button>
+        </Button>}
 
       </Box>
 

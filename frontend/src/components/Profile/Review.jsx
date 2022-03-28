@@ -12,9 +12,12 @@ export default function Review(props) {
 
   let reviewer = getUserFromUserId(state, review.reviewer_id);
 
-  reviewer = reviewer === undefined ? getUserFromUserId(state, review.user_id) : '';
+  if (reviewer === undefined) {
+    
+    reviewer = getUserFromUserId(state, review.user_id);
+    
 
-  // console.log(review)
+  }
 
   return (
     <Card sx={{ width: '100%', mt: 2, mb: 2 }} >
