@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::API
 
+  require 'tempfile'
+  
   def index
 
   end

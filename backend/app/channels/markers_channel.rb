@@ -10,7 +10,7 @@ class MarkersChannel < ApplicationCable::Channel
     # @positions[:"#{params[:user_id]}"] = params[:position] 
     
     
-    ActionCable.server.broadcast('markers_channel', { "#{params[:user_id]}": params[:position] })
+    ActionCable.server.broadcast('markers_channel', { "#{params[:user_id]}": params[:position], "emit": params[:emit] })
   end
 
   def receive(data)
@@ -19,7 +19,7 @@ class MarkersChannel < ApplicationCable::Channel
 
     # byebug
 
-    ActionCable.server.broadcast('markers_channel', { "#{data['user_id']}": data['position'] })
+    ActionCable.server.broadcast('markers_channel', { "#{data['user_id']}": data['position'], "emit": data['emit']})
 
   end
 

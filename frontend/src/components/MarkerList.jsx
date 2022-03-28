@@ -46,11 +46,7 @@ export default function MarkerList(props) {
 
   useEffect(() => {
 
-
-  //if logged in user
-  // if (cookie) {
-
-    const sub = props.cableApp.cable.subscriptions.create({ channel: 'MarkersChannel', user_id: cookie, position: position }, 
+    const sub = props.cableApp.cable.subscriptions.create({ channel: 'MarkersChannel', user_id: cookie, position: position, emit: true }, 
     
     { received: (data) => {
 
@@ -77,16 +73,22 @@ export default function MarkerList(props) {
       const key = Object.keys(data)[0];
   
       const value = data[key];
+
+      if(data.emit === true){
+
+        sub.send({ channel: 'MarkersChannel', user_id: cookie, position: position, emit: false });
+
+      }
   
       setPositions(prev => {
 
         const obj = { ...prev };
 
-        if(obj[key] === undefined) {
+        // if(obj[key] === undefined) {
   
-          sub.send({ channel: 'MarkersChannel', user_id: cookie, position: position });
-          console.log('new connection detected')
-        }
+          // sub.send({ channel: 'MarkersChannel', user_id: cookie, position: position });
+          // console.log('new connection detected')
+        // }
   
         
         obj[key] = value;

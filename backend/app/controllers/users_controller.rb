@@ -7,14 +7,55 @@ class UsersController < ApplicationController
 
       if params[:images].present?
   
-        @user.images.attach(params[:images])
+        # images = []
+
+        # @user.images.attach(params[:images])
+       
+        params[:images].each do |params_image|
+        
+          # tempfile = Tempfile.new
+          # tempfile.write(params_image)
+          checksum = Digest::MD5.file(params_image.path).base64digest
+
+          @user.images.each do |image|
+
+            tempfile_user = Tempfile.new
+            tempfile_user.write(image)
+           
+            checksum_user = Digest::MD5.file(tempfile_user.path).base64digest
+
+            byebug
+            
+            if checksum_user == checksum
+
+              byebug
+
+              # image.purge_later
+
+              tempfile.unlink
+
+              tempfile_user.unlink
+
+            else
+              
+              
+
+              # images.push(rails_blob_path(params_image, only_path:true))
+
+            end
+          
+          end
+
+          @user.images.attach(params[:images])
+
+        end
   
       end
   
-      images = []
+ 
   
       @user.images.each do |image|
-        images.push(rails_blob_path(image, only_path:true))
+        
       end
   
       render json: { 

@@ -21,7 +21,8 @@ export default function PictureWall(props) {
 
   const handleSubmit = (event) => {
 
-    event.preventDefault();
+    // event.preventDefault();
+    event.currentTarget.reset();
 
     const data = new FormData();
 
@@ -38,9 +39,10 @@ export default function PictureWall(props) {
 
         alert("You look amazing!");
         setHidden(true);
+        setFile({});
 
       })
-      .catch(err => console.log(err));
+      .catch(err => alert("Something went wrong. Please try again later."));
 
 
     } else {
@@ -50,9 +52,10 @@ export default function PictureWall(props) {
 
           alert("Thank you for your contributions");
           setHidden(true);
+          setFile({});
 
         })
-        .catch(err => console.log(err));
+        .catch(err => alert("Something went wrong. Please try again later."));
 
     }
 
@@ -79,12 +82,12 @@ export default function PictureWall(props) {
               sx={{ mt: 3, mb: 2 }}
               onClick={() => setHidden(prev => !prev)}
             >
-              {hidden ? 'Add photos' : 'Close'}
+              {hidden? (location_id !== undefined ? 'Add photos' : 'Edit photos') : 'Close'}
 
             </Button>
 
             <Grid item hidden={hidden}>
-              <DropzoneArea name="images" filesLimit={20} onChange={(files) => onFileChange(files)} />
+              <DropzoneArea clearOnUnmount name="images" filesLimit={20} onChange={(files) => onFileChange(files)} />
               <Button
                 type="submit"
                 fullWidth
