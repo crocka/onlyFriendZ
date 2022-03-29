@@ -18,7 +18,7 @@ import TextField from '@mui/material/TextField';
 
 export default function NotificationForm(props) {
 
-  const [messages, setMessages] = useState([]);
+  const {messages, setMessages} = props;
 
   const [error, setError] = React.useState(false);
 
@@ -33,8 +33,6 @@ export default function NotificationForm(props) {
   const [sub, setSub] = useState(null);
 
   useEffect(() => {
-
-    console.log('repeat')
 
     setSub(props.cableApp.cable.subscriptions.create({ channel: 'NotificationsChannel', user_id: cookie, message: "I am here." },
 
@@ -84,8 +82,6 @@ export default function NotificationForm(props) {
 
     setMessages([...arr]);
 
-    console.log(messages)
-
   };
 
 
@@ -110,8 +106,9 @@ export default function NotificationForm(props) {
 
         const sender = getUserFromUserId(props.state, Object.keys(message)[0]);
 
-        console.log(sender)
-        return (<Card sx={{ width: '100%', mt: 2, mb: 2 }} >
+        return (
+        
+        <Card key={`${sender.id}_${message[Object.keys(message)[0]]}`} sx={{ width: '100%', mt: 2, mb: 2 }} >
           <CardActionArea>
             <CardContent style={{ backgroundColor: "light gray" }}>
               <Typography variant="h6" color="text.secondary" >

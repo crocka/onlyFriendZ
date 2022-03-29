@@ -41,6 +41,8 @@ function App(props) {
 
   const [initialPos, setInitialPos] = useState([]);
 
+  const [messages, setMessages] = useState([]);
+
   useEffect(() => {
 
     const promise = new Promise(function (resolve, reject) {
@@ -101,7 +103,7 @@ function App(props) {
         {userLogin && <Route exact from="/addlocation" render={props => <PopupWindow><LocationForm {...props} initialPos={initialPos} /></PopupWindow>} />}
         {userLogin && <Route path="/userprofile/:id" render={props => <PopupWindow><UserProfile {...props} state={state}/></PopupWindow>} />}
         {userLogin && <Route path="/locationprofile/:id" render={props => <PopupWindow><LocationProfile {...props} state={state}/></PopupWindow>} />}
-        {userLogin && <Route path="/notification"><PopupWindow><NotificationForm cableApp={props.cableApp} state={state} /></PopupWindow></Route>}
+        {userLogin && <Route path="/notification"><PopupWindow><NotificationForm cableApp={props.cableApp} state={state} messages={messages} setMessages={setMessages}/></PopupWindow></Route>}
       </Switch>
 
       <Map position={initialPos}>
