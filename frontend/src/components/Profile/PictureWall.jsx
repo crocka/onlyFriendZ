@@ -13,7 +13,7 @@ export default function PictureWall(props) {
 
   const { images, location_id, user_id } = props;
 
-  const { updateLocationImage, updateUserImage } = useApplicationData();
+  const { updateLocationImage, updateUserImage, deleteUserImage } = useApplicationData();
 
   const [file, setFile] = React.useState({});
 
@@ -21,7 +21,7 @@ export default function PictureWall(props) {
 
   const handleSubmit = (event) => {
 
-    // event.preventDefault();
+    event.preventDefault();
     event.currentTarget.reset();
 
     const data = new FormData();
@@ -61,6 +61,28 @@ export default function PictureWall(props) {
 
   }
 
+  const handleDelete = function(user_id) {
+
+    const data = new FormData();
+
+    for (let i = 0; i < file.length; i++) {
+
+      data.append(`images[]`, file[i]);
+
+    }
+
+    deleteUserImage(user_id, data)
+    .then(() => {
+
+      alert("Images deleted!");
+      setHidden(true);
+      setFile({});
+
+    })
+    .catch(err => alert("Something went wrong. Please try again later."));
+
+  }
+
   const onFileChange = event => {
 
     // Update the state
@@ -88,6 +110,7 @@ export default function PictureWall(props) {
 
             <Grid item hidden={hidden}>
               <DropzoneArea clearOnUnmount name="images" filesLimit={20} onChange={(files) => onFileChange(files)} />
+
               <Button
                 type="submit"
                 fullWidth
@@ -96,6 +119,18 @@ export default function PictureWall(props) {
               >
                 Send
               </Button>
+
+              {user_id == Cookies.get('UserID') ? 
+              
+              <Button
+                onClick={() => handleDelete(user_id)}
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Delete photos
+              </Button> : ''}
+              
             </Grid>
           </Box>
 

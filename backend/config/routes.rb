@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get '/logout' => 'sessions#destroy'
   post '/locations/images/:id' => 'locations#images'
   post '/users/images/:id' => 'users#images'
+  post '/users/images/:id/delete' => 'users#images_delete'
   mount ActionCable.server, at: '/cable'
 
   # get '/users/favourite_locations/:id/:location_id' => 'favourite_locations#destroy'

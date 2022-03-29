@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
 
-  before_action :set_user, only: [:show, :update, :destroy, :images]
+  before_action :set_user, only: [:show, :update, :destroy, :images, :images_delete]
 
-    # POST /users/images/:id
-    def images
+    # POST /users/images/:id/delete
+    def images_delete
 
       if params[:images].present?
   
@@ -19,22 +19,13 @@ class UsersController < ApplicationController
 
           @user.images.each do |image|
 
-            tempfile_user = Tempfile.new
-            tempfile_user.write(image)
-           
-            checksum_user = Digest::MD5.file(tempfile_user.path).base64digest
+            # byebug
 
-            byebug
-            
-            if checksum_user == checksum
+            if image.checksum == checksum
 
-              byebug
+              # byebug
 
-              # image.purge_later
-
-              tempfile.unlink
-
-              tempfile_user.unlink
+              image.purge_later
 
             else
               
@@ -43,28 +34,48 @@ class UsersController < ApplicationController
               # images.push(rails_blob_path(params_image, only_path:true))
 
             end
-          
+            # tempfile_user.unlink
           end
 
-          @user.images.attach(params[:images])
+          # tempfile.unlink
+          # @user.images.attach(params_images)
 
         end
   
       end
   
- 
-  
-      @user.images.each do |image|
+      # render json: { 
         
-      end
+      #   location: @user, 
+      #   images: images
   
-      render json: { 
-        
-        location: @user, 
-        images: images
-  
-      }
+      # }
     
+    end
+
+
+  # POST /users/images/:id
+  def images
+
+    if params[:images].present?
+
+      @user.images.attach(params[:images])
+
+    end
+
+    images = []
+
+    @user.images.each do |image|
+      images.push(rails_blob_path(image, only_path:true))
+    end
+
+    render json: { 
+      
+      user: @user, 
+      images: images
+
+    }
+  
   end
 
   # GET /users

@@ -220,6 +220,17 @@ export default function useApplicationData() {
 
   }
 
+
+  function deleteUserImage(user_id, data) {
+
+    return (axios.post(`/users/images/${user_id}/delete`, data)
+      .then(response => {
+        return (response.data);
+      })
+    );
+
+  }
+
   //return the functions and state that application needs
   return {
 
@@ -239,7 +250,8 @@ export default function useApplicationData() {
     createComment,
     getState,
     updateLocationImage,
-    updateUserImage
+    updateUserImage,
+    deleteUserImage,
 
   };
 
