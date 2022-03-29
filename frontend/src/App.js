@@ -97,16 +97,17 @@ function App(props) {
         {!userLogin && <Route exact from="/welcome" render={props => <Welcome {...props} />} />}
         {!userLogin && <Route exact from="/signup" render={props => <SignUp {...props} />} />}
         {!userLogin && <Route exact from="/signin" render={props => <SignIn {...props} />} />}
+        {!userLogin && <Route path='*' exact={true} component={Welcome} />}
         {userLogin && <Route exact from="/addlocation" render={props => <PopupWindow><LocationForm {...props} initialPos={initialPos} /></PopupWindow>} />}
         {userLogin && <Route path="/userprofile/:id" render={props => <PopupWindow><UserProfile {...props} state={state}/></PopupWindow>} />}
         {userLogin && <Route path="/locationprofile/:id" render={props => <PopupWindow><LocationProfile {...props} state={state}/></PopupWindow>} />}
-        {!userLogin && <Route path='*' exact={true} component={Welcome} />}
+        <Route path="/notification"><PopupWindow><NotificationForm cableApp={props.cableApp} state={state} /></PopupWindow></Route>
       </Switch>
 
       <Map position={initialPos}>
         {userId === undefined ? '' : <MarkerList state={state} cableApp={props.cableApp} initialPos={initialPos} user={response} />}
       </Map>
-
+      
       {/* <SignIn cableApp={props.cableApp } </SignIn> 
         <LocationCard />
         {response.images.map((image) => {return (<img src={image} alt="" />);})}

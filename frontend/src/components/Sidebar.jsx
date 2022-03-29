@@ -16,6 +16,7 @@ import {
   AccountCircle,
 } from "@material-ui/icons";
 import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt';
+import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
 
 import { withRouter, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -32,6 +33,7 @@ const Sidebar = props => {
   const data = [
     {name: "Home", icon: <HomeOutlined />, onClick: () => {history.push('/'); setOpen(false)}},
     {name: "Add Location", icon: <AddLocationAltIcon /> , onClick: () => {history.push('/addlocation'); setOpen(false)}},
+    {name: "Send Notification", icon: <CircleNotificationsIcon />, onClick: () => {history.push('/notification'); setOpen(false)}},
     {name: "Logout", icon: <AccountCircle /> , onClick: () => {logout(); setOpen(false)}},
   ];
 
