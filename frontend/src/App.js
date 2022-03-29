@@ -25,6 +25,8 @@ import useApplicationData from './hooks/useApplicationData.jsx';
 
 import MarkerList from './components/MarkerList';
 
+import NotificationForm from './components/NotificationForm';
+
 import './App.css';
 
 function App(props) {
@@ -110,7 +112,7 @@ function App(props) {
         {response.images.map((image) => {return (<img src={image} alt="" />);})}
         <UserProfile user={response} />
         <ReviewList reviewArray={userReview} state={state} user_id={16} /> */}
-      {/* <PopupWindow><LocationProfile location_id={20} /></PopupWindow> */}
+      <PopupWindow><NotificationForm cableApp={props.cableApp} /></PopupWindow>
       {/* </ActionCableProvider> */}
     </div >
   );

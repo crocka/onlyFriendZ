@@ -100,6 +100,10 @@ export default function MarkerList(props) {
   
       // console.log(positions)
     };
+
+    return () => {
+      sub.unsubscribe();
+    }
   
   // }
   }, []);
