@@ -23,6 +23,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { DropzoneArea } from 'material-ui-dropzone';
 import { useHistory } from "react-router-dom";
+import Cookies from 'js-cookie';
 
 function Copyright(props) {
   return (
@@ -40,7 +41,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
-  const { createUser } = useApplicationData();
+  const { createUser, logInUser } = useApplicationData();
   const [value, setValue] = useState(new Date());
   const [file, setFile] = useState([]);
   const [scroll, setScroll] = useState('paper');
@@ -74,14 +75,22 @@ export default function SignUp() {
       data.append(`images[]`, file[i]);
     }
 
-    validate(data) ? 
-    createUser(data)
+    if (validate(data)) {
+      createUser(data)
       .then(res => {
-        history.push('/')
+        logInUser({
+        email_address: data.get('email_address'),
+        password: data.get('password')
       })
+      .then(res => {
+        Cookies.set('UserID', res.user_id)
+        document.location.href="/";
+      })
+    })
       .catch(err => {setErrors(true)})
-      :
+    } else {
       setErrors(true);
+    }
   };
 
   const onFileChange = event => {
