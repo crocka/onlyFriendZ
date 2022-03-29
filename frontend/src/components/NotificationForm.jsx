@@ -94,12 +94,15 @@ export default function NotificationForm(props) {
       </Box>
 
       {messages.slice().reverse().map(message => {
-        console.log(message)
+        
+        const sender = getUserFromUserId(props.state, Object.keys(message)[0]);
+
+        console.log(sender)
         return (<Card sx={{ width: '100%', mt: 2, mb: 2 }} >
           <CardActionArea>
             <CardContent style={{ backgroundColor: "light gray" }}>
               <Typography variant="h6" color="text.secondary" >
-                {/* {message.name} */}
+                {sender && sender.name}
               </Typography>
               <Typography variant="body1">
                 {message[Object.keys(message)[0]]}

@@ -4,7 +4,7 @@ export function getUserFromUserId(state, user_id) {
 
     state.users.forEach(user => {
 
-        if (user.id === user_id) {
+        if (user.id == user_id) {
 
             result = user;
         }
@@ -19,7 +19,7 @@ export function getLocationFromLocationId(state, location_id) {
 
     state.locations.forEach(location => {
 
-        if (location.id === location_id) {
+        if (location.id == location_id) {
 
             result = location;
 

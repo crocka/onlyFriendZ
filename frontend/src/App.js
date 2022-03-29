@@ -112,7 +112,7 @@ function App(props) {
         {response.images.map((image) => {return (<img src={image} alt="" />);})}
         <UserProfile user={response} />
         <ReviewList reviewArray={userReview} state={state} user_id={16} /> */}
-      <PopupWindow><NotificationForm cableApp={props.cableApp} /></PopupWindow>
+      <PopupWindow><NotificationForm state={state} cableApp={props.cableApp} /></PopupWindow>
       {/* </ActionCableProvider> */}
     </div >
   );
