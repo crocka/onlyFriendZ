@@ -40,12 +40,13 @@ export default function NotificationForm(props) {
         received: (data) => {
 
           updateMessages(data);
-
+          
         }
 
       }));
 
     return () => {
+     
       sub.unsubscribe();
     }
 
