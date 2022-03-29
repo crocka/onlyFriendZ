@@ -13,7 +13,9 @@ export default function PictureWall(props) {
 
   const { images, location_id, user_id } = props;
 
-  const { updateLocationImage, updateUserImage, deleteUserImage } = useApplicationData();
+  const { updateLocationImage, updateUserImage, deleteUserImage, getState, getUser, getLocation } = useApplicationData();
+
+  const [image, setImage] = React.useState(images);
 
   const [file, setFile] = React.useState({});
 
@@ -35,14 +37,23 @@ export default function PictureWall(props) {
     if (user_id == Cookies.get('UserID')) {
 
       updateUserImage(user_id, data)
-      .then(() => {
+        .then(() => {
 
-        alert("You look amazing!");
-        setHidden(true);
-        setFile({});
+          alert("You look amazing!");
+          setHidden(true);
+          setFile({});
 
-      })
-      .catch(err => alert("Something went wrong. Please try again later."));
+        })
+        .then(() => {
+
+          getUser(user_id)
+            .then(user => {
+
+              setImage(user.data.images);
+              console.log(user)
+            })
+        })
+        .catch(err => alert("Something went wrong. Please try again later."));
 
 
     } else {
@@ -55,13 +66,23 @@ export default function PictureWall(props) {
           setFile({});
 
         })
+        .then(() => {
+
+          getLocation(location_id)
+            .then(location => {
+
+              setImage(location.data.images);
+              console.log(location)
+
+            })
+        })
         .catch(err => alert("Something went wrong. Please try again later."));
 
     }
 
   }
 
-  const handleDelete = function(user_id) {
+  const handleDelete = function (user_id) {
 
     const data = new FormData();
 
@@ -72,14 +93,23 @@ export default function PictureWall(props) {
     }
 
     deleteUserImage(user_id, data)
-    .then(() => {
+      .then(() => {
 
-      alert("Images deleted!");
-      setHidden(true);
-      setFile({});
+        alert("Images deleted!");
+        setHidden(true);
+        setFile({});
 
-    })
-    .catch(err => alert("Something went wrong. Please try again later."));
+      })
+      .then(() => {
+
+        getUser(user_id)
+          .then(user => {
+
+            setImage(user.data.images);
+            console.log(user)
+          })
+      })
+      .catch(err => alert("Something went wrong. Please try again later."));
 
   }
 
@@ -87,7 +117,7 @@ export default function PictureWall(props) {
 
     // Update the state
     setFile([...event]);
- 
+
   };
 
   return (
@@ -104,7 +134,7 @@ export default function PictureWall(props) {
               sx={{ mt: 3, mb: 2 }}
               onClick={() => setHidden(prev => !prev)}
             >
-              {hidden? (location_id !== undefined ? 'Add photos' : 'Edit photos') : 'Close'}
+              {hidden ? (location_id !== undefined ? 'Add photos' : 'Edit photos') : 'Close'}
 
             </Button>
 
@@ -120,17 +150,17 @@ export default function PictureWall(props) {
                 Send
               </Button>
 
-              {user_id == Cookies.get('UserID') ? 
-              
-              <Button
-                onClick={() => handleDelete(user_id)}
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Delete photos
-              </Button> : ''}
-              
+              {user_id == Cookies.get('UserID') ?
+
+                <Button
+                  onClick={() => handleDelete(user_id)}
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Delete photos
+                </Button> : ''}
+
             </Grid>
           </Box>
 
@@ -142,7 +172,7 @@ export default function PictureWall(props) {
         {/* <Paper> */}
         <Box sx={{ width: 500, height: 450, overflowY: 'scroll' }}>
           <ImageList variant="masonry" cols={3} gap={8}>
-            {images.map((item) => (
+            {image.map((item) => (
               <ImageListItem key={item}>
                 <img
                   src={item}

@@ -25,7 +25,7 @@ class UsersController < ApplicationController
 
               # byebug
 
-              image.purge_later
+              image.purge
 
             else
               
