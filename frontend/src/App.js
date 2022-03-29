@@ -101,19 +101,19 @@ function App(props) {
         {userLogin && <Route exact from="/addlocation" render={props => <PopupWindow><LocationForm {...props} initialPos={initialPos} /></PopupWindow>} />}
         {userLogin && <Route path="/userprofile/:id" render={props => <PopupWindow><UserProfile {...props} state={state}/></PopupWindow>} />}
         {userLogin && <Route path="/locationprofile/:id" render={props => <PopupWindow><LocationProfile {...props} state={state}/></PopupWindow>} />}
-        <Route path="/notification"><PopupWindow><NotificationForm cableApp={props.cableApp} state={state} /></PopupWindow></Route>
+        {userLogin && <Route path="/notification"><PopupWindow><NotificationForm cableApp={props.cableApp} state={state} /></PopupWindow></Route>}
       </Switch>
 
       <Map position={initialPos}>
         {userId === undefined ? '' : <MarkerList state={state} cableApp={props.cableApp} initialPos={initialPos} user={response} />}
       </Map>
-      
+
       {/* <SignIn cableApp={props.cableApp } </SignIn> 
         <LocationCard />
         {response.images.map((image) => {return (<img src={image} alt="" />);})}
         <UserProfile user={response} />
         <ReviewList reviewArray={userReview} state={state} user_id={16} /> */}
-      <PopupWindow><NotificationForm state={state} cableApp={props.cableApp} /></PopupWindow>
+      {/* <PopupWindow><NotificationForm state={state} cableApp={props.cableApp} /></PopupWindow> */}
       {/* </ActionCableProvider> */}
     </div >
   );
