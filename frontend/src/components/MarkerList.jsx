@@ -102,6 +102,8 @@ export default function MarkerList(props) {
     };
 
     return () => {
+
+      console.log('unsubscribe from markerschannel')
       sub.unsubscribe();
     }
   

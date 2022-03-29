@@ -8,6 +8,7 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import useApplicationData from '../../hooks/useApplicationData.jsx';
+import normalizeObject from './normalizeObject';
 
 export default function PictureWall(props) {
 
@@ -20,6 +21,25 @@ export default function PictureWall(props) {
   const [file, setFile] = React.useState({});
 
   const [hidden, setHidden] = React.useState(true);
+
+  React.useEffect(() => {
+
+    getState()
+      .then(state => {
+
+        return getUser(user_id)
+          
+      })
+      .then(user => {
+
+        console.log(user)
+        setImage(user.data.images);
+
+      })
+      .catch(error => console.error)
+
+
+  }, [])
 
   const handleSubmit = (event) => {
 
