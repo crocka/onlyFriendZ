@@ -57,17 +57,30 @@ export default function NotificationForm(props) {
 
     event.preventDefault();
 
-    sub.send({ channel: 'NotificationsChannel', user_id: cookie, message: `${messageRef.current}` });
+    if (messageRef.current.trim() === '') {
 
-    formRef.current.reset();
+      setError(true);
+
+    } else {
+
+      sub.send({ channel: 'NotificationsChannel', user_id: cookie, message: `${messageRef.current}` });
+
+      formRef.current.reset();
+
+      messageRef.current = '';
+
+      setError(false);
+
+    }
+
 
   }
 
   function updateMessages(data) {
-    
+
     const arr = messages;
 
-      arr.push(data);
+    arr.push(data);
 
     setMessages([...arr]);
 
@@ -94,7 +107,7 @@ export default function NotificationForm(props) {
       </Box>
 
       {messages.slice().reverse().map(message => {
-        
+
         const sender = getUserFromUserId(props.state, Object.keys(message)[0]);
 
         console.log(sender)
