@@ -1,6 +1,8 @@
 import { Marker, Popup, Circle } from 'react-leaflet';
 import UserProfile from './Profile/UserProfile';
 import LocationProfile from './Profile/LocationProfile';
+import UserPreview from './Profile/UserPreview';
+import LocationPreview from './Profile/LocationPreview';
 import { getUserFromUserId } from '../helpers';
 import React, { Fragment, useEffect, useState, useRef } from 'react';
 import Cookies from 'js-cookie';
@@ -16,7 +18,7 @@ let userIcon = L.icon({
   shadowUrl: iconShadow,
   iconSize: [25, 25], // size of the icon
   iconAnchor: [25, 25], // point of the icon which will correspond to marker's location
-  shadowAnchor: [20,50]
+  shadowAnchor: [20, 50]
 });
 
 
@@ -46,92 +48,90 @@ export default function MarkerList(props) {
 
   useEffect(() => {
 
-    const sub = props.cableApp.cable.subscriptions.create({ channel: 'MarkersChannel', user_id: cookie, position: position, emit: true }, 
-    
-    { received: (data) => {
+    const sub = props.cableApp.cable.subscriptions.create({ channel: 'MarkersChannel', user_id: cookie, position: position, emit: true },
 
-      updateMarker(data);
-      // console.log(positions)
-    
-    } 
-    
-    });
+      {
+        received: (data) => {
+
+          updateMarker(data);
+          // console.log(positions)
+
+        }
+
+      });
 
     navigator.geolocation.watchPosition(position => {
       // console.log('watchPosition', position)
-  
+
       const coords = position.coords;
       sub.send({ channel: 'MarkersChannel', user_id: cookie, position: [coords.latitude, coords.longitude] });
       setPosition([coords.latitude, coords.longitude]);
       // sub.send({ channel: 'MarkersChannel', user_id: cookie, position: position }, { received: (data) => updateMarker(data) })
-     
+
       // console.log('insend',[coords.latitude, coords.longitude])
     });
 
     function updateMarker(data) {
 
       const key = Object.keys(data)[0];
-  
+
       const value = data[key];
 
-      if(data.emit === true){
+      if (data.emit === true) {
 
         sub.send({ channel: 'MarkersChannel', user_id: cookie, position: position, emit: false });
 
       }
-  
-      setPositions(prev => {
 
-        const obj = { ...prev };
+      if (data["delete"] === true) {
 
-        // if(obj[key] === undefined) {
-  
+        console.log(data.delete, 'deleeeeeeeeete')
+
+        setPosition(prev => {
+
+          const obj = { ...prev };
+
+          delete obj[key];
+
+          return obj;
+
+        })
+
+      } else {
+
+        setPositions(prev => {
+
+          const obj = { ...prev };
+
+          // if(obj[key] === undefined) {
+
           // sub.send({ channel: 'MarkersChannel', user_id: cookie, position: position });
           // console.log('new connection detected')
-        // }
-  
-        
-        obj[key] = value;
+          // }
 
-        console.log(obj)
-        return obj;
-  
-      })
-  
+
+          obj[key] = value;
+
+          // console.log(obj)
+          return obj;
+
+        })
+      }
+
+
+
       // console.log(positions)
     };
 
     return () => {
 
-      console.log('unsubscribe from markerschannel')
-      sub.unsubscribe();
+      // console.log('unsubscribe from markerschannel')
+      // sub.unsubscribe();
     }
-  
-  // }
+
+    // }
   }, []);
 
-
-  // function updateMarker(data) {
-
-  //   const key = Object.keys(data)[0];
-
-  //   const value = data[key];
-
-  //   setPositions(prev => {
-
-  //     if(prev[key] === undefined) {
-
-  //       sub.send({ channel: 'MarkersChannel', user_id: cookie, position: position });
-  //     }
-
-  //     const obj = { ...prev };
-  //     obj[key] = value;
-  //     return obj;
-
-  //   })
-
-  //   // console.log(position)
-  // };
 
   function handleClick(id, purpose) {
 
@@ -272,7 +272,7 @@ export default function MarkerList(props) {
             pointerEvents: 'none',
           }}
 
-          anchorOrigin={{
+          anchorPosition={{
             vertical: 'bottom',
             horizontal: 'right',
           }}
@@ -292,9 +292,9 @@ export default function MarkerList(props) {
             }}
           >
 
-            {userOnHover.current === null ? <LocationProfile id={locationOnHover.current} />
+            {userOnHover.current === null ? <LocationPreview id={locationOnHover.current} />
 
-              : <UserProfile id={userOnHover.current} />}
+              : <UserPreview id={userOnHover.current} />}
 
 
 

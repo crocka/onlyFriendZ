@@ -29,8 +29,6 @@ export default function LocationProfile(props) {
     }).catch(err => console.error);
 
   }, []);
-
-  console.log(normalizeObject(location))
   
   const labels = ['Description', 'Photos', 'Reviews'];
 

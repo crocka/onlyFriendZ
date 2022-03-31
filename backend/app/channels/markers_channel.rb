@@ -23,7 +23,8 @@ class MarkersChannel < ApplicationCable::Channel
 
   end
 
-  def unsubscribed
+  def unsubscribed(data)
     # Any cleanup needed when channel is unsubscribed
+    ActionCable.server.broadcast('markers_channel', { "#{data['user_id']}": data['position'], "delete": true})
   end
 end
