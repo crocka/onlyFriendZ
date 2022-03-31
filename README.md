@@ -18,7 +18,7 @@ In the project directory, you can run:
 !["Add locations.gif"](https://github.com/crocka/onlyFriendZ/blob/master/images/Add%20locations.gif)
 
 ### Message Broadcast
-!["Message broadcast.gif"](https://github.com/crocka/onlyFriendZ/blob/master/images/Add%20photos.gif)
+!["Message broadcast.gif"](https://github.com/crocka/onlyFriendZ/blob/master/images/Message%20broadcast.gif)
 ### Add photos
 !["Add photos.gif"](https://github.com/crocka/onlyFriendZ/blob/master/images/Add%20photos.gif)
 ### Delete photos
