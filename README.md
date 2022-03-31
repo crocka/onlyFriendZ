@@ -9,7 +9,7 @@ onlyFriendZ is an appication that allows users to meet with other users at speci
 
 ## Dependencies
 * React Leaflet
-* React Router Dom ^5.2.0
+* React Router Dom 5.2.0
 * React ActionCable Provider
 * React Swipeable Views
 * Axios
@@ -20,10 +20,10 @@ onlyFriendZ is an appication that allows users to meet with other users at speci
 
 ## Install Dependencies
 * Clone project from repository
-* Navigate to backend folder with `cd backend`
-* Install dependencies with `bundle install` 
-* Navigate to frontend folder with `cd frontend`
-* Install dependencies with `npm install` 
+* Navigate to the backend folder with `cd backend`
+* Install backend dependencies with `bundle install` 
+* Navigate to the frontend folder with `cd frontend`
+* Install frontend dependencies with `npm install` 
 
 ## Getting Started
 * Start the backend server with “rails server”
@@ -33,11 +33,11 @@ onlyFriendZ is an appication that allows users to meet with other users at speci
 
 ### Location Tracking
 !["Location tracking.gif"](https://github.com/crocka/onlyFriendZ/blob/master/images/Location%20tracking.gif)
-### Add locations
+### Add Locations
 !["Add locations.gif"](https://github.com/crocka/onlyFriendZ/blob/master/images/Add%20locations.gif)
 ### Message Broadcast
 !["Message broadcast.gif"](https://github.com/crocka/onlyFriendZ/blob/master/images/Message%20broadcast.gif)
-### Add photos
+### Add Photos
 !["Add photos.gif"](https://github.com/crocka/onlyFriendZ/blob/master/images/Add%20photos.gif)
-### Delete photos
+### Delete Photos
 !["Delete photos.gif"](https://github.com/crocka/onlyFriendZ/blob/master/images/Delete%20photos.gif)
